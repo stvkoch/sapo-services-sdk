@@ -52,8 +52,8 @@ namespace Videos
             StorageFile file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
-                var client = new VideosServiceClient("",
-                    "", "");
+                var client = new VideosServiceClient(this.tb_authUsername.Text,
+                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
                 Video video = new Video {Title = file.DisplayName, Tags = file.DisplayName, Synopse = file.DisplayName};
                 this.tblock_PostVideoResult.Text = await client.CreateVideoAsync(file, video);
             }
@@ -62,6 +62,14 @@ namespace Videos
                 this.tblock_PostVideoResult.Text = "Error reading file";
             }
 
+        }
+
+        private void BtDeleteVideoClick(object sender, RoutedEventArgs e)
+        {
+            var client = new VideosServiceClient(this.tb_authUsername.Text,
+                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
+
+            client.DeleteVideoAsync(this.tb_VideoRandnameForDeleteVideo.Text);
         }
     }
 }

@@ -39,5 +39,11 @@
             </StackPanel>
 
         </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <StackPanel>
+                <TextBox x:Name="tb_VideoRandnameForDeleteVideo" Text="Randname" />
+                <Button x:Name="bt_DeleteVideo" Content="Delete Video" Width="200" Click="BtDeleteVideoClick"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

@@ -152,5 +152,14 @@ namespace Videos.SapoServices
 
             return GetResponseMessage(uploadOperation);
         }
+
+        public async void DeleteVideoAsync(string randname)
+        {
+            using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
+                        this.Username, this.Password, this.AccessKey, _client))
+            {
+                await this._client.DeleteVideoAsync(randname, null, null);
+            }
+        }
     }
 }
