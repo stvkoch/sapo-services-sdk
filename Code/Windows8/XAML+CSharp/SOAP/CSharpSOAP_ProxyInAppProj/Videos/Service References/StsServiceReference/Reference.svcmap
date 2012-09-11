@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c2795c55-0ea9-4469-822f-1c88ddd97039" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="C:\Win8_ServicesSAPO_SDK\WSDLs\STSWSDL\STS.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="esbCredentials.xsd" MetadataType="Schema" ID="596e3950-6b67-4852-96f2-8fd47fe8b496" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/STSWSDL/esbCredentials.xsd" />
+    <MetadataFile FileName="STS.xsd" MetadataType="Schema" ID="43dd5321-8c6d-42fc-b772-a6d5876d2f4a" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/STSWSDL/STS.xsd" />
+    <MetadataFile FileName="STS.wsdl" MetadataType="Wsdl" ID="111fe5d3-ead8-4629-8b38-3e0b272be89e" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/STSWSDL/STS.wsdl" />
+    <MetadataFile FileName="_Metadata_Schema_Market.xsd" MetadataType="Schema" ID="1c6de7cd-846d-4a64-87e0-16e901aa0ab3" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/STSWSDL/_Metadata_Schema_Market.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

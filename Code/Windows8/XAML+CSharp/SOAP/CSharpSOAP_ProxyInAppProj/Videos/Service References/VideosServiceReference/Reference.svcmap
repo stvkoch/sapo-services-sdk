@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c936e4ff-a40f-4481-a428-6ce8d737b44f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="C:\Win8_ServicesSAPO_SDK\WSDLs\VideosWSDL\Videos.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="_Metadata_Schema_Market.xsd" MetadataType="Schema" ID="0e6f2872-ba07-4236-8068-64a600089b40" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/VideosWSDL/_Metadata_Schema_Market.xsd" />
+    <MetadataFile FileName="esbCredentials.xsd" MetadataType="Schema" ID="fd2b9ca8-dfe5-49bd-a937-da0d2ef86d1c" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/VideosWSDL/esbCredentials.xsd" />
+    <MetadataFile FileName="Videos.wsdl" MetadataType="Wsdl" ID="d7792109-8dc0-41ed-8b3c-1f51b6b3522a" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/VideosWSDL/Videos.wsdl" />
+    <MetadataFile FileName="Videos.xsd" MetadataType="Schema" ID="e51ac157-bd9b-4080-8aa0-da26796bb3f9" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/VideosWSDL/Videos.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

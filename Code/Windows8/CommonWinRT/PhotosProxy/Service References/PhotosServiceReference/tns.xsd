@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:tns="http://services.sapo.pt/definitions/Photos" elementFormDefault="qualified" targetNamespace="http://services.sapo.pt/definitions/Photos" xmlns="http://www.w3.org/2001/XMLSchema">
+  <complexType name="Album">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="id" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="ownerId" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="active" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="password" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="creationDate" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="description" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="title" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="url" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+      <element minOccurs="0" maxOccurs="1" name="cover" nillable="true" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="User">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="id" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="active" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="banned" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="commentCaptcha" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="commentModerate" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="commentNotify" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="creationDate" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="email" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="lastLogin" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="partner" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="uploadMail" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="username" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="viewAll" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="avatar" nillable="true" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="url" nillable="true" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="AlbumCreateResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="album" type="tns:Album" />
+    </sequence>
+  </complexType>
+  <complexType name="Result">
+    <annotation>
+      <documentation xml:lang="en">&lt;p&gt;Object for pagination help&lt;/p&gt;</documentation>
+    </annotation>
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="total" type="int">
+        <annotation>
+          <documentation xml:lang="en">The total number of items existing at the server-side - not the total of items returned in the result.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="page" type="int">
+        <annotation>
+          <documentation xml:lang="en">The current page to which the result belongs.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="totalPages" type="int">
+        <annotation>
+          <documentation xml:lang="en">The total number of pages for the universe of existing results in the server-side.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="perPage" type="int">
+        <annotation>
+          <documentation xml:lang="en">The number of items per page.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="1" maxOccurs="1" name="ok" type="boolean">
+        <annotation>
+          <documentation xml:lang="en">Specifies the success or failure of the outcome.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="description" type="string">
+        <annotation>
+          <documentation xml:lang="en">Description of the outcome, mostly used for errors.</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="Collection">
+    <annotation>
+      <documentation xml:lang="en">Collection object.</documentation>
+    </annotation>
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="id" nillable="true" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="active" nillable="true" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="creationDate" nillable="true" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="description" nillable="true" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="title" nillable="true" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="user" nillable="true" type="tns:User" />
+      <element minOccurs="0" maxOccurs="1" name="code" nillable="true" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="cover" nillable="true" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="url" nillable="true" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="AlbumGetListByCollectionResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="albums" nillable="true" type="tns:ArrayOfAlbums" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfAlbums">
+    <sequence>
+      <element minOccurs="0" maxOccurs="unbounded" name="album" type="tns:Album" />
+    </sequence>
+  </complexType>
+  <complexType name="AlbumGetListByHighlightedResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" nillable="true" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="albums" nillable="true" type="tns:ArrayOfAlbums" />
+    </sequence>
+  </complexType>
+  <complexType name="AlbumGetListByUserResult">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="albums" type="tns:ArrayOfAlbums" />
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+    </sequence>
+  </complexType>
+  <complexType name="CollectionGetListByUserResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="collections" nillable="true" type="tns:ArrayOfCollections" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfCollections">
+    <sequence>
+      <element minOccurs="1" maxOccurs="unbounded" name="collection" type="tns:Collection" />
+    </sequence>
+  </complexType>
+  <complexType name="Image">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="id" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="active" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="password" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="creationDate" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="pending" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="uid" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="subtitle" nillable="true" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="synopse" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="title" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="url" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="rating" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="tags" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="comments" type="tns:ArrayOfComments" />
+      <element minOccurs="0" maxOccurs="1" name="m18" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="innapropriate" type="boolean" />
+      <element minOccurs="0" maxOccurs="1" name="format" type="tns:Format" />
+      <element minOccurs="0" maxOccurs="1" name="albums" type="tns:ArrayOfAlbums" />
+      <element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+      <element minOccurs="0" maxOccurs="1" name="emailFrom" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="visualizations" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="views" type="tns:ArrayOfViews">
+        <annotation>
+          <documentation xml:lang="en">An array with View objects</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="refColor" type="tns:Color">
+        <annotation>
+          <documentation xml:lang="en">The reference RGB color of the image</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="avgColor" type="tns:Color">
+        <annotation>
+          <documentation xml:lang="en">The single average RGB color of the image</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfComments">
+    <sequence minOccurs="1" maxOccurs="1">
+      <element minOccurs="0" maxOccurs="unbounded" name="comment" nillable="true" type="tns:Comment" />
+    </sequence>
+  </complexType>
+  <complexType name="Comment">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="date" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="nickname" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="website" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="body" type="string" />
+    </sequence>
+  </complexType>
+  <simpleType name="Format">
+    <restriction base="string">
+      <enumeration value="jpeg" />
+      <enumeration value="jpg" />
+      <enumeration value="bmp" />
+      <enumeration value="gif" />
+      <enumeration value="png" />
+      <enumeration value="tiff" />
+      <enumeration value="tif" />
+    </restriction>
+  </simpleType>
+  <complexType name="ArrayOfViews">
+    <sequence>
+      <element minOccurs="0" maxOccurs="unbounded" name="view" type="tns:View" />
+    </sequence>
+  </complexType>
+  <complexType name="View">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="actualWidth" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="actualHeight" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="requestWidth" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="requestHeight" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="url" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="size" type="string">
+        <annotation>
+          <documentation xml:lang="en">The textual description of the format</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="Color">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="red" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="green" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="blue" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="ImageAddToAlbumResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+    </sequence>
+  </complexType>
+  <complexType name="ImageCreateResult">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="token" type="string">
+        <annotation>
+          <documentation xml:lang="en">A token that should be used to upload the actual image file afterwards</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="image" type="tns:Image" />
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+    </sequence>
+  </complexType>
+  <complexType name="ImageDetailsResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="image" type="tns:Image" />
+    </sequence>
+  </complexType>
+  <complexType name="ImageEditResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="image" type="tns:Image">
+        <annotation>
+          <documentation xml:lang="en">The altered image</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="ImageGetListBySearchResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="images" type="tns:ArrayOfImages" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfImages">
+    <sequence>
+      <element maxOccurs="unbounded" name="image" type="tns:Image" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfStrings">
+    <sequence>
+      <element maxOccurs="unbounded" name="string" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfTags">
+    <sequence>
+      <element minOccurs="0" maxOccurs="unbounded" name="tag" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="ImageGetListByTagsResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="images" type="tns:ArrayOfImages" />
+    </sequence>
+  </complexType>
+  <complexType name="ImageGetListByUserResult">
+    <annotation>
+      <documentation xml:lang="en">Result object for the ImageGetListByUser method</documentation>
+    </annotation>
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="images" type="tns:ArrayOfImages" />
+    </sequence>
+  </complexType>
+  <complexType name="ImageGetListByUserAlbumResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="images" type="tns:ArrayOfImages" />
+    </sequence>
+  </complexType>
+  <complexType name="ImageNotifyViewResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+    </sequence>
+  </complexType>
+  <complexType name="TagsGetListByHighlightedResult">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="result" nillable="true" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="tags" nillable="true" type="tns:ArrayOfTags" />
+    </sequence>
+  </complexType>
+  <complexType name="UserCreateResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+    </sequence>
+  </complexType>
+  <complexType name="UserDetailsResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="user" type="tns:User" />
+    </sequence>
+  </complexType>
+  <complexType name="UserGetListByHighlightedResult">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="result" nillable="true" type="tns:Result" />
+      <element minOccurs="0" maxOccurs="1" name="users" nillable="true" type="tns:ArrayOfUsers" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfUsers">
+    <sequence>
+      <element maxOccurs="unbounded" name="user" type="tns:User" />
+    </sequence>
+  </complexType>
+  <complexType name="UserGetTagsResult">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="tags" type="tns:ArrayOfTags" />
+      <element minOccurs="1" maxOccurs="1" name="result" type="tns:Result" />
+    </sequence>
+  </complexType>
+</schema>

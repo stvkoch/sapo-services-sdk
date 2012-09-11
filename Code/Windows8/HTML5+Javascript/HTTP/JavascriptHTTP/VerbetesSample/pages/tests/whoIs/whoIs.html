@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>WhoIs</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="whoIs.css" rel="stylesheet" />
+    <script src="whoIs.js"></script>
+
+</head>
+<body>
+    <div class="whoIs fragment">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Verbetes WhoIs</span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <form onsubmit="whoIs(); return false;">
+                <div><input type="text" id="nameParam" placeholder="Name parameter" /></div>
+                <div><input type="text" id="name_likeParam" placeholder="Name_like parameter" /></div>
+                <div><input type="text" id="jobParam" placeholder="Job parameter" /></div>
+                <div><input type="text" id="job_likeParam" placeholder="Job_like parameter" /></div>
+                <div>Date parameter:</div>
+                <div id='dateParam' data-win-control='WinJS.UI.DatePicker' 
+                     data-win-options='{current:"November, 15, 2012"}'>
+                </div>
+                <div><input type="text" id="marginParam" placeholder="Margin parameter" /></div>
+                <div><input type="text" id="minParam" placeholder="Min parameter" /></div>
+                <div><input type="text" id="formatParam" placeholder="Format parameter" /></div>
+                <div><button type="submit">GET</button></div>
+            </form>
+            <div id="getWhoIsResult"></div>
+        </section>
+    </div>
+</body>
+</html>

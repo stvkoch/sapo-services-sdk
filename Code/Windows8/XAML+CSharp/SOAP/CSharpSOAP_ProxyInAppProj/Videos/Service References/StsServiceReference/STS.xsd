@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:tns="http://services.sapo.pt/definitions" elementFormDefault="qualified" targetNamespace="http://services.sapo.pt/definitions" xmlns="http://www.w3.org/2001/XMLSchema">
+  <complexType name="UserInfo">
+    <annotation>
+      <documentation xml:lang="en">Aggregator type that contains information about the authentication response: primary identifier, token additional information and user</documentation>
+    </annotation>
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="PrimaryId" type="string">
+        <annotation>
+          <documentation xml:lang="en">Primary identifier</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="ESBRoles" type="tns:ESBRoles" />
+      <element minOccurs="1" maxOccurs="1" name="ESBToken" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="Group" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="ESBCredentialsStore" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="AccountNumbers" type="tns:AccountNumbers" />
+      <element minOccurs="0" maxOccurs="1" name="Attributes" type="tns:ArrayOfAttribute" />
+    </sequence>
+  </complexType>
+  <complexType name="ESBRoles">
+    <sequence>
+      <element minOccurs="1" maxOccurs="unbounded" name="ESBRole" type="string" />
+    </sequence>
+  </complexType>
+  <element name="ESBRoles" type="tns:ESBRoles" />
+  <complexType name="AccountNumbers">
+    <sequence>
+      <element minOccurs="1" maxOccurs="unbounded" name="AccountNumber" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfAttribute">
+    <sequence>
+      <element minOccurs="0" maxOccurs="unbounded" name="Attribute" type="tns:Attribute" />
+    </sequence>
+  </complexType>
+  <complexType name="Attribute">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Name" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Value" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="ESBCredentials">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="ESBUsername" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="ESBPassword" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="ESBToken" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="ESBRoles" type="tns:ESBRoles" />
+      <element minOccurs="0" maxOccurs="1" name="ESBTokenTimeToLive" type="string">
+        <annotation>
+          <documentation xml:lang="en">Token duration. By default is 12:00:00. For example, if is necessary for a 2 days duration, it must be set with 2.00:00:00 value.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" maxOccurs="1" name="ESBTokenExtraInfo" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="ESBPrimaryId" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="ESBUserType" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="ESBCredentialsStore" type="string" />
+    </sequence>
+  </complexType>
+  <element name="ESBCredentials" type="tns:ESBCredentials" />
+</schema>

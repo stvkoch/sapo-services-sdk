@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns:tns="http://services.sapo.pt/definitions" elementFormDefault="qualified" targetNamespace="http://services.sapo.pt/definitions" xmlns="http://www.w3.org/2001/XMLSchema">
+  <complexType name="VideoSubmition">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Subtitle" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Synopse" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Title" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Active" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="FileName" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="Randname" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Tags" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="ReferedExternal" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="CategoryId" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="CanPublish" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="CanShare" type="int" />
+      <element minOccurs="0" name="PublishDate" type="string" />
+      <element minOccurs="0" name="RemovalDate" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="Video">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Id" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Active" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="CreationDate" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Length" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="Pending" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="Randname" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Subtitle" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Synopse" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Title" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="Username" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="URL" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Thumbnail" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Embed" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Rating" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Views" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Comments" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="ReferedExternal" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="Tags" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="CommentsContent" type="tns:ArrayOfComment" />
+      <element minOccurs="0" maxOccurs="1" name="CategoryId" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="CanPublish" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="CanShare" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="ResultTotalVideos" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfComment">
+    <sequence minOccurs="1" maxOccurs="1">
+      <element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Comment" />
+    </sequence>
+  </complexType>
+  <complexType name="Comment">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Date" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Nickname" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Website" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Body" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="Playlist">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Id" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Active" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="CreationDate" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Description" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Title" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="Tags" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="URL" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Thumbnail" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="TotalVideos" type="int" />
+      <element minOccurs="0" maxOccurs="1" name="ResultTotalPlaylists" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="PlaylistSubmition">
+    <sequence>
+      <element minOccurs="0" maxOccurs="1" name="Id" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Title" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Active" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Description" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Tags" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="Params">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="ExpWidth" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="ExpHeight" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="ScaleWidth" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="ScaleHeight" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="SoundRate" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="SoundMode" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="VideoFps" type="float" />
+      <element minOccurs="1" maxOccurs="1" name="VideoExtension" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="VideoBitrate" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfEncodeProfile">
+    <sequence minOccurs="1" maxOccurs="1">
+      <element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:EncodeProfile" />
+    </sequence>
+  </complexType>
+  <complexType name="EncodeProfile">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Id" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Name" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Extension" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="ToEncode" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="User">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Id" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Active" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Banned" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="CommentCaptcha" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="CommentModerate" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="CommentNotify" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="CreationDate" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Email" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="LastLogin" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Partner" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="UploadMail" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="Username" type="string" />
+      <element minOccurs="1" maxOccurs="1" name="ViewAll" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Website" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="UserForDashboad">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="TotalPublicVideos" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="TotalPrivateVideos" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="TotalPublicPlaylist" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="TotalPrivatePlaylist" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="TotalComments" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="TotalFavorites" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfCategory">
+    <sequence minOccurs="1" maxOccurs="1">
+      <element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Category" />
+    </sequence>
+  </complexType>
+  <complexType name="Category">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Id" type="int" />
+      <element minOccurs="1" maxOccurs="1" name="Name" type="string" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfPlaylist">
+    <sequence minOccurs="1" maxOccurs="1">
+      <element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Playlist" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfTag">
+    <sequence minOccurs="1" maxOccurs="1">
+      <element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Tag" />
+    </sequence>
+  </complexType>
+  <complexType name="Tag">
+    <sequence>
+      <element minOccurs="1" maxOccurs="1" name="Tag" type="string" />
+      <element minOccurs="0" maxOccurs="1" name="Count" type="int" />
+    </sequence>
+  </complexType>
+  <complexType name="ArrayOfVideo">
+    <sequence minOccurs="1" maxOccurs="1">
+      <element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Video" />
+    </sequence>
+  </complexType>
+</schema>

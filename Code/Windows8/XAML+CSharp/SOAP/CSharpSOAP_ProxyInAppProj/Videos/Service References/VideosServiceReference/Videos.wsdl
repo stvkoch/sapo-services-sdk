@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mrkt0="http://services.sapo.pt/Metadata/Market" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.sapo.pt/definitions" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:esb="http://services.sapo.pt/definitions" targetNamespace="http://services.sapo.pt/definitions" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://services.sapo.pt/definitions">
+      <xsd:include schemaLocation="esbCredentials.xsd" />
+      <xsd:import schemaLocation="_Metadata_Schema_Market.xsd" namespace="http://services.sapo.pt/Metadata/Market" />
+      <xsd:include schemaLocation="Videos.xsd" />
+      <xsd:element name="AddVideo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Video" type="esb:VideoSubmition" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddVideoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="AddVideoResult" type="esb:Video" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddVideoPost">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Video" type="esb:VideoSubmition" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddVideoPostResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="AddVideoPostResult" type="esb:Video" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddVideoToPlaylist">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Randname" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Playlist" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddVideoToPlaylistResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CheckPlaylist">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="PlaylistId" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CheckPlaylistResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="CheckPlaylistResult" type="esb:Playlist" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CheckVideo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="VideoId" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="VideoRandname" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="ShowComments" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CheckVideoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="CheckVideoResult" type="esb:Video" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreatePlaylist">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Playlist" type="esb:PlaylistSubmition" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreatePlaylistResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="CreatePlaylistResult" type="esb:Playlist" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateUser">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Username" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="NewsLetter" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateUserResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeletePlaylist">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="PlaylistId" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeletePlaylistResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteVideo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Randname" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteVideoResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EditPlaylist">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Playlist" type="esb:PlaylistSubmition" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EditPlaylistResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EditVideo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Video" type="esb:VideoSubmition" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EditVideoResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetEncodeParameters">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="EncId" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="IdVideoWidth" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="IdVideoHeight" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="IdAudioBitrate" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="IdAudioNch" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="IdVideoFps" type="xsd:float" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetEncodeParametersResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetEncodeParametersResult" type="esb:Params" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetEncodeProfilesForUser">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetEncodeProfilesForUserResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetEncodeProfilesForUserResult" nillable="true" type="esb:ArrayOfEncodeProfile" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetUserInfo">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Username" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetUserInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetUserInfoResult" type="esb:User" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetUserInfoForDashboard">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Username" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetUserInfoForDashboardResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetUserInfoForDashboardResult" type="esb:UserForDashboad" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListCategories">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListCategoriesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="ListCategoriesResult" type="esb:ArrayOfCategory" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListUserPlaylists">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Page" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Limit" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Order" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListUserPlaylistsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="ListUserPlaylistsResult" nillable="true" type="esb:ArrayOfPlaylist" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListUserTags">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Limit" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListUserTagsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="ListUserTagsResult" type="esb:ArrayOfTag" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListUserVideos">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Order" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Limit" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Page" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListUserVideosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="ListUserVideosResult" type="esb:ArrayOfVideo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListVideosFromPlaylist">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Playlist" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Order" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Limit" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Page" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ListVideosFromPlaylistResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="ListVideosFromPlaylistResult" nillable="true" type="esb:ArrayOfVideo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NotifyComment">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Randname" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="NotifyCommentResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Query">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="Emails" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Tags" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Cos" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Limit" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Order" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="ViewAll" type="xsd:int" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="ShowTags" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="QueryResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="QueryResult" type="esb:ArrayOfVideo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RemoveVideoFromPlaylist">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Randname" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Playlist" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Email" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="Interface" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RemoveVideoFromPlaylistResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="ESBCredentialsSoapIn">
+    <part name="ESBCredentials" element="esb:ESBCredentials" />
+  </message>
+  <message name="AddVideoSoapIn">
+    <part name="parameters" element="esb:AddVideo" />
+  </message>
+  <message name="AddVideoSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="AddVideoSoapOut">
+    <part name="parameters" element="esb:AddVideoResponse" />
+  </message>
+  <message name="AddVideoPostSoapIn">
+    <part name="parameters" element="esb:AddVideoPost" />
+  </message>
+  <message name="AddVideoPostSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="AddVideoPostSoapOut">
+    <part name="parameters" element="esb:AddVideoPostResponse" />
+  </message>
+  <message name="AddVideoToPlaylistSoapIn">
+    <part name="parameters" element="esb:AddVideoToPlaylist" />
+  </message>
+  <message name="AddVideoToPlaylistSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="AddVideoToPlaylistSoapOut">
+    <part name="parameters" element="esb:AddVideoToPlaylistResponse" />
+  </message>
+  <message name="CheckPlaylistSoapIn">
+    <part name="parameters" element="esb:CheckPlaylist" />
+  </message>
+  <message name="CheckPlaylistSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="CheckPlaylistSoapOut">
+    <part name="parameters" element="esb:CheckPlaylistResponse" />
+  </message>
+  <message name="CheckVideoSoapIn">
+    <part name="parameters" element="esb:CheckVideo" />
+  </message>
+  <message name="CheckVideoSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="CheckVideoSoapOut">
+    <part name="parameters" element="esb:CheckVideoResponse" />
+  </message>
+  <message name="CreatePlaylistSoapIn">
+    <part name="parameters" element="esb:CreatePlaylist" />
+  </message>
+  <message name="CreatePlaylistSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="CreatePlaylistSoapOut">
+    <part name="parameters" element="esb:CreatePlaylistResponse" />
+  </message>
+  <message name="CreateUserSoapIn">
+    <part name="parameters" element="esb:CreateUser" />
+  </message>
+  <message name="CreateUserSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="CreateUserSoapOut">
+    <part name="parameters" element="esb:CreateUserResponse" />
+  </message>
+  <message name="DeletePlaylistSoapIn">
+    <part name="parameters" element="esb:DeletePlaylist" />
+  </message>
+  <message name="DeletePlaylistSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="DeletePlaylistSoapOut">
+    <part name="parameters" element="esb:DeletePlaylistResponse" />
+  </message>
+  <message name="DeleteVideoSoapIn">
+    <part name="parameters" element="esb:DeleteVideo" />
+  </message>
+  <message name="DeleteVideoSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="DeleteVideoSoapOut">
+    <part name="parameters" element="esb:DeleteVideoResponse" />
+  </message>
+  <message name="EditPlaylistSoapIn">
+    <part name="parameters" element="esb:EditPlaylist" />
+  </message>
+  <message name="EditPlaylistSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="EditPlaylistSoapOut">
+    <part name="parameters" element="esb:EditPlaylistResponse" />
+  </message>
+  <message name="EditVideoSoapIn">
+    <part name="parameters" element="esb:EditVideo" />
+  </message>
+  <message name="EditVideoSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="EditVideoSoapOut">
+    <part name="parameters" element="esb:EditVideoResponse" />
+  </message>
+  <message name="GetEncodeParametersSoapIn">
+    <part name="parameters" element="esb:GetEncodeParameters" />
+  </message>
+  <message name="GetEncodeParametersSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetEncodeParametersSoapOut">
+    <part name="parameters" element="esb:GetEncodeParametersResponse" />
+  </message>
+  <message name="GetEncodeProfilesForUserSoapIn">
+    <part name="parameters" element="esb:GetEncodeProfilesForUser" />
+  </message>
+  <message name="GetEncodeProfilesForUserSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetEncodeProfilesForUserSoapOut">
+    <part name="parameters" element="esb:GetEncodeProfilesForUserResponse" />
+  </message>
+  <message name="GetUserInfoSoapIn">
+    <part name="parameters" element="esb:GetUserInfo" />
+  </message>
+  <message name="GetUserInfoSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetUserInfoSoapOut">
+    <part name="parameters" element="esb:GetUserInfoResponse" />
+  </message>
+  <message name="GetUserInfoForDashboardSoapIn">
+    <part name="parameters" element="esb:GetUserInfoForDashboard" />
+  </message>
+  <message name="GetUserInfoForDashboardSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetUserInfoForDashboardSoapOut">
+    <part name="parameters" element="esb:GetUserInfoForDashboardResponse" />
+  </message>
+  <message name="ListCategoriesSoapIn">
+    <part name="parameters" element="esb:ListCategories" />
+  </message>
+  <message name="ListCategoriesSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="ListCategoriesSoapOut">
+    <part name="parameters" element="esb:ListCategoriesResponse" />
+  </message>
+  <message name="ListUserPlaylistsSoapIn">
+    <part name="parameters" element="esb:ListUserPlaylists" />
+  </message>
+  <message name="ListUserPlaylistsSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="ListUserPlaylistsSoapOut">
+    <part name="parameters" element="esb:ListUserPlaylistsResponse" />
+  </message>
+  <message name="ListUserTagsSoapIn">
+    <part name="parameters" element="esb:ListUserTags" />
+  </message>
+  <message name="ListUserTagsSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="ListUserTagsSoapOut">
+    <part name="parameters" element="esb:ListUserTagsResponse" />
+  </message>
+  <message name="ListUserVideosSoapIn">
+    <part name="parameters" element="esb:ListUserVideos" />
+  </message>
+  <message name="ListUserVideosSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="ListUserVideosSoapOut">
+    <part name="parameters" element="esb:ListUserVideosResponse" />
+  </message>
+  <message name="ListVideosFromPlaylistSoapIn">
+    <part name="parameters" element="esb:ListVideosFromPlaylist" />
+  </message>
+  <message name="ListVideosFromPlaylistSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="ListVideosFromPlaylistSoapOut">
+    <part name="parameters" element="esb:ListVideosFromPlaylistResponse" />
+  </message>
+  <message name="NotifyCommentSoapIn">
+    <part name="parameters" element="esb:NotifyComment" />
+  </message>
+  <message name="NotifyCommentSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="NotifyCommentSoapOut">
+    <part name="parameters" element="esb:NotifyCommentResponse" />
+  </message>
+  <message name="QuerySoapIn">
+    <part name="parameters" element="esb:Query" />
+  </message>
+  <message name="QuerySoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="QuerySoapOut">
+    <part name="parameters" element="esb:QueryResponse" />
+  </message>
+  <message name="RemoveVideoFromPlaylistSoapIn">
+    <part name="parameters" element="esb:RemoveVideoFromPlaylist" />
+  </message>
+  <message name="RemoveVideoFromPlaylistSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="RemoveVideoFromPlaylistSoapOut">
+    <part name="parameters" element="esb:RemoveVideoFromPlaylistResponse" />
+  </message>
+  <portType name="VideosSoapSecure">
+    <operation name="AddVideo">
+      <documentation>Adicionar um novo vídeo na plataforma a partir de um ficheiro que se encontra no servidor de FTP, carregado anteriormente (para obter uma conta no servidor de FTP deve-se contactar a equipa técnica do Vídeos)</documentation>
+      <input message="esb:AddVideoSoapIn" />
+      <output message="esb:AddVideoSoapOut" />
+    </operation>
+    <operation name="AddVideoPost">
+      <documentation>Adicionar um novo vídeo na plataforma e fazer o upload deste por POST posteriormente.
+
+De modo a fazer o POST do ficheiro é necessário obter um token ao BUS com o randname do vídeo como parâmetro ExtraInfo. Este post deverá conter os seguintes campos:
+- token: token obtido a partir do BUS;
+- content_file: ficheiro a carregar;
+- redir: redireccionamento para o qual a janela de formulário deve ir após o POST (opcional, no caso de não ser passado este parâmetro é devolvido o resultado em XML; caso contrario é passado o resultado no parâmetro error do redireccionamento).</documentation>
+      <input message="esb:AddVideoPostSoapIn" />
+      <output message="esb:AddVideoPostSoapOut" />
+    </operation>
+    <operation name="AddVideoToPlaylist">
+      <documentation>Adicionar video à playlist</documentation>
+      <input message="esb:AddVideoToPlaylistSoapIn" />
+      <output message="esb:AddVideoToPlaylistSoapOut" />
+    </operation>
+    <operation name="CheckPlaylist">
+      <documentation>Devolve a informação de uma determinada playlist</documentation>
+      <input message="esb:CheckPlaylistSoapIn" />
+      <output message="esb:CheckPlaylistSoapOut" />
+    </operation>
+    <operation name="CheckVideo">
+      <documentation>Devolve a informação de um determinado vídeo</documentation>
+      <input message="esb:CheckVideoSoapIn" />
+      <output message="esb:CheckVideoSoapOut" />
+    </operation>
+    <operation name="CreatePlaylist">
+      <documentation>Create Playlist on user account</documentation>
+      <input message="esb:CreatePlaylistSoapIn" />
+      <output message="esb:CreatePlaylistSoapOut" />
+    </operation>
+    <operation name="CreateUser">
+      <documentation>Cria um novo utilizador</documentation>
+      <input message="esb:CreateUserSoapIn" />
+      <output message="esb:CreateUserSoapOut" />
+    </operation>
+    <operation name="DeletePlaylist">
+      <documentation>Remover um playlist</documentation>
+      <input message="esb:DeletePlaylistSoapIn" />
+      <output message="esb:DeletePlaylistSoapOut" />
+    </operation>
+    <operation name="DeleteVideo">
+      <documentation>Remover um vídeo</documentation>
+      <input message="esb:DeleteVideoSoapIn" />
+      <output message="esb:DeleteVideoSoapOut" />
+    </operation>
+    <operation name="EditPlaylist">
+      <documentation>Alterar os dados de determinada Playlist</documentation>
+      <input message="esb:EditPlaylistSoapIn" />
+      <output message="esb:EditPlaylistSoapOut" />
+    </operation>
+    <operation name="EditVideo">
+      <documentation>Alterar os dados de determinado vídeo</documentation>
+      <input message="esb:EditVideoSoapIn" />
+      <output message="esb:EditVideoSoapOut" />
+    </operation>
+    <operation name="GetEncodeParameters">
+      <documentation>Devolve os parâmetros de codificação de um vídeo para determinado perfil de codificação</documentation>
+      <input message="esb:GetEncodeParametersSoapIn" />
+      <output message="esb:GetEncodeParametersSoapOut" />
+    </operation>
+    <operation name="GetEncodeProfilesForUser">
+      <documentation>Devolve um array de perfis de codificação, que podem ser carregados pelo utilizador que estiver autenticado no serviço web.</documentation>
+      <input message="esb:GetEncodeProfilesForUserSoapIn" />
+      <output message="esb:GetEncodeProfilesForUserSoapOut" />
+    </operation>
+    <operation name="GetUserInfo">
+      <documentation>Devolve informação sobre um utilizador</documentation>
+      <input message="esb:GetUserInfoSoapIn" />
+      <output message="esb:GetUserInfoSoapOut" />
+    </operation>
+    <operation name="GetUserInfoForDashboard">
+      <documentation>GetUserInfoForDashboard</documentation>
+      <input message="esb:GetUserInfoForDashboardSoapIn" />
+      <output message="esb:GetUserInfoForDashboardSoapOut" />
+    </operation>
+    <operation name="ListCategories">
+      <documentation>Lista de categorias de plataformas</documentation>
+      <input message="esb:ListCategoriesSoapIn" />
+      <output message="esb:ListCategoriesSoapOut" />
+    </operation>
+    <operation name="ListUserPlaylists">
+      <documentation>Retorna a lista de canais do utilizador.</documentation>
+      <input message="esb:ListUserPlaylistsSoapIn" />
+      <output message="esb:ListUserPlaylistsSoapOut" />
+    </operation>
+    <operation name="ListUserTags">
+      <documentation>ListUserTags</documentation>
+      <input message="esb:ListUserTagsSoapIn" />
+      <output message="esb:ListUserTagsSoapOut" />
+    </operation>
+    <operation name="ListUserVideos">
+      <documentation>ListUserVideos</documentation>
+      <input message="esb:ListUserVideosSoapIn" />
+      <output message="esb:ListUserVideosSoapOut" />
+    </operation>
+    <operation name="ListVideosFromPlaylist">
+      <documentation>Retorna os videos de um canal</documentation>
+      <input message="esb:ListVideosFromPlaylistSoapIn" />
+      <output message="esb:ListVideosFromPlaylistSoapOut" />
+    </operation>
+    <operation name="NotifyComment">
+      <documentation>Notificar a plataforma de vídeos para esta actualizar as suas contagens quando são adicionados, alterados ou apagados comentários directamente na plataforma do SimpleForum (só utilizadores com permissões de "super utilizador" podem invocar este método)</documentation>
+      <input message="esb:NotifyCommentSoapIn" />
+      <output message="esb:NotifyCommentSoapOut" />
+    </operation>
+    <operation name="Query">
+      <documentation>Devolve uma listagem de vídeos com a possibilidade de aplicação de filtros</documentation>
+      <input message="esb:QuerySoapIn" />
+      <output message="esb:QuerySoapOut" />
+    </operation>
+    <operation name="RemoveVideoFromPlaylist">
+      <documentation>Remove um video da playlist</documentation>
+      <input message="esb:RemoveVideoFromPlaylistSoapIn" />
+      <output message="esb:RemoveVideoFromPlaylistSoapOut" />
+    </operation>
+  </portType>
+  <binding name="VideosSoapSecure" type="esb:VideosSoapSecure">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="AddVideo">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/AddVideo" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:AddVideoSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddVideoPost">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/AddVideoPost" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:AddVideoPostSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddVideoToPlaylist">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/AddVideoToPlaylist" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:AddVideoToPlaylistSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CheckPlaylist">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/CheckPlaylist" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:CheckPlaylistSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CheckVideo">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/CheckVideo" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:CheckVideoSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CreatePlaylist">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/CreatePlaylist" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:CreatePlaylistSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CreateUser">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/CreateUser" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:CreateUserSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DeletePlaylist">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/DeletePlaylist" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:DeletePlaylistSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DeleteVideo">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/DeleteVideo" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:DeleteVideoSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="EditPlaylist">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/EditPlaylist" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:EditPlaylistSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="EditVideo">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/EditVideo" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:EditVideoSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetEncodeParameters">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/GetEncodeParameters" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:GetEncodeParametersSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetEncodeProfilesForUser">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/GetEncodeProfilesForUser" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:GetEncodeProfilesForUserSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetUserInfo">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/GetUserInfo" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:GetUserInfoSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetUserInfoForDashboard">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/GetUserInfoForDashboard" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:GetUserInfoForDashboardSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ListCategories">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/ListCategories" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:ListCategoriesSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ListUserPlaylists">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/ListUserPlaylists" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:ListUserPlaylistsSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ListUserTags">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/ListUserTags" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:ListUserTagsSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ListUserVideos">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/ListUserVideos" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:ListUserVideosSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ListVideosFromPlaylist">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/ListVideosFromPlaylist" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:ListVideosFromPlaylistSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="NotifyComment">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/NotifyComment" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:NotifyCommentSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Query">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/Query" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:QuerySoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="RemoveVideoFromPlaylist">
+      <soap:operation soapAction="http://services.sapo.pt/definitions/RemoveVideoFromPlaylist" style="document" />
+      <input>
+        <soap:header message="esb:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header d5p1:required="true" message="esb:RemoveVideoFromPlaylistSoapInHeaders" part="ESBAccessKey" use="literal" xmlns:d5p1="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="Videos">
+    <documentation>Permite a pesquisa de vídeos usando as tags e categorias do serviço SAPO Videos.</documentation>
+    <port name="VideosSoapSecure" binding="esb:VideosSoapSecure">
+      <soap:address location="https://services.sapo.pt/Videos" />
+    </port>
+  </service>
+</definitions>
