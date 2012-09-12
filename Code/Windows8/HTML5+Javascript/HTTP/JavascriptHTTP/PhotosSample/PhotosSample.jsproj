@@ -64,6 +64,9 @@
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
     <Content Include="default.html" />
+    <Content Include="pages\tests\ImageCreate\ImageCreate.css" />
+    <Content Include="pages\tests\ImageCreate\ImageCreate.html" />
+    <Content Include="pages\tests\ImageCreate\ImageCreate.js" />
     <Content Include="SapoServices-js\PhotosClient.js" />
     <Content Include="SapoServices-js\Utils\StringBuilder.js" />
     <None Include="PhotosSample_TemporaryKey.pfx" />
