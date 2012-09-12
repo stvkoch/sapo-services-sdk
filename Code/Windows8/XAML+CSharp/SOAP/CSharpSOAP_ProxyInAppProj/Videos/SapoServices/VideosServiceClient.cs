@@ -155,11 +155,150 @@ namespace Videos.SapoServices
 
         public async void DeleteVideoAsync(string randname)
         {
-            using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                        this.Username, this.Password, this.AccessKey, _client))
+            try
             {
-                await this._client.DeleteVideoAsync(randname, null, null);
+                using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
+                    this.Username, this.Password, this.AccessKey, _client))
+                {
+                    await this._client.DeleteVideoAsync(randname, null, null);
+                }
+            }
+            catch (FaultException faultException)
+            {
+                MessageFault messageFault = faultException.CreateMessageFault();
+
+                if (messageFault.HasDetail)
+                {
+                    string innerErrorXml;
+                    using (var xmlReader = messageFault.GetReaderAtDetailContents())
+                    {
+                        innerErrorXml = xmlReader.ReadInnerXml();
+                    }
+                    if (innerErrorXml != null)
+                        throw new Exception(innerErrorXml);
+                    throw;
+                }
             }
         }
+
+        public async void EditVideoAsync(VideoSubmition v)
+        {
+            try
+            {
+                using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
+                    this.Username, this.Password, this.AccessKey, _client))
+                {
+                    await this._client.EditVideoAsync(v, null, null);
+                }
+            }
+            catch (FaultException faultException)
+            {
+                MessageFault messageFault = faultException.CreateMessageFault();
+
+                if (messageFault.HasDetail)
+                {
+                    string innerErrorXml;
+                    using (var xmlReader = messageFault.GetReaderAtDetailContents())
+                    {
+                        innerErrorXml = xmlReader.ReadInnerXml();
+                    }
+                    if (innerErrorXml != null)
+                        throw new Exception(innerErrorXml);
+                    throw;
+                }
+            }
+        }
+
+
+        public async Task<Video> GetVideoAsync(string videoId, string email, string videoRandname, string Interface, int showComments)
+        {
+            using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
+                    this.Username, this.Password, this.AccessKey, _client))
+            {
+                return await this._client.CheckVideoAsync(videoId, email, videoRandname, Interface, showComments)
+                    .ContinueWith(t => t.Result);
+            }
+        }
+
+        public async Task<User> GetUserAsync(string username)
+        {
+            using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
+                    this.Username, this.Password, this.AccessKey, _client))
+            {
+                return await this._client.GetUserInfoAsync(null, username).ContinueWith(t => t.Result);
+            }
+        }
+
+        public async Task<Video[]> GetUserVideos(string email, string Interface, string order, int limit, int page)
+        {
+            try
+            {
+                using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
+                    this.Username, this.Password, this.AccessKey, _client))
+                {
+                    return await this._client.ListUserVideosAsync(email, Interface, order, limit, page)
+                                     .ContinueWith(t => t.Result.ListUserVideosResult);
+                }
+            }
+            catch (AggregateException e)
+            {
+                var faultException = e.InnerException as FaultException;
+
+                if (faultException != null)
+                {
+                    MessageFault messageFault = faultException.CreateMessageFault();
+
+                    if (messageFault.HasDetail)
+                    {
+                        string innerErrorXml;
+                        using (var xmlReader = messageFault.GetReaderAtDetailContents())
+                        {
+                            innerErrorXml = xmlReader.ReadInnerXml();
+                        }
+                        if (innerErrorXml != null)
+                            throw new Exception(innerErrorXml);
+                        throw;
+                    }
+                }
+            }
+            throw new Exception("Error!");
+        }
+
+        public async Task<Video[]> QueryAsync(string emails, string tags, 
+            int cos, int limit, string order, int viewAll, string itfc, int showTags)
+        {
+            try
+            {
+                using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
+                    this.Username, this.Password, this.AccessKey, _client))
+                {
+                    return await this._client.QueryAsync(emails, tags, cos, limit, order, viewAll, itfc, showTags)
+                                     .ContinueWith(t => t.Result.QueryResult);
+                }
+            }
+            catch (AggregateException e)
+            {
+                var faultException = e.InnerException as FaultException;
+
+                if (faultException != null)
+                {
+                    MessageFault messageFault = faultException.CreateMessageFault();
+
+                    if (messageFault.HasDetail)
+                    {
+                        string innerErrorXml;
+                        using (var xmlReader = messageFault.GetReaderAtDetailContents())
+                        {
+                            innerErrorXml = xmlReader.ReadInnerXml();
+                        }
+                        if (innerErrorXml != null)
+                            throw new Exception(innerErrorXml);
+                        throw;
+                    }
+                }
+            }
+            throw new Exception("Error!");
+        }
+
     }
 }

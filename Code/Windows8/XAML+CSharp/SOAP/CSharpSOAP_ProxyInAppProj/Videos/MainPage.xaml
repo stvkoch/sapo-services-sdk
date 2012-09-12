@@ -45,5 +45,42 @@
                 <Button x:Name="bt_DeleteVideo" Content="Delete Video" Width="200" Click="BtDeleteVideoClick"/>
             </StackPanel>
         </Grid>
+        <Grid Grid.Row="3" Grid.Column="0">
+            <StackPanel>
+                <TextBox x:Name="tb_VideoRandnameForEditVideo" Text="Randname" />
+                <TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />
+                <Button x:Name="bt_EditVideo" Content="Edit Video" Width="200" Click="BtEditVideoClick" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <StackPanel>
+                <TextBox x:Name="tb_VideoRandnameForGetVideo" Text="Randname" />
+                <!--<TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />-->
+                <Button x:Name="bt_GetVideo" Content="Get Video" Width="200" Click="BtGetVideoClick" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <StackPanel>
+                <TextBox x:Name="tb_UserNameForGetUser" Text="Username" />
+                <!--<TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />-->
+                <Button x:Name="bt_GetUser" Content="Get User" Width="200" Click="BtGetUserClick" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <StackPanel>
+                <TextBox x:Name="tb_UserNameForGetVideos" Text="Username" />
+                <!--<TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />-->
+                <Button x:Name="bt_GetUserVideos" Content="Get User Videos" Width="200" Click="BtGetUserVideosClick" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2">
+            <StackPanel>
+                <TextBox x:Name="tb_TagsForQueryVideos" Text="Tags" />
+                <!--<TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />-->
+                <Button x:Name="bt_QueryVideos" Content="Query" Width="200" Click="BtQueryVideosClick" />
+            </StackPanel>
+        </Grid>
+        
+        
     </Grid>
 </Page>
