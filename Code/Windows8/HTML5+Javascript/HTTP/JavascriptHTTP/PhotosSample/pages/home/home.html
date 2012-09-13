@@ -29,10 +29,7 @@
                 <input type="text" id="accessKey" placeholder="Access Key"/>
             </div>
             <button type="button" 
-                onclick="WinJS.Navigation.navigate('/pages/tests/ImageCreate/ImageCreate.html', 
-                    { username: document.getElementById('username').value, 
-                        password: document.getElementById('password').value, 
-                        accessKey: document.getElementById('accessKey').value })">
+                onclick="navigateTo('/pages/tests/ImageCreate/ImageCreate.html')">
                 Create Image
             </button>
         </section>
