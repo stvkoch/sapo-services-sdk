@@ -82,7 +82,7 @@
     <Content Include="pages\tests\whoIs\whoIs.html" />
     <Content Include="pages\tests\whoIs\whoIs.js" />
     <Content Include="default.html" />
-    <Content Include="SapoServices-js\Utils\StringBuilder.js" />
+    <Content Include="SapoServices-js\Utils\Utils.js" />
     <Content Include="SapoServices-js\VerbetesClient.js" />
     <None Include="VerbetesSample_TemporaryKey.pfx" />
   </ItemGroup>
