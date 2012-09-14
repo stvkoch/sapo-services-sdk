@@ -70,6 +70,9 @@
     <Content Include="pages\tests\ImageCreate\ImageCreate.css" />
     <Content Include="pages\tests\ImageCreate\ImageCreate.html" />
     <Content Include="pages\tests\ImageCreate\ImageCreate.js" />
+    <Content Include="pages\tests\ImageDetails\ImageDetails.css" />
+    <Content Include="pages\tests\ImageDetails\ImageDetails.html" />
+    <Content Include="pages\tests\ImageDetails\ImageDetails.js" />
     <Content Include="SapoServices-js\PhotosClient.js" />
     <Content Include="SapoServices-js\Utils\Utils.js" />
     <None Include="PhotosSample_TemporaryKey.pfx" />

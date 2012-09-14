@@ -45,10 +45,18 @@ function imageCreate() {
     // Open the picker for the user to pick a file
     openPicker.pickSingleFileAsync().then(function (file) {
         if (file) {
-            
             var client =
                 new PhotosServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
-            client.asyncImageCreate(file);
+
+            var image = {};
+
+            image.title = file.displayName;
+            image.tags = file.displayName;
+
+            client.asyncImageCreate(file, image).then(function (resultCode) {
+                var message = resultCode;
+                
+            });
 
         } else {
             // The picker was dismissed with no selected file
