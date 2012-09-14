@@ -25,21 +25,23 @@ function StringBuilder() {
 
 /* Uri Utils */
 
-function buildUri(baseUri, esbcredentials, params, allowedParams, operation) {
+function buildUri(baseUri, params, allowedParams, operation) {
 
     var sb = new StringBuilder();
     sb.append(baseUri);
     sb.append(operation);
-    sb.append("?ESBUserName=");
-    sb.append(esbcredentials.username);
-    sb.append("&ESBPassword=");
-    sb.append(esbcredentials.password);
-    sb.append("&ESBAccessKey=");
-    sb.append(esbcredentials.accessKey);
+    sb.append("?");
+    //sb.append("?ESBUserName=");
+    //sb.append(esbcredentials.username);
+    //sb.append("&ESBPassword=");
+    //sb.append(esbcredentials.password);
+    //sb.append("&ESBAccessKey=");
+    //sb.append(esbcredentials.accessKey);
 
     for (var i = 0; i < allowedParams.length; ++i) {
         if ((allowedParams[i] in params) && params[allowedParams[i]]) {
-            sb.append("&");
+            if (i != 0)
+                sb.append("&");
             sb.append(allowedParams[i]);
             sb.append("=");
             sb.append(params[allowedParams[i]]);
