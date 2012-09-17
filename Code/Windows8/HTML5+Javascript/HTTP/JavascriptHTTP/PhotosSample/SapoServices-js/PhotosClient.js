@@ -129,4 +129,41 @@ function PhotosServiceClient(username, password, accessKey) {
         }
         throw "MUST specify parameters";
     };
+
+    var imageGetListBySearchAllowedParams =
+        ["string", "page", "interface", "datefrom", "dateto", "json", "ESBUsername", "ESBPassword"];
+    this.asyncImageGetListBySearch = function(params) {
+        if (params) {
+            
+            //Convert dates to Strings
+            if (params.datefrom)
+                params.datefrom = dateToString(params.datefrom);
+            if (params.dateto)
+                params.dateto = dateToString(params.dateto);
+
+            params.json = "true";
+            params.ESBUsername = username;
+            params.ESBPassword = password;
+            var uri =
+                Windows.Foundation.Uri(buildUri(photosBaseUri, params, imageGetListBySearchAllowedParams, "ImageGetListBySearch"))
+                .absoluteCanonicalUri;
+
+            var headers = {};
+            headers["Authorization"] = "ESB AccessKey=" + accessKey;
+            return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                .then(function (xhr) {
+                    if (xhr.status == 200 && xhr.responseText)
+                        return xhr.responseText;
+                    return null;
+                });
+        }
+        throw "MUST specify parameters";
+    };
+
+    var imageGetListByTagsAllowedParams =
+        ["tag", "page", "orderby", "m18", "username", "interface", "json", "ESBUsername", "ESBPassword"];
+
+    this.asyncImageGetListByTags = function(params) {
+
+    };
 }

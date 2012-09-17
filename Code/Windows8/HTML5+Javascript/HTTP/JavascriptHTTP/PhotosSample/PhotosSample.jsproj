@@ -73,6 +73,9 @@
     <Content Include="pages\tests\ImageDetails\ImageDetails.css" />
     <Content Include="pages\tests\ImageDetails\ImageDetails.html" />
     <Content Include="pages\tests\ImageDetails\ImageDetails.js" />
+    <Content Include="pages\tests\ImageGetListBySearch\ImageGetListBySearch.css" />
+    <Content Include="pages\tests\ImageGetListBySearch\ImageGetListBySearch.html" />
+    <Content Include="pages\tests\ImageGetListBySearch\ImageGetListBySearch.js" />
     <Content Include="SapoServices-js\PhotosClient.js" />
     <Content Include="SapoServices-js\Utils\Utils.js" />
     <None Include="PhotosSample_TemporaryKey.pfx" />

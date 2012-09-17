@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ImageGetListBySearch</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="ImageGetListBySearch.css" rel="stylesheet" />
+    <script src="ImageGetListBySearch.js"></script>
+</head>
+<body>
+    <div class="ImageGetListBySearch fragment">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Welcome to ImageGetListBySearch</span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <form onsubmit="imageGetListBySearch(); return false;">
+                <div><input type="text" id="stParam" placeholder="Search Terms Parameter"/></div>
+                <div><input type="text" id="pageParam" placeholder="Page Parameter"/></div>
+                <div>DateFrom parameter:</div>
+                <div id='datefromParam' data-win-control='WinJS.UI.DatePicker' 
+                     data-win-options='{current:"November, 15, 2012"}'>
+                </div>
+                <div>DateTo parameter:</div>
+                <div id='datetoParam' data-win-control='WinJS.UI.DatePicker' 
+                     data-win-options='{current:"November, 17, 2012"}'>
+                </div>
+                <div><button type="submit">Get Images</button></div>
+            </form>
+            <div id="imageGetListBySearchResult"></div>
+        </section>
+    </div>
+</body>
+</html>

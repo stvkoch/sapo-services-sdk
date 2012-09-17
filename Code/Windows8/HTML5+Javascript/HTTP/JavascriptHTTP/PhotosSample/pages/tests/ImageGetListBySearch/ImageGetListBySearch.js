@@ -6,7 +6,7 @@ var authenticationData;
 (function () {
     "use strict";
 
-    WinJS.UI.Pages.define("/pages/tests/ImageDetails/ImageDetails.html", {
+    WinJS.UI.Pages.define("/pages/tests/ImageGetListBySearch/ImageGetListBySearch.html", {
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
@@ -26,21 +26,31 @@ var authenticationData;
     });
 })();
 
+function imageGetListBySearch() {
+    var stParam = document.getElementById("stParam").value;
+    var pageParam = document.getElementById("pageParam").value;
+    
+    var fromDatePicker = document.getElementById("datefromParam").winControl;
+    var datefromParam = fromDatePicker.current;
 
-function imageDetails(){
-    var uidParam = document.getElementById("uidParam").value;
+    var toDatePicker = document.getElementById("datetoParam").winControl;
+    var datetoParam = toDatePicker.current;
 
-    if (uidParam == "")
-        return;
+    var params = {};
 
+    //this parameter cannot have blank spaces.
+    params.string = stParam || undefined;
+    params.page = pageParam || undefined;
+    params.datefrom = datefromParam || undefined;
+    params.dateto = datetoParam || undefined;
+    
     var client = new PhotosServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncImageDetails(uidParam).then(function (resultText) {
-        var resultDiv = document.getElementById("imageDetailsResult");
+    client.asyncImageGetListBySearch(params).then(function (resultText) {
+        var resultDiv = document.getElementById("imageGetListBySearchResult");
 
         resultDiv.innerHTML = resultText;
+        
     });
-
-
 }

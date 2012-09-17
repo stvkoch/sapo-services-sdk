@@ -48,49 +48,6 @@ function buildUri(baseUri, params, allowedParams, operation) {
         }
     }
 
-    //if (params.name) {
-    //    sb.append("&name=");
-    //    sb.append(params.name);
-    //    //uriWithAutentication += "&name=" + params.name;
-    //}
-    //if (params.nameLike) {
-    //    sb.append("&name_like=");
-    //    sb.append(params.nameLike);
-    //    //uriWithAutentication += "&name_like=" + params.nameLike;
-    //}
-    //if (params.job) {
-    //    sb.append("&job=");
-    //    sb.append(params.job);
-    //    //uriWithAutentication += "&job=" + params.job;
-    //}
-    //if (params.jobLike) {
-    //    sb.append("&job_like=");
-    //    sb.append(params.jobLike);
-    //    //uriWithAutentication += "&job_like=" + params.jobLike;
-    //}
-    //if (params.margin) {
-    //    sb.append("&margin=");
-    //    sb.append(params.margin);
-    //}
-    //if (params.min) {
-    //    sb.append("&min=");
-    //    sb.append(params.min);
-    //}
-    //if (params.format) {
-    //    sb.append("&format=");
-    //    sb.append(params.format);
-    //}
-    //if (params.date) {
-    //    sb.append("&date=");
-    //    sb.append(params.date.getFullYear().toString());
-    //    sb.append("-");
-    //    var month = Number(params.date.getMonth().toString());
-    //    month += 1;
-    //    sb.append(String(month));
-    //    sb.append("-");
-    //    sb.append(params.date.getDate().toString());
-    //}
-
     return sb.toString();
 }
 
