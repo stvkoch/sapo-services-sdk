@@ -50,7 +50,19 @@ function imageGetListBySearch() {
     client.asyncImageGetListBySearch(params).then(function (resultText) {
         var resultDiv = document.getElementById("imageGetListBySearchResult");
 
-        resultDiv.innerHTML = resultText;
+        var response = JSON.parse(resultText);
+
+        var imageGetListBySearchResult = response.ImageGetListBySearchResponse.ImageGetListBySearchResult;
+
+        var images = imageGetListBySearchResult.images.image;
+
+
+        //views.view has the various thumbnails of the photos.
+        for (var i = 0; i < images.length ;++i) {
+            resultDiv.innerHTML += images[i].views.view[0].url;
+        }
+        resultDiv.innerHTML += "</br>";
+        resultDiv.innerHTML += resultText;
         
     });
 }
