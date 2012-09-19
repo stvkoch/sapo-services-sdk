@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ImageGetListByTags</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="ImageGetListByTags.css" rel="stylesheet" />
+    <script src="ImageGetListByTags.js"></script>
+</head>
+<body>
+    <div class="ImageGetListByTags fragment">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Welcome to ImageGetListByTags</span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <form onsubmit="imageGetListByTags(); return false;">
+                <div><input type="text" id="tagParam" placeholder="Tags Parameter"/></div>
+                <div><input type="text" id="pageParam" placeholder="Page Parameter"/></div>
+                <div><input type="text" id="orderbyParam" placeholder="Orderby Parameter"/></div>
+                <div><input type="text" id="m18Param" placeholder="M18 Parameter"/></div>
+                <div><input type="text" id="usernameParam" placeholder="Username Parameter"/></div>
+                <div><button type="submit">Get Images</button></div>
+            </form>
+            <div id="imageGetListByTagResult"></div>
+        </section>
+    </div>
+</body>
+</html>

@@ -35,7 +35,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>21f49f37-68df-4888-9dfe-01bd3b04d738</ProjectGuid>
+    <ProjectGuid>11c6681a-4326-42a1-a2e3-3eb980fbc978</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0'">
     <VisualStudioVersion>11.0</VisualStudioVersion>
@@ -47,7 +47,7 @@
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <TargetPlatformVersion>8.0</TargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>PhotosSample_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>VideosSample_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
@@ -64,37 +64,12 @@
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
     <Content Include="default.html" />
-    <Content Include="pages\tests\DummyEcho\DummyEcho.css" />
-    <Content Include="pages\tests\DummyEcho\DummyEcho.html" />
-    <Content Include="pages\tests\DummyEcho\DummyEcho.js" />
-    <Content Include="pages\tests\ImageCreate\ImageCreate.css" />
-    <Content Include="pages\tests\ImageCreate\ImageCreate.html" />
-    <Content Include="pages\tests\ImageCreate\ImageCreate.js" />
-    <Content Include="pages\tests\ImageDelete\ImageDelete.css" />
-    <Content Include="pages\tests\ImageDelete\ImageDelete.html" />
-    <Content Include="pages\tests\ImageDelete\ImageDelete.js" />
-    <Content Include="pages\tests\ImageDetails\ImageDetails.css" />
-    <Content Include="pages\tests\ImageDetails\ImageDetails.html" />
-    <Content Include="pages\tests\ImageDetails\ImageDetails.js" />
-    <Content Include="pages\tests\ImageGetListBySearch\ImageGetListBySearch.css" />
-    <Content Include="pages\tests\ImageGetListBySearch\ImageGetListBySearch.html" />
-    <Content Include="pages\tests\ImageGetListBySearch\ImageGetListBySearch.js" />
-    <Content Include="pages\tests\ImageGetListByTags\ImageGetListByTags.css" />
-    <Content Include="pages\tests\ImageGetListByTags\ImageGetListByTags.html" />
-    <Content Include="pages\tests\ImageGetListByTags\ImageGetListByTags.js" />
-    <Content Include="pages\tests\ImageGetListByUser\ImageGetListByUser.css" />
-    <Content Include="pages\tests\ImageGetListByUser\ImageGetListByUser.html" />
-    <Content Include="pages\tests\ImageGetListByUser\ImageGetListByUser.js" />
-    <Content Include="SapoServices-js\PhotosClient.js" />
     <Content Include="SapoServices-js\Utils\Utils.js" />
-    <None Include="PhotosSample_TemporaryKey.pfx" />
+    <Content Include="SapoServices-js\VideosClient.js" />
+    <None Include="VideosSample_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="pages\tests\ImageGetListByUserAlbum\" />
-    <Folder Include="pages\tests\ImageAddToAlbum\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment
