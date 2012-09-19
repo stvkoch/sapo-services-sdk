@@ -2,8 +2,40 @@
 \chapter{Authentication}
 \label{sec:chapter3}
 
+Every request must contain authentication information to establish the identity of whom making the request and a authorization token denominated \icode|ESBAccessKey|.
+
+The authentication information can be provided as a pair of username (\icode|ESBUsername|) and password (\icode|ESBPassword|) or a authentication token (\icode|ESBToken|) obtained from the \textbf{SAPO Security Token Service} (STS) \cite{sts}.
+
+If you don't want to constantly send passwords "over the wire" you should use STS. This way you only send the credentials once.
+
 \section{HTTP Clients}
 \label{sec:chapter3:http}
+
+As previously mentioned, every request must include both authentication and authorization information. The authentication information must be supplied in the URI. The authorization information must figure in the \icode|Authorization| HTTP Header.
+
+Note that in the samples below \icode|{token}|, \icode|{username}|, \icode|{pass}|, and \icode|{accessKey}| are place holders. In your code you must replace them with your authorization and authentication data.
+
+\subsection{Using username and password}
+\label{sec:chapter3:http:withuserpass}
+
+In \autoref{listhttpusingUP} is presented the structure of a request using \icode|ESBUsername| and \icode|ESBPassword| to do the authentication.
+
+\begin{lstlisting}[label=listhttpusingUP,caption=HTTP GET using \icode|ESBUsername| and \icode|ESBPassword|]
+GET https://services.sapo.pt/{service_name}/{operation_name}?ESBUsername={username}&ESBPassword={pass}&json=true HTTP/1.1
+Authorization: ESB AccessKey={accessKey}
+Host: services.sapo.pt
+\end{lstlisting}
+
+\subsection{Using authentication token}
+\label{sec:chapter3:http:withtoken}
+
+In \autoref{listhttpusingtoken} is presented the structure of a request using \icode|ESBToken| to do the authentication.
+
+\begin{lstlisting}[label=listhttpusingtoken,caption=HTTP GET using \icode|ESBToken|]
+GET https://services.sapo.pt/{service_name}/{operation_name}?ESBToken={token}&json=true HTTP/1.1
+Authorization: ESB AccessKey={accessKey}
+Host: services.sapo.pt
+\end{lstlisting} 
 
 \section{SOAP Clients}
 \label{sec:chapter3:soap}

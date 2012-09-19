@@ -34,17 +34,22 @@
 	aboveskip=10pt,%
 	extendedchars=true,%	
 	basicstyle=\footnotesize\tt,%
-	keywordstyle=\color{rltblue}\bfseries,%
-	commentstyle=\color{rltgreen}\textit,%
-	stringstyle=\color{rltred},% 	
+	keywordstyle=\color{rltblack}\bfseries,%
+	commentstyle=\footnotesize\tt,%
+	stringstyle=\color{rltblack},% 	
 	captionpos=t,%
 	language=[Sharp]C,%
 	breaklines=true,%
+	xleftmargin=5.0ex,
 	numbers=left,%
 	morekeywords={region, endregion, var, volatile, function}
 }
 
+
+\def\icode{\lstinline[basicstyle=\normalsize\tt,aboveskip=10pt,showstringspaces=false]}
+
 \usepackage{color}
+\definecolor{rltblack}{rgb}{0,0,0}
 \definecolor{rltblue}{rgb}{0,0,0.75}
 \definecolor{rltbrightblue}{rgb}{0,0,1}
 \definecolor{rltgreen}{rgb}{0,0.5,0}
@@ -96,7 +101,7 @@
 
 \lstnewenvironment{listing}[2]{\lstset{caption={[#1]#1.}, label=#2}}{}
 
-\newcommand{\textsrc}[1]{\lstinline!#1!}%
+%\newcommand{\textsrc}[1]{\lstinline!#1!}%
 
 \usepackage[pdftex,%
 						hyperindex,%
@@ -122,3 +127,5 @@
 }
 
 \linespread{1.3}
+
+\renewcommand{\familydefault}{\sfdefault}
