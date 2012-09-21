@@ -54,8 +54,7 @@ function imageCreate() {
             image.tags = file.displayName;
 
             client.asyncImageCreate(file, image).then(function (resultCode) {
-                var message = resultCode;
-                
+                document.getElementById("imageCreateResult").innerHTML = resultCode;
             });
 
         } else {

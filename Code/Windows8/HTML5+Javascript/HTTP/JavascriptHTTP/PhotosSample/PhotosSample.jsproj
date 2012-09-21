@@ -82,6 +82,9 @@
     <Content Include="pages\tests\ImageGetListByTags\ImageGetListByTags.css" />
     <Content Include="pages\tests\ImageGetListByTags\ImageGetListByTags.html" />
     <Content Include="pages\tests\ImageGetListByTags\ImageGetListByTags.js" />
+    <Content Include="pages\tests\ImageGetListByUserAlbum\ImageGetListByUserAlbum.css" />
+    <Content Include="pages\tests\ImageGetListByUserAlbum\ImageGetListByUserAlbum.html" />
+    <Content Include="pages\tests\ImageGetListByUserAlbum\ImageGetListByUserAlbum.js" />
     <Content Include="pages\tests\ImageGetListByUser\ImageGetListByUser.css" />
     <Content Include="pages\tests\ImageGetListByUser\ImageGetListByUser.html" />
     <Content Include="pages\tests\ImageGetListByUser\ImageGetListByUser.js" />
@@ -93,7 +96,6 @@
     <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="pages\tests\ImageGetListByUserAlbum\" />
     <Folder Include="pages\tests\ImageAddToAlbum\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />

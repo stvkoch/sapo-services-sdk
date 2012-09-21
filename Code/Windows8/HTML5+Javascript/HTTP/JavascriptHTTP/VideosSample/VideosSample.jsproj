@@ -64,6 +64,9 @@
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
     <Content Include="default.html" />
+    <Content Include="pages\tests\AddVideoPost\AddVideoPost.css" />
+    <Content Include="pages\tests\AddVideoPost\AddVideoPost.html" />
+    <Content Include="pages\tests\AddVideoPost\AddVideoPost.js" />
     <Content Include="SapoServices-js\Utils\Utils.js" />
     <Content Include="SapoServices-js\VideosClient.js" />
     <None Include="VideosSample_TemporaryKey.pfx" />
