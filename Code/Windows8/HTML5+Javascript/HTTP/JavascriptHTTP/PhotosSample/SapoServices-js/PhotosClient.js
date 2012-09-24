@@ -233,13 +233,13 @@ function PhotosServiceClient(username, password, accessKey) {
         throw "MUST specify username parameter";
     };
     
-    //ImageGetListByUserAlbum Not tested
-    var imageGetListByUserAlbumAllowedParams = ["id", "username", "json", "ESBUsername", "ESBPassword"];
+    var imageGetListByUserAlbumAllowedParams = ["page", "orderby", "id", "username", "json", "ESBUsername", "ESBPassword"];
     this.asyncimageGetListByUserAlbum = function(albumid, params) {
         if (albumid) {
 
             if (!params)
-                params = { };
+                params = {};
+            params.id = albumid;
             params.json = "true";
             params.ESBUsername = username;
             params.ESBPassword = password;
@@ -260,14 +260,13 @@ function PhotosServiceClient(username, password, accessKey) {
         throw "MUST specify album id parameter";
     };
 
-    //ImageAddToAlbum Not tested
-    var imageAddToAlbumAllowedParams = ["imageuid","id","json", "ESBUsername", "ESBPassword"];
+    var imageAddToAlbumAllowedParams = ["imageuid","albumid","json", "ESBUsername", "ESBPassword"];
     this.asyncImageAddToAlbum = function(imageuid, albumids) {
         if (albumids != undefined && imageuid != undefined) {
 
             var params = {};
             params.imageuid = imageuid;
-            params.id = albumids;
+            params.albumid = albumids;
             params.json = "true";
             params.ESBUsername = username;
             params.ESBPassword = password;
@@ -288,9 +287,8 @@ function PhotosServiceClient(username, password, accessKey) {
         throw "MUST specify album ids and image uid parameters";
     };
 
-    //AlbumCreate Not tested
     var albumCreateAllowedParams = ["json", "ESBUsername", "ESBPassword"];
-    this.asyncImageAddToAlbum = function (album) {
+    this.asyncAlbumCreate = function (album) {
         if (album) {
             var albumToBeSerialized = { };
             albumToBeSerialized.album = album;

@@ -1,10 +1,11 @@
 ﻿// For an introduction to the Page Control template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkId=232511
+
 var authenticationData;
 (function () {
     "use strict";
 
-    WinJS.UI.Pages.define("/pages/tests/ImageGetListByUserAlbum/ImageGetListByUserAlbum.html", {
+    WinJS.UI.Pages.define("/pages/tests/ImageAddToAlbum/ImageAddToAlbum.html", {
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
@@ -24,20 +25,19 @@ var authenticationData;
     });
 })();
 
-function imageGetListByUserAlbum() {
-    var params = { };
-    params.username = document.getElementById("usernameParam").value || undefined;
-    params.page = document.getElementById("pageParam").value || undefined;
-    params.orderby = document.getElementById("orderbyParam").value || undefined;
+function addImageToAlbum() {
+    //Albums MUST be separated by commas with none blank spaces
+    var albumids = document.getElementById("albumidsParam").value || undefined;
+    var imageuid = document.getElementById("imageuidParam").value || undefined;
 
-    var albumid = document.getElementById("albumidParam").value || undefined;
-    
     var client = new PhotosServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncimageGetListByUserAlbum(albumid, params).then(function (resultText) {
-        var resultDiv = document.getElementById("imageGetListByUserAlbumResult");
+    client.asyncImageAddToAlbum(imageuid, albumids).then(function (resultText) {
+        var resultDiv = document.getElementById("addImageToAlbumResult");
 
         resultDiv.innerHTML = resultText;
     });
 }
+
+

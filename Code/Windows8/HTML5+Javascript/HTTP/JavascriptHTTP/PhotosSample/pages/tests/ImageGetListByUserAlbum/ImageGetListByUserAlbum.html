@@ -21,7 +21,14 @@
             </h1>
         </header>
         <section aria-label="Main content" role="main">
-            <p>Content goes here.</p>
+            <form onsubmit="imageGetListByUserAlbum(); return false;">
+                <div><input type="text" id="albumidParam" placeholder="Albumid Parameter"/></div>
+                <div><input type="text" id="usernameParam" placeholder="Username Parameter"/></div>
+                <div><input type="text" id="pageParam" placeholder="Page Parameter"/></div>
+                <div><input type="text" id="orderbyParam" placeholder="Orderby Parameter"/></div>
+                <div><button type="submit">Get Images</button></div>
+            </form>
+            <div id="imageGetListByUserAlbumResult"></div>
         </section>
     </div>
 </body>

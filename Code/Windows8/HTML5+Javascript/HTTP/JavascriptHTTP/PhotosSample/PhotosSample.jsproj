@@ -64,9 +64,15 @@
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
     <Content Include="default.html" />
+    <Content Include="pages\tests\AlbumCreate\AlbumCreate.css" />
+    <Content Include="pages\tests\AlbumCreate\AlbumCreate.html" />
+    <Content Include="pages\tests\AlbumCreate\AlbumCreate.js" />
     <Content Include="pages\tests\DummyEcho\DummyEcho.css" />
     <Content Include="pages\tests\DummyEcho\DummyEcho.html" />
     <Content Include="pages\tests\DummyEcho\DummyEcho.js" />
+    <Content Include="pages\tests\ImageAddToAlbum\ImageAddToAlbum.css" />
+    <Content Include="pages\tests\ImageAddToAlbum\ImageAddToAlbum.html" />
+    <Content Include="pages\tests\ImageAddToAlbum\ImageAddToAlbum.js" />
     <Content Include="pages\tests\ImageCreate\ImageCreate.css" />
     <Content Include="pages\tests\ImageCreate\ImageCreate.html" />
     <Content Include="pages\tests\ImageCreate\ImageCreate.js" />
@@ -94,9 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="pages\tests\ImageAddToAlbum\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment

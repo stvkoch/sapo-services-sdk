@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>AlbumCreate</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="AlbumCreate.css" rel="stylesheet" />
+    <script src="AlbumCreate.js"></script>
+</head>
+<body>
+    <div class="AlbumCreate fragment">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Welcome to AlbumCreate</span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <form onsubmit="albumCreate(); return false;">
+                <div><input type="text" id="titleParam" placeholder="Title Parameter"/></div>
+                <div><button type="submit">Create Album</button></div>
+            </form>
+            <div id="albumCreateResult"></div>
+        </section>
+    </div>
+</body>
+</html>
