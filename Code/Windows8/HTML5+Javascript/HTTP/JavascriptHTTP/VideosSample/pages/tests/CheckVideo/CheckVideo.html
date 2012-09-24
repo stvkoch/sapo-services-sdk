@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>CheckVideo</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="CheckVideo.css" rel="stylesheet" />
+    <script src="CheckVideo.js"></script>
+</head>
+<body>
+    <div class="CheckVideo fragment">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Welcome to CheckVideo</span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <form onsubmit="checkVideo(); return false;">
+                <div><input type="text" id="randnameParam" placeholder="Randname Parameter"/></div>
+                <div><button type="submit">Get Video</button></div>
+            </form>
+            <div id="checkVideoResult"></div>
+        </section>
+    </div>
+</body>
+</html>

@@ -39,6 +39,18 @@
 
             var elementById = document.getElementById("btAddVideoPost");
             elementById.addEventListener("click", function () { navigateTo('/pages/tests/AddVideoPost/AddVideoPost.html'); });
+
+            elementById = document.getElementById("btDeleteVideo");
+            elementById.addEventListener("click", function () { navigateTo('pages/tests/DeleteVideo/DeleteVideo.html'); });
+            
+            elementById = document.getElementById("btCheckVideo");
+            elementById.addEventListener("click", function () { navigateTo('pages/tests/CheckVideo/CheckVideo.html'); });
+            
+            elementById = document.getElementById("btGetUserInfo");
+            elementById.addEventListener("click", function () { navigateTo('pages/tests/GetUserInfo/GetUserInfo.html'); });
+            
+            elementById = document.getElementById("btListUserVideos");
+            elementById.addEventListener("click", function () { navigateTo('pages/tests/ListUserVideos/ListUserVideos.html'); });
         }
     });
 })();

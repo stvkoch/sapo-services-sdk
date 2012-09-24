@@ -91,36 +91,110 @@
                             });
                         });
                 },
-                
+
                 asyncDeleteVideo: function (randname) {
-                    var deleteVideoAllowedParams = ["json", "ESBUsername", "ESBPassword"];
-                    
+                    var deleteVideoAllowedParams = ["Randname", "json", "ESBUsername", "ESBPassword"];
+
+                    var params = {};
+                    params.json = "true";
+                    params.ESBUsername = this.username;
+                    params.ESBPassword = this.password;
+                    params.Randname = randname;
+
+                    var uri =
+                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params, deleteVideoAllowedParams, "DeleteVideo"))
+                        .absoluteCanonicalUri;
+
+                    var headers = {};
+                    //headers["Content-Type"] = "application/json";
+                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        .then(function (xhr) {
+                            if (xhr.status == 200)
+                                return "SUCCESS";
+                            return "ERROR";
+                        }, function (xhr) {
+                            return "ERROR";
+                        });
+                },
+
+                asyncCheckVideo: function (randname) {
+                    var checkVideoAllowedParams = ["VideoRandname", "json", "ESBUsername", "ESBPassword"];
+
+                    var params = {};
+                    params.json = "true";
+                    params.ESBUsername = this.username;
+                    params.ESBPassword = this.password;
+                    params.VideoRandname = randname;
+
+                    var uri =
+                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params, checkVideoAllowedParams, "CheckVideo"))
+                        .absoluteCanonicalUri;
+
+                    var headers = {};
+                    //headers["Content-Type"] = "application/json";
+                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        .then(function (xhr) {
+                            if (xhr.status == 200 && xhr.responseText)
+                                return xhr.responseText;
+                            return "ERROR";
+                        }, function (xhr) {
+                            return "ERROR";
+                        });
+                },
+
+                asyncGetUserInfo: function () {
+                    var getUserInfoAllowedParams = ["Email", "json", "ESBUsername", "ESBPassword"];
+
+                    var params = {};
+                    params.json = "true";
+                    params.ESBUsername = this.username;
+                    params.ESBPassword = this.password;
+                    params.Email = this.username;
+
+                    var uri =
+                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params, getUserInfoAllowedParams, "GetUserInfo"))
+                        .absoluteCanonicalUri;
+
+                    var headers = {};
+                    //headers["Content-Type"] = "application/json";
+                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        .then(function (xhr) {
+                            if (xhr.status == 200 && xhr.responseText)
+                                return xhr.responseText;
+                            return "ERROR";
+                        }, function (xhr) {
+                            return "ERROR";
+                        });
+                },
+
+                asyncListUserVideos: function () {
+                    var listUserVideosAllowedParams = ["json", "ESBUsername", "ESBPassword"];
+
                     var params = {};
                     params.json = "true";
                     params.ESBUsername = this.username;
                     params.ESBPassword = this.password;
 
                     var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params, deleteVideoAllowedParams, "AddVideoPost"))
+                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params,
+                            listUserVideosAllowedParams, "ListUserVideos"))
                         .absoluteCanonicalUri;
 
                     var headers = {};
                     //headers["Content-Type"] = "application/json";
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                },
-                
-                asyncCheckVideo: function () {
-                    
-                },
-                
-                asynGetUserInfo: function () {
-                    
-                },
-                
-                asyncListUserVideos: function () {
-                    
+                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        .then(function (xhr) {
+                            if (xhr.status == 200 && xhr.responseText)
+                                return xhr.responseText;
+                            return "ERROR";
+                        }, function (xhr) {
+                            return "ERROR";
+                        });
                 }
-
             }
         )
     });
