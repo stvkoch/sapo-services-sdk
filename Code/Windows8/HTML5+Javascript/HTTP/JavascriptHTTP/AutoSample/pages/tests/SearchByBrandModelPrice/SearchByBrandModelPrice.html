@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SearchByBrandModelPrice</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="SearchByBrandModelPrice.css" rel="stylesheet" />
+    <script src="SearchByBrandModelPrice.js"></script>
+</head>
+<body>
+    <div class="SearchByBrandModelPrice fragment">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Welcome to Search By Brand, Model and Price</span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <form onsubmit="searchByBrandModelPrice(); return false;">
+                <div><input type="text" id="brandParam" placeholder="Brand Parameter"/> (Brand name) </div>
+                <div><input type="text" id="modelParam" placeholder="Model Parameter"/> (Model name) </div>
+                <div><input type="text" id="priceParam" placeholder="Price Parameter"/> (Price value) </div>
+                <div><input type="text" id="startParam" placeholder="Start Parameter"/> (start index)</div>
+                <div><input type="text" id="sortParam" placeholder="Sort Parameter"/> (e.g. "Price+desc" - ordered by price descending order)</div>
+                <div><input type="text" id="rowsParam" placeholder="Rows Parameter"/> (Number of results per page)</div>
+                <div><button type="submit">Search</button></div>
+            </form>
+            <div id="searchByBrandModelPriceResult"></div>
+        </section>
+    </div>
+</body>
+</html>
