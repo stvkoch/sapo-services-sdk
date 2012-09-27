@@ -10,12 +10,12 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.captchaBaseUri = "https://services.sapo.pt/Captcha/";
+                    this.captchaBaseUri = "http://services.sapo.pt/Captcha/";
                 }
             ,
             {
                 asyncGet: function (params) {
-                    var allowedParams = ["ttl", "lenght", "mode", "ESBUsername", "ESBPassword"];
+                    var allowedParams = ["ttl", "length", "mode", "ESBUsername", "ESBPassword"];
 
                     if (!params) 
                         params = {};

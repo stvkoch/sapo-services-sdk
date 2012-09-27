@@ -24,7 +24,12 @@
         generateCaptcha: function () {
             var client = new Captcha.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
-            client.asyncGet().then(function (result) {
+            var params = {};
+            params.length = document.getElementById("lengthParam").value || undefined;
+            params.ttl = document.getElementById("ttlParam").value || undefined;
+            params.mode = document.getElementById("modeParam").value || undefined;
+
+            client.asyncGet(params).then(function (result) {
                 if (result != "ERROR") {
                     var captchaImg = document.getElementById("captchaImg"); 
                     captchaImg.src = client.buildShowURI(result.id).absoluteCanonicalUri;
