@@ -44,13 +44,13 @@
                 },
 
                 asyncGetURLByCompressedURL: function (url) {
-                    var allowedParams = ["json", "url", "ESBUsername", "ESBPassword"];
+                    var allowedParams = ["url", "ESBUsername", "ESBPassword", "json"];
 
                     if (url != null) {
                         
                         var params = {};
                         params.url = url;
-                        params.json = true;
+                        params.json = "true";
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
 

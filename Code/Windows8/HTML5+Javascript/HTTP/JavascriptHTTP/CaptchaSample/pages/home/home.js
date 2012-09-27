@@ -31,6 +31,13 @@
             elementById = document.getElementById("btCaptchaAsText");
             elementById.addEventListener("click",
                 function () { navigateTo('/pages/tests/CaptchaAsText/CaptchaAsText.html'); });
+
+
+            var sound = document.createElement("audio");
+            sound.src = "https://services.sapo.pt/Captcha/Play?id=";
+            sound.autoplay = false;  //Play as soon as element is added to DOM
+            sound.controls = true;  //If false, audio plays but does not affect layout
+            document.getElementById("show").appendChild(sound);
         }
     });
 })();

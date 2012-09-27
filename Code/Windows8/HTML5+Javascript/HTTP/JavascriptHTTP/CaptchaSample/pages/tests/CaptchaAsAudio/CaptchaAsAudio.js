@@ -8,6 +8,8 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             // TODO: Initialize the page here.
+            var elementById = document.getElementById("btGenerateCaptcha");
+            elementById.addEventListener("click", this.generateCaptcha);
         },
 
         unload: function () {
@@ -18,6 +20,21 @@
             /// <param name="element" domElement="true" />
 
             // TODO: Respond to changes in viewState.
+        },
+        generateCaptcha: function () {
+            var client = new Captcha.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+
+            client.asyncGet().then(function (result) {
+                if (result != "ERROR") {
+                    var captchaImg = document.getElementById("captchaImg");
+                    captchaImg.src = client.buildPlayURI(result.id).absoluteCanonicalUri;
+
+                    document.getElementById("captchaSolution").innerHTML =
+                        "Captcha Solution: " + result.code;
+                }
+            });
+
+
         }
     });
 })();

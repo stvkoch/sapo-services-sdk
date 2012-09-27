@@ -32,8 +32,15 @@
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                     return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                         .then(function (xhr) {
-                            if (xhr.status == 200 && xhr.responseText)
-                                return xhr.responseText;
+                            if (xhr.status == 200 && xhr.responseText) {
+                                var parser = new DOMParser();
+                                var xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+
+                                var result = {};
+                                result.id = xmlDoc.getElementsByTagName("id").item(0).textContent;
+                                result.code = xmlDoc.getElementsByTagName("code").item(0).textContent;
+                                return result;
+                            }
                             return "ERROR";
                         }, function (xhr) {
                             return "ERROR";
@@ -41,6 +48,7 @@
 
                 },
 
+                //TODO
                 asyncPlay: function (id) {
                     var allowedParams = ["id", "ESBUsername", "ESBPassword"];
 
@@ -70,6 +78,7 @@
                     throw "MUST specify captcha id.";
                 },
 
+                //TODO
                 asyncShow: function (id, params) {
                     var allowedParams =
                         ["id", "font", "textcolor", "size", "background", "url", "ESBUsername", "ESBPassword"];
@@ -97,6 +106,45 @@
                             }, function (xhr) {
                                 return "ERROR";
                             });
+                    }
+                    throw "MUST specify captcha id.";
+                },
+
+                buildShowURI: function (id, params) {
+                    var allowedParams =
+                       ["id", "font", "textcolor", "size", "background", "url", "ESBUsername", "ESBPassword",
+                           "ESBAccessKey"];
+
+                    if (id) {
+                        if (!params)
+                            params = {};
+                        params.id = id;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.ESBAccessKey = this.accessKey;
+
+                        var uri =
+                            Windows.Foundation.Uri(Utils.buildUri(this.captchaBaseUri, params,
+                                allowedParams, "Show"));
+                        return uri;
+                    }
+                    throw "MUST specify at least captcha id.";
+                },
+
+                buildPlayURI: function (id) {
+                    var allowedParams = ["id", "ESBUsername", "ESBPassword", "ESBAccessKey"];
+
+                    if (id) {
+                        var params = {};
+                        params.id = id;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.ESBAccessKey = this.accessKey;
+
+                        var uri =
+                            Windows.Foundation.Uri(Utils.buildUri(this.captchaBaseUri, params,
+                                allowedParams, "Play"));
+                        return uri;
                     }
                     throw "MUST specify captcha id.";
                 }
