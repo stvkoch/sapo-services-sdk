@@ -1,0 +1,210 @@
+% ********** Chapter 4 **********
+\chapter{Photos Service}
+\label{sec:chapter4}
+
+This service allows search and manage of photos that are hosted in \textbf{SAPO Photos}. 
+
+To interact with the service are available a SOAP interface and a HTTP-JSON interface.
+
+\section{HTTP}
+\label{sec:chapter4:http}
+
+This section describes the HTTP-JSON interface.
+
+In all the samples of this chapter it is used \icode|ESBUsername| and \icode|ESBPassword| to do the authentication. But as mentioned in \autoref{sec:chapter3:http} alternatively you can provided \icode|ESBToken|. 
+
+\subsection{ImageCreate}
+\label{sec:chapter4:photos:http:imagecreate}
+
+The operation \textbf{ImageCreate} is composed by two steps. First you have to send the meta data associated with the photo through a HTTP POST to \textit{https://services.sapo.pt/Photos/ImageCreate}. Second you have to do a HTTP POST to \textit{http://fotos.sapo.pt/uploadPost.html} with the photo file.
+
+\subsubsection{POST the meta data of the photo}
+\label{sec:chapter4:photos:http:imagecreate:metadata}
+
+In \autoref{listpostmetadata} is presented a sample request of the POST of the meta data of the photo.
+
+For the sake of simplicity there are only provided the title and the tags of the image. It's recommended that when you submit a new photo you provide at least this attributes.
+
+The complete list of Image attributes can be found at \cite{photosimage}. But if you go forward a few pages and look carefully to \autoref{ImageCreateResponse} you can see the structure of the \icode|Image| object.
+
+\begin{lstlisting}[label=listpostmetadata,caption=POST the meta data of the photo]
+POST https://services.sapo.pt/Photos/ImageCreate?json=true&ESBUsername={username}&ESBPassword={password} HTTP/1.1
+Content-Type: application/json
+Authorization: ESB AccessKey={accessKey}
+Content-Length: 48
+Host: services.sapo.pt
+
+{"image":{"title":"windows8","tags":"windows8"}}
+\end{lstlisting} 
+
+The service response will have a similar structure to the one in \autoref{ImageCreateResponse}. In the body of the response figures an object that has a ImageCreateResponse attribute. The value attribute is a ImageCreateResult object that as two attributes: image and result.
+
+The image is a instance of \icode|Image| type, which has the meta data supplied and another server generated fields, like \icode|uid| that identifies the photo.
+
+You can see if the request was accepted by the server looking to the \icode|ok| attribute of the \icode|result| object. The \icode|{photo_token}| attribute is the token that you will have to send along with the photo file. 
+
+Note that \icode|{photo_token}| is place holder and \icode|{...}| is censuring sensitive data like usernames and photo ids.
+
+\begin{lstlisting}[label=ImageCreateResponse,caption=Response of the HTTP POST with the meta data]
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Tue, 18 Sep 2012 10:14:54 GMT
+Content-Length: 1014
+
+{
+   "ImageCreateResponse":{
+      "ImageCreateResult":{
+         "image":{
+            "active":"true",
+            "creationDate":"2012-09-18 11:00:43",
+            "innapropriate":"false",
+            "m18":"false",
+            "password":null,
+            "pending":"true",
+            "rating":"0",
+            "subtitle":null,
+            "synopse":null,
+            "tags":"sapo",
+            "title":"sapo",
+            "uid":"{...}",
+            "url":"http://fotos.sapo.pt/{...}/fotos/?uid={...}",
+            "user":{
+               "avatar":"http://imgs.sapo.pt/sapofotos/{...}/imgs/avatar.jpg",
+               "url":"http://fotos.sapo.pt/{...}/perfil",
+               "username":"{...}"
+            },
+            "visualizations":"0"
+         },
+         "result":{
+            "ok":"true"
+         },
+         "token":"{photo_token}"
+      }
+   }
+}
+\end{lstlisting}
+
+\subsubsection{POST the photo file}
+\label{sec:chapter4:photos:http:imagecreate:file}
+
+The second and final step of the upload of the photo is a \icode|multipart| POST.
+
+The structure of the request can be seen in \autoref{listpostphotobytes}.
+
+Note that \icode|{photo_token}| and \icode|{photo_bytes}| are place holders. The first one is the token returned by the server in the \icode|ImageCreateResult| object. The other is the bytes of the photo file. 
+
+\begin{lstlisting}[label=listpostphotobytes,caption=HTTP GET using \icode|ESBToken|]
+POST http://fotos.sapo.pt/uploadPost.html HTTP/1.1
+Content-Type: multipart/form-data; boundary="imgboundary"
+Host: fotos.sapo.pt
+Content-Length: 75195
+
+--imgboundary
+Content-Disposition: form-data; name="token"
+
+{photo_token}
+--imgboundary
+Content-Type: image/png
+Content-Disposition: form-data; name="photo"; filename="windows8.png"
+
+{photo_bytes}
+\end{lstlisting} 
+
+If all goes as it should in the response you will get a response with \textbf{XML} content where you can find a \icode|Result| tag with "SUCCESS" in the content. Otherwise you will get a response with a smaller \textbf{XML} document, that has in the \icode|Result| tag the error code. You can see the complete error list at \cite{imagecreate}.
+
+In \autoref{uploadPostResponseSuccess} you can see a sample response body. In this case the photo was successfully submitted. So in the \textbf{XML} document will be present all the \icode|views| generated. Each \icode|view| has a URI (\icode|url| tag) to the photo file. Along with the URI is also provided the with and the height of the photo.
+
+\begin{lstlisting}[label=uploadPostResponseSuccess,caption=Photo file upload response body]
+<?xml version="1.0"?>
+<uploadPost>
+ <Ok/>
+ <Result>SUCCESS</Result>
+ <views>
+  <view>
+   <size>large</size>
+   <requestWidth>1600</requestWidth>
+   <requestHeight>1200</requestHeight>
+   <url>http://{...}.png</url>
+  </view>
+  (...)
+ </views>
+</uploadPost>
+\end{lstlisting}
+
+In case of error, for instance if you provide an invalid token the body of the response will look like the one in \autoref{listpostinvalidtoken}.
+
+\textbf{Important:} Note that in case of error the \icode|UploadPost| tag begin with capital letter.
+
+\begin{lstlisting}[label=listpostinvalidtoken,caption=Response body in case of invalid token]
+<?xml version="1.0" encoding="utf-8" ?>
+<UploadPost>
+  <Result>INVALID_TOKEN</Result>
+  <Error>Invalid token</Error>
+</UploadPost> 
+\end{lstlisting}
+
+\subsection{ImageGetListBySearch}
+\label{sec:chapter4:photos:http:imageGetListBySearch}
+
+\begin{lstlisting}[label=imageGetListBySearch,caption=ImageGetListBySearch sample request]
+GET http://services.sapo.pt/Photos/ImageGetListBySearch?string=windows8&page=1&datefrom=2012-09-10&dateto=2012-09-12&json=true&ESBUsername={username}&ESBPassword={pass} HTTP/1.1
+Authorization: ESB AccessKey={accessKey}
+Host: services.sapo.pt
+\end{lstlisting}
+
+
+\begin{lstlisting}[label=imageGetListBySearchResponse,caption=ImageGetListBySearch sample response body]
+{
+   "ImageGetListBySearchResponse":{
+      "ImageGetListBySearchResult":{
+         "images":{
+            "image":[
+               {
+                  "active":"true",
+                  "creationDate":"2011-09-14 22:56:00",
+                  "innapropriate":"false",
+                  "m18":"false",
+                  "password":null,
+                  "pending":"false",
+                  "subtitle":null,
+                  "synopse":"Windows 8",
+                  "tags":"windows 8",
+                  "title":"windows_8",
+                  "uid":"{...}",
+                  "url":"http://fotos.sapo.pt/{...}/fotos/?uid={...}",
+                  "user":{
+                     "avatar":"http://imgs.sapo.pt/sapofotos/{...}/imgs/avatar.jpg",
+                     "url":"http://fotos.sapo.pt/{...}/perfil",
+                     "username":"{...}"
+                  },
+                  "views":{
+                     "view":[
+                        {
+                           "requestHeight":"405",
+                           "requestWidth":"540",
+                           "size":"original",
+                           "url":"http://{...}.jpeg"
+                        },
+                        (...)
+                     ]
+                  }
+               },
+               (...)
+            ]
+         },
+         "result":{
+            "ok":"true",
+            "page":"1",
+            "perPage":"50",
+            "total":"41",
+            "totalPages":"1"
+         }
+      }
+   }
+}
+\end{lstlisting}
+
+
+\subsection{ImageGetListBySearch}
+\label{sec:chapter4:photos:http:imageGetListBySearch}
+
