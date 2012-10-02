@@ -3,7 +3,7 @@
     if (!(username && password && accessKey))
         throw "MUST provide username, password and accessKey";
 
-    var verbetesBaseUri = "http://services.sapo.pt/InformationRetrieval/Verbetes/";
+    var verbetesBaseUri = "https://services.sapo.pt/InformationRetrieval/Verbetes/";
 
     var whoIsAllowedParams = ["name", "name_like", "job", "job_like", "date", "margin", "min", "format", "context",
         "ESBAccessKey", "ESBUsername", "ESBPassword"];
