@@ -10,17 +10,20 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.captchaBaseUri = "http://services.sapo.pt/Captcha/";
+                    this.captchaBaseUri = "https://services.sapo.pt/Captcha/";
                 }
             ,
             {
                 asyncGet: function (params) {
-                    var allowedParams = ["ttl", "length", "mode", "ESBUsername", "ESBPassword"];
+                    
+                    var allowedParams = ["r","ttl", "length", "mode", "ESBUsername", "ESBPassword"];
 
                     if (!params) 
                         params = {};
                     params.ESBUsername = this.username;
                     params.ESBPassword = this.password;
+                    //send a value to force client to do the request instead of use the cached response
+                    params.r = String(Date.now());
 
                     var uri =
                         Windows.Foundation.Uri(Utils.buildUri(this.captchaBaseUri, params,
@@ -28,7 +31,6 @@
                         .absoluteCanonicalUri;
 
                     var headers = {};
-                    //headers["Content-Type"] = "application/json";
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                     return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                         .then(function (xhr) {

@@ -1,5 +1,8 @@
 ﻿// For an introduction to the Page Control template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkId=232511
+
+var playCaptchaEvtHandler;
+
 (function () {
     "use strict";
 
@@ -26,15 +29,26 @@
 
             client.asyncGet().then(function (result) {
                 if (result != "ERROR") {
-                    var captchaImg = document.getElementById("captchaImg");
-                    captchaImg.src = client.buildPlayURI(result.id).absoluteCanonicalUri;
+                    var btPlayCaptcha = document.getElementById("btPlayCaptcha");
+
+                    if (playCaptchaEvtHandler)
+                        btPlayCaptcha.removeEventListener("click", playCaptchaEvtHandler, false);
+
+                    playCaptchaEvtHandler = function () {
+                        //play the audio captcha
+                        var audio = new Audio(client.buildPlayURI(result.id).absoluteCanonicalUri);
+                        audio.load();
+                        audio.play();
+                    };
+
+                    btPlayCaptcha.addEventListener("click", playCaptchaEvtHandler);
+
+                    btPlayCaptcha.disabled = "";
 
                     document.getElementById("captchaSolution").innerHTML =
                         "Captcha Solution: " + result.code;
                 }
             });
-
-
-        }
+        },
     });
 })();
