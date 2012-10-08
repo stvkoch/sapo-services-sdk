@@ -48,10 +48,10 @@
                             .then(function (xhr) {
                                 if (xhr.status == 201 && xhr.responseText)
                                     return xhr.responseText;
-                                if (xhr.status == 503)
-                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER"
                                 return "ERROR";
                             }, function (xhr) {
+                                if (xhr.status == 503)
+                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER"
                                 return "ERROR";
                             });
                     }
@@ -97,10 +97,10 @@
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
                                     return xhr.responseText;
-                                if (xhr.status == 503)
-                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER"
                                 return "ERROR";
                             }, function (xhr) {
+                                if (xhr.status == 503)
+                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER"
                                 return "ERROR";
                             });
                     }

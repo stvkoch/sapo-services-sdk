@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>homePage</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/pages/home/home.css" rel="stylesheet" />
+    <script src="/pages/home/home.js"></script>
+</head>
+<body>
+    <!-- The content that will be loaded and displayed. -->
+    <div class="fragment homepage">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Welcome to Holiday Service Sample!</span>
+            </h1>
+        </header>
+        <section aria-label="Main content" role="main">
+            <h2>Credentials</h2>
+            <div>
+                <input type="text" id="username" placeholder="Username" />
+                <input type="text" id="password" placeholder="Password" />
+                <input type="text" id="accessKey" placeholder="Access Key" />
+            </div>
+            <h2>Operations</h2>
+            <div>
+                <input type="text" id="year" placeholder="Year" />
+            </div>
+            <button id="btGetAllHolidays" type="button">Get all holidays</button>
+            <button id="btGetCarnival" type="button">Get carnival</button>
+            <button id="btGetCorpusChristi" type="button">Get corpus christi</button>
+            <button id="btGetEaster" type="button">Get easter</button>
+            <button id="btGetGoodFriday" type="button">Get good friday</button>
+            <button id="btGetLocalHolidays" type="button">Get local holidays</button>
+            <button id="btGetNationalHolidays" type="button">Get national holidays</button>
+            <button id="btGetRegionalHolidays" type="button">Get regional holidays</button>
+            <h2>Results</h2>
+            <div id="resultsDiv"></div>
+        </section>
+    </div>
+</body>
+</html>
