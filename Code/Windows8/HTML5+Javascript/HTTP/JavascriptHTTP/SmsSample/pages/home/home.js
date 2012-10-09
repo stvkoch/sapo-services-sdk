@@ -34,7 +34,13 @@
             elementById.addEventListener("click",
                 function () {
                     navigateTo('/pages/tests/GetDeliveryInfos/GetDeliveryInfos.html');
-            });
+                });
+            
+            elementById = document.getElementById("btSendSmsToMany");
+            elementById.addEventListener("click",
+                function () {
+                    navigateTo('/pages/tests/SendSmsToMany/SendSmsToMany.html');
+                });
         }
     });
 })();

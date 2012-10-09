@@ -30,7 +30,7 @@ function sendSms() {
         var address = document.getElementById("addressParam").value || undefined;
         var message = document.getElementById("messageParam").value || undefined;
 
-        client.asyncsSendSMS(address, message, senderName, senderAddress).then(function (resultText) {
+        client.asyncsSendSMSToOne(address, message, senderName, senderAddress).then(function (resultText) {
             var elementById = document.getElementById("sendSmsResult");
             elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
         });

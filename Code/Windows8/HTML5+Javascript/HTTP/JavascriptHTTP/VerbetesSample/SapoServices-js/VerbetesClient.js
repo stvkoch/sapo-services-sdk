@@ -10,7 +10,7 @@
                 this.username = username;
                 this.password = password;
                 this.accessKey = accessKey;
-                this.verbetesBaseUri = "http://services.sapo.pt/InformationRetrieval/Verbetes/";
+                this.verbetesBaseUri = "https://services.sapo.pt/InformationRetrieval/Verbetes/";
             },
             {
                 asyncWhoIs: function (params) {

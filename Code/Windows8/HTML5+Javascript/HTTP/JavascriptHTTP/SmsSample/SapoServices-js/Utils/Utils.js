@@ -35,12 +35,14 @@
             sb.append("?");
 
             for (var i = 0; i < allowedParams.length; ++i) {
-                if ((allowedParams[i] in params) && params[allowedParams[i]]) {
+                var currParamName = allowedParams[i];
+                var currParamValue = params[currParamName];
+                if ((currParamName in params) && currParamValue) {
                     if (i != 0)
                         sb.append("&");
-                    sb.append(allowedParams[i]);
+                    sb.append(currParamName);
                     sb.append("=");
-                    sb.append(params[allowedParams[i]]);
+                    sb.append(currParamValue);
                 }
             }
             return sb.toString();
@@ -51,12 +53,25 @@
             var sb = new Utils.StringBuilder();
 
             for (var i = 0; i < allowedParams.length; ++i) {
-                if ((allowedParams[i] in params) && params[allowedParams[i]]) {
-                    if (i != 0)
-                        sb.append("&");
-                    sb.append(allowedParams[i]);
-                    sb.append("=");
-                    sb.append(params[allowedParams[i]]);
+                var currParamName = allowedParams[i];
+                var currParamValue = params[currParamName];
+                if ((currParamName in params) && currParamValue) {
+                    if (typeof (currParamValue) !== "string") {
+                        for (var j = 0; j < currParamValue.length; ++j) {
+                            if (i != 0)
+                                sb.append("&");
+                            sb.append(currParamName);
+                            sb.append("=");
+                            sb.append(currParamValue[j]);
+                        }
+                    }
+                    else {
+                        if (i != 0)
+                            sb.append("&");
+                        sb.append(currParamName);
+                        sb.append("=");
+                        sb.append(currParamValue);
+                    }
                 }
             }
             return sb.toString();

@@ -67,6 +67,9 @@
     <Content Include="pages\tests\GetDeliveryInfos\GetDeliveryInfos.css" />
     <Content Include="pages\tests\GetDeliveryInfos\GetDeliveryInfos.html" />
     <Content Include="pages\tests\GetDeliveryInfos\GetDeliveryInfos.js" />
+    <Content Include="pages\tests\SendSmsToMany\SendSmsToMany.css" />
+    <Content Include="pages\tests\SendSmsToMany\SendSmsToMany.html" />
+    <Content Include="pages\tests\SendSmsToMany\SendSmsToMany.js" />
     <Content Include="pages\tests\SendSms\SendSms.css" />
     <Content Include="pages\tests\SendSms\SendSms.html" />
     <Content Include="pages\tests\SendSms\SendSms.js" />
