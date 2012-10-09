@@ -31,7 +31,7 @@ function albumCreate() {
 
     album.title = document.getElementById("titleParam").value || undefined;
 
-    var client = new PhotosServiceClient(
+    var client = new Photos.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
     
     client.asyncAlbumCreate(album).then(function (resultText) {

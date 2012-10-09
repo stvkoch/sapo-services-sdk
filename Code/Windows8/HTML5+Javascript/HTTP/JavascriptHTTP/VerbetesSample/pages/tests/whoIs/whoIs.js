@@ -65,7 +65,7 @@ function whoIs() {
     params.format = formatParam || undefined;
     params.date = dateParam || undefined;
 
-    var client = new VerbetesServiceClient(
+    var client = new Verbetes.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client.asyncWhoIs(params)

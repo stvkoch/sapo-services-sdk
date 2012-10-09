@@ -32,7 +32,7 @@ function imageGetListByUserAlbum() {
 
     var albumid = document.getElementById("albumidParam").value || undefined;
     
-    var client = new PhotosServiceClient(
+    var client = new Photos.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client.asyncimageGetListByUserAlbum(albumid, params).then(function (resultText) {

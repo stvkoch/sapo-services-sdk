@@ -30,7 +30,7 @@ function addImageToAlbum() {
     var albumids = document.getElementById("albumidsParam").value || undefined;
     var imageuid = document.getElementById("imageuidParam").value || undefined;
 
-    var client = new PhotosServiceClient(
+    var client = new Photos.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client.asyncImageAddToAlbum(imageuid, albumids).then(function (resultText) {

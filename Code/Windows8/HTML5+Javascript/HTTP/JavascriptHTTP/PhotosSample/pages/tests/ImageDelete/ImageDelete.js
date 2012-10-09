@@ -29,7 +29,7 @@ var authenticationData;
 function imageDelete() {
     var uid = document.getElementById("uidParam").value || undefined;
 
-    var client = new PhotosServiceClient(
+    var client = new Photos.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client.asyncImageDelete(uid).then(function (resultText) {

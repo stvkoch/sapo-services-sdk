@@ -45,7 +45,7 @@ function getEgoNet() {
     params.beginDate = beginDateParam || undefined;
     params.endDate = endDateParam || undefined;
     
-    var client = new VerbetesServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    var client = new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client
         .asyncGetEgoNet(params)

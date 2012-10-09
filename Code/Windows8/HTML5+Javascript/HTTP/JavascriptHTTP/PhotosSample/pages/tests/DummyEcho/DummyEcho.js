@@ -32,7 +32,7 @@ function dummyEcho() {
     var params = {};
     params.echoStr = echoStrParam || undefined;
 
-    var client = new PhotosServiceClient(
+    var client = new Photos.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client.asyncDummyEcho(params).then(function (resultText) {

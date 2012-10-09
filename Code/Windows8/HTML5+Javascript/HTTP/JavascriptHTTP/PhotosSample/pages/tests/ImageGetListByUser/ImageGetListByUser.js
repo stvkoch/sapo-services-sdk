@@ -27,7 +27,7 @@ var authenticationData;
 function imageGetListByUser() {
     var username = document.getElementById("usernameParam").value || undefined;
 
-    var client = new PhotosServiceClient(
+    var client = new Photos.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client.asyncImageGetListByUser(username).then(function (resultText) {

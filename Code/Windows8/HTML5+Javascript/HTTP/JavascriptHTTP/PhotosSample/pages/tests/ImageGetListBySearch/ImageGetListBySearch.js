@@ -44,7 +44,7 @@ function imageGetListBySearch() {
     params.datefrom = datefromParam || undefined;
     params.dateto = datetoParam || undefined;
     
-    var client = new PhotosServiceClient(
+    var client = new Photos.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client.asyncImageGetListBySearch(params).then(function (resultText) {

@@ -46,7 +46,7 @@ function imageCreate() {
     openPicker.pickSingleFileAsync().then(function (file) {
         if (file) {
             var client =
-                new PhotosServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
+                new Photos.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
             var image = {};
 

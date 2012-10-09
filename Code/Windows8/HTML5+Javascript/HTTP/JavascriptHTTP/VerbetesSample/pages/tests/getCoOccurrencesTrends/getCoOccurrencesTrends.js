@@ -44,7 +44,7 @@ function getCoOccurencesTrends() {
     params.begin_date = beginDateParam || undefined;
     params.end_date = endDateParam || undefined;
 
-    var client = new VerbetesServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    var client = new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client
         .asyncGetCoOccurrencesTrends(params)

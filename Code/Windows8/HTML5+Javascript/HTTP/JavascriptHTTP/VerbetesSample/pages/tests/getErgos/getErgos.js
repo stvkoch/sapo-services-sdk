@@ -34,7 +34,7 @@ function getErgos() {
     params.min = minParam || undefined;
     params.format = formatParam || undefined;
 
-    var client = new VerbetesServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    var client = new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
     client.asyncGetErgos(params)
         .then(function (resultText) {
