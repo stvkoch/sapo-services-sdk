@@ -10,7 +10,7 @@
                 this.username = username;
                 this.password = password;
                 this.accessKey = accessKey;
-                this.verbetesBaseUri = "https://services.sapo.pt/InformationRetrieval/Verbetes/";
+                this.verbetesBaseUri = "http://services.sapo.pt/InformationRetrieval/Verbetes/";
             },
             {
                 asyncWhoIs: function (params) {
@@ -19,14 +19,14 @@
                     if (params) {
                         //transform date to string with the correct format
                         if (params.date)
-                            params.date = dateToString(params.date);
+                            params.date = Utils.dateToString(params.date);
 
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
-                        params.ESBAccessKey = accessKey;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.ESBAccessKey = this.accessKey;
 
                         var uri = new Windows.Foundation
-                                .Uri(buildUri(this.verbetesBaseUri, params, whoIsAllowedParams, "WhoIs"));
+                                .Uri(Utils.buildUri(this.verbetesBaseUri, params, whoIsAllowedParams, "WhoIs"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
                             .then(function (xhr) {
@@ -42,12 +42,12 @@
                 asyncGetPersonalities: function (params) {
                     var getPersonalitiesAllowedParams = ["min", "format", "ESBAccessKey", "ESBUsername", "ESBPassword"];
                     if (params) {
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
-                        params.ESBAccessKey = accessKey;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.ESBAccessKey = this.accessKey;
 
                         var uri = new Windows.Foundation
-                                .Uri(buildUri(this.verbetesBaseUri, params, getPersonalitiesAllowedParams, "GetPersonalities"));
+                                .Uri(Utils.buildUri(this.verbetesBaseUri, params, getPersonalitiesAllowedParams, "GetPersonalities"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
                             .then(function (xhr) {
@@ -63,12 +63,12 @@
                     var getErgosAllowedParams = ["min", "format", "ESBAccessKey", "ESBUsername", "ESBPassword"];
                     if (params) {
 
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
-                        params.ESBAccessKey = accessKey;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.ESBAccessKey = this.accessKey;
 
                         var uri = new Windows.Foundation
-                                .Uri(buildUri(this.verbetesBaseUri, params, getErgosAllowedParams, "GetErgos"));
+                                .Uri(Utils.buildUri(this.verbetesBaseUri, params, getErgosAllowedParams, "GetErgos"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
                             .then(function (xhr) {
@@ -86,16 +86,16 @@
                     if (params) {
                         //Convert dates to Strings
                         if (params.beginDate)
-                            params.beginDate = dateToString(params.beginDate);
+                            params.beginDate = Utils.dateToString(params.beginDate);
                         if (params.endDate)
-                            params.endDate = dateToString(params.endDate);
+                            params.endDate = Utils.dateToString(params.endDate);
 
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
-                        params.ESBAccessKey = accessKey;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.ESBAccessKey = this.accessKey;
 
                         var uri = new Windows.Foundation
-                                .Uri(buildUri(this.verbetesBaseUri, params, getEgoNetAllowedParams, "GetEgoNet"));
+                                .Uri(Utils.buildUri(this.verbetesBaseUri, params, getEgoNetAllowedParams, "GetEgoNet"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
                             .then(function (xhr) {
@@ -113,17 +113,17 @@
                     if (params) {
                         //Convert dates to Strings
                         if (params.begin_date)
-                            params.begin_date = dateToString(params.begin_date);
+                            params.begin_date = Utils.dateToString(params.begin_date);
                         if (params.end_date)
-                            params.end_date = dateToString(params.end_date);
+                            params.end_date = Utils.dateToString(params.end_date);
 
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
-                        params.ESBAccessKey = accessKey;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.ESBAccessKey = this.accessKey;
 
                         var uri =
                             new Windows.Foundation
-                                .Uri(buildUri(this.verbetesBaseUri, params, getCoOccurrencesTrendsAllowedParams, "GetCoOccurrencesTrends"));
+                                .Uri(Utils.buildUri(this.verbetesBaseUri, params, getCoOccurrencesTrendsAllowedParams, "GetCoOccurrencesTrends"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
                             .then(function (xhr) {
@@ -141,16 +141,16 @@
                     if (params) {
                         //Convert dates to Strings
                         if (params.begin_date)
-                            params.begin_date = dateToString(params.begin_date);
+                            params.begin_date = Utils.dateToString(params.begin_date);
                         if (params.end_date)
-                            params.end_date = dateToString(params.end_date);
+                            params.end_date = Utils.dateToString(params.end_date);
 
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
-                        params.ESBAccessKey = accessKey;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.ESBAccessKey = this.accessKey;
 
                         var uri = new Windows.Foundation
-                                .Uri(buildUri(this.verbetesBaseUri, params, getCoOcurrencesAllowedParams, "GetCoOccurrences"));
+                                .Uri(Utils.buildUri(this.verbetesBaseUri, params, getCoOcurrencesAllowedParams, "GetCoOccurrences"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
                             .then(function (xhr) {

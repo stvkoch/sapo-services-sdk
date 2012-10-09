@@ -7,9 +7,9 @@
     WinJS.Namespace.define("Utils", {
 
         /* StringBuilder */
-
+        //A simple string builder
         StringBuilder: WinJS.Class.define(
-            function () { this.content = [];},
+            function () { this.content = []; },
         {
             append: function (string) {
                 if (string && string.length > 0)
@@ -26,19 +26,13 @@
         }),
 
         /* Uri Utils */
-
+        //Function to build a URI from a base URI, a list of params and and operation. Only includes the allowed params
         buildUri: function (baseUri, params, allowedParams, operation) {
 
             var sb = new Utils.StringBuilder();
             sb.append(baseUri);
             sb.append(operation);
             sb.append("?");
-            //sb.append("?ESBUsername=");
-            //sb.append(esbcredentials.username);
-            //sb.append("&ESBPassword=");
-            //sb.append(esbcredentials.password);
-            //sb.append("&ESBAccessKey=");
-            //sb.append(esbcredentials.accessKey);
 
             for (var i = 0; i < allowedParams.length; ++i) {
                 if ((allowedParams[i] in params) && params[allowedParams[i]]) {
@@ -52,6 +46,7 @@
             return sb.toString();
         },
 
+        //Function to url-encode a list of params that are allowed
         wwwFormUrlEncode: function (params, allowedParams) {
             var sb = new Utils.StringBuilder();
 
@@ -69,7 +64,7 @@
         },
 
         /* Date Utils */
-
+        //Converts a date object to a string in the yyyy-mm-dd format
         dateToString: function (date) {
             var sb = new Utils.StringBuilder();
             sb.append(date.getFullYear().toString());

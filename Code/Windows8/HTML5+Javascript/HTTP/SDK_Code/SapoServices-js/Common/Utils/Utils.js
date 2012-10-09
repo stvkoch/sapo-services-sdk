@@ -2,69 +2,84 @@
 /*
     Common Utils 
 */
+(function () {
 
+    WinJS.Namespace.define("Utils", {
 
-/* StringBuilder */
+        /* StringBuilder */
+        //A simple string builder
+        StringBuilder: WinJS.Class.define(
+            function () { this.content = []; },
+        {
+            append: function (string) {
+                if (string && string.length > 0)
+                    this.content.push(string);
+            },
 
-function StringBuilder() {
-    this.content = [];
+            toString: function () {
+                return this.content.join("");
+            },
 
-    this.append = function (string) {
-        if (string && string.length > 0)
-            this.content.push(string);
-    };
+            clear: function () {
+                this.content = [];
+            },
+        }),
 
-    this.toString = function () {
-        return this.content.join("");
-    };
+        /* Uri Utils */
+        //Function to build a URI from a base URI, a list of params and and operation. Only includes the allowed params
+        buildUri: function (baseUri, params, allowedParams, operation) {
 
-    this.clear = function () {
-        this.content = [];
-    };
-}
+            var sb = new Utils.StringBuilder();
+            sb.append(baseUri);
+            sb.append(operation);
+            sb.append("?");
 
-/* Uri Utils */
+            for (var i = 0; i < allowedParams.length; ++i) {
+                if ((allowedParams[i] in params) && params[allowedParams[i]]) {
+                    if (i != 0)
+                        sb.append("&");
+                    sb.append(allowedParams[i]);
+                    sb.append("=");
+                    sb.append(params[allowedParams[i]]);
+                }
+            }
+            return sb.toString();
+        },
 
-function buildUri(baseUri, params, allowedParams, operation) {
+        //Function to url-encode a list of params that are allowed
+        wwwFormUrlEncode: function (params, allowedParams) {
+            var sb = new Utils.StringBuilder();
 
-    var sb = new StringBuilder();
-    sb.append(baseUri);
-    sb.append(operation);
-    sb.append("?");
-    //sb.append("?ESBUsername=");
-    //sb.append(esbcredentials.username);
-    //sb.append("&ESBPassword=");
-    //sb.append(esbcredentials.password);
-    //sb.append("&ESBAccessKey=");
-    //sb.append(esbcredentials.accessKey);
+            for (var i = 0; i < allowedParams.length; ++i) {
+                if ((allowedParams[i] in params) && params[allowedParams[i]]) {
+                    if (i != 0)
+                        sb.append("&");
+                    sb.append(allowedParams[i]);
+                    sb.append("=");
+                    sb.append(params[allowedParams[i]]);
+                }
+            }
+            return sb.toString();
 
-    for (var i = 0; i < allowedParams.length; ++i) {
-        if ((allowedParams[i] in params) && params[allowedParams[i]]) {
-            if(i != 0)
-                sb.append("&");
-            sb.append(allowedParams[i]);
-            sb.append("=");
-            sb.append(params[allowedParams[i]]);
+        },
+
+        /* Date Utils */
+        //Converts a date object to a string in the yyyy-mm-dd format
+        dateToString: function (date) {
+            var sb = new Utils.StringBuilder();
+            sb.append(date.getFullYear().toString());
+            sb.append("-");
+            var month = Number(date.getMonth().toString());
+            month += 1;
+            if (month < 10)
+                sb.append("0");
+            sb.append(String(month));
+            sb.append("-");
+            var monthDay = Number(date.getDate().toString());
+            if (monthDay < 10)
+                sb.append("0");
+            sb.append(String(monthDay));
+            return sb.toString();
         }
-    }
-    return sb.toString();
-}
-
-/* Date Utils */
-
-function dateToString(date) {
-    var sb = new StringBuilder();
-    sb.append(date.getFullYear().toString());
-    sb.append("-");
-    var month = Number(date.getMonth().toString());
-    month += 1;
-    if (month < 10)
-        sb.append("0");
-    sb.append(String(month));
-    sb.append("-");
-    var monthDay = Number(date.getDate().toString());
-    if (monthDay < 10)
-        sb.append("0");
-    sb.append(String(monthDay));
-    return sb.toString();
-}
+    });
+})();

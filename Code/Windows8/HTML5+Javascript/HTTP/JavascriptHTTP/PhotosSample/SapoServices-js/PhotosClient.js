@@ -16,14 +16,15 @@
                     if (params) {
 
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
-                            Windows.Foundation.Uri(buildUri(this.photosBaseUri, params, dummyEchoAllowedParams, "DummyEcho"))
+                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                                dummyEchoAllowedParams, "DummyEcho"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
@@ -44,16 +45,17 @@
                     var params = {};
 
                     params.json = "true";
-                    params.ESBUsername = username;
-                    params.ESBPassword = password;
+                    params.ESBUsername = this.username;
+                    params.ESBPassword = this.password;
                     var uri =
-                        Windows.Foundation.Uri(buildUri(this.photosBaseUri, params, imageCreateAllowedParams, "ImageCreate"))
+                        Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                            imageCreateAllowedParams, "ImageCreate"))
                         .absoluteCanonicalUri;
 
                     var headers = {};
 
                     headers["Content-Type"] = "application/json";
-                    headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                     return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: imageStr })
                         .then(function (xhr) {
@@ -117,14 +119,14 @@
                         var params = {};
                         params.uid = uid;
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
-                            Windows.Foundation.Uri(buildUri(this.photosBaseUri, params, imageDetailsAllowedParams, "ImageDetails"))
+                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params, imageDetailsAllowedParams, "ImageDetails"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
@@ -142,19 +144,20 @@
 
                         //Convert dates to Strings
                         if (params.datefrom)
-                            params.datefrom = dateToString(params.datefrom);
+                            params.datefrom = Utils.dateToString(params.datefrom);
                         if (params.dateto)
-                            params.dateto = dateToString(params.dateto);
+                            params.dateto = Utils.dateToString(params.dateto);
 
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
-                            Windows.Foundation.Uri(buildUri(this.photosBaseUri, params, imageGetListBySearchAllowedParams, "ImageGetListBySearch"))
+                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                                imageGetListBySearchAllowedParams, "ImageGetListBySearch"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
@@ -171,14 +174,15 @@
                     if (params) {
 
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
-                            Windows.Foundation.Uri(buildUri(this.photosBaseUri, params, imageGetListByTagsAllowedParams, "ImageGetListByTags"))
+                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                                imageGetListByTagsAllowedParams, "ImageGetListByTags"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
@@ -196,14 +200,15 @@
                         var params = {};
                         params.uid = uid;
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
-                            Windows.Foundation.Uri(buildUri(this.photosBaseUri, params, imageDeleteAllowedParams, "ImageDelete"))
+                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                                imageDeleteAllowedParams, "ImageDelete"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
@@ -220,14 +225,15 @@
                         var params = {};
                         params.username = user;
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
-                            Windows.Foundation.Uri(buildUri(this.photosBaseUri, params, imageGetListByUserAllowedParams, "ImageGetListByUser"))
+                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                                imageGetListByUserAllowedParams, "ImageGetListByUser"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
@@ -239,22 +245,24 @@
                 },
 
                 asyncimageGetListByUserAlbum: function (albumid, params) {
-                    var imageGetListByUserAlbumAllowedParams = ["page", "orderby", "id", "username", "json", "ESBUsername", "ESBPassword"];
+                    var imageGetListByUserAlbumAllowedParams = ["page", "orderby", "id", "username", "json",
+                        "ESBUsername", "ESBPassword"];
                     if (albumid) {
 
                         if (!params)
                             params = {};
                         params.id = albumid;
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
                             Windows.Foundation.Uri(
-                                buildUri(this.photosBaseUri, params, imageGetListByUserAlbumAllowedParams, "ImageGetListByUserAlbum"))
+                                Utils.buildUri(this.photosBaseUri, params,
+                                    imageGetListByUserAlbumAllowedParams, "ImageGetListByUserAlbum"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
@@ -273,15 +281,16 @@
                         params.imageuid = imageuid;
                         params.albumid = albumids;
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
                             Windows.Foundation.Uri(
-                                buildUri(this.photosBaseUri, params, imageAddToAlbumAllowedParams, "ImageAddToAlbum"))
+                                Utils.buildUri(this.photosBaseUri, params,
+                                    imageAddToAlbumAllowedParams, "ImageAddToAlbum"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
@@ -302,15 +311,15 @@
 
                         var params = {};
                         params.json = "true";
-                        params.ESBUsername = username;
-                        params.ESBPassword = password;
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
                         var uri =
                             Windows.Foundation.Uri(
-                                buildUri(this.photosBaseUri, params, albumCreateAllowedParams, "AlbumCreate"))
+                                Utils.buildUri(this.photosBaseUri, params, albumCreateAllowedParams, "AlbumCreate"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         headers["Content-Type"] = "application/json";
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: albumStr })
                             .then(function (xhr) {
