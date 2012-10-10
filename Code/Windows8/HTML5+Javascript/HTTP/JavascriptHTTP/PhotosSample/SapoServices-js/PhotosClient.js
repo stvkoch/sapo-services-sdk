@@ -4,7 +4,7 @@
             function (username, password, accessKey) {
 
                 if (!(username && password && accessKey))
-                    throw "MUST provide username, password and accessKey";
+                    throw SdkExceptions.Client.NonProvidedCredentialsException;
                 this.username = username;
                 this.password = password;
                 this.accessKey = accessKey;
@@ -32,7 +32,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncImageCreate: function (file, image) {
@@ -134,7 +134,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncImageGetListBySearch: function (params) {
@@ -165,7 +165,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncImageGetListByTags: function (params) {
@@ -191,7 +191,7 @@
                             });
 
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncImageDelete: function (uid) {
@@ -216,7 +216,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify uid parameter";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncImageGetListByUser: function (user) {
@@ -241,7 +241,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify username parameter";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncimageGetListByUserAlbum: function (albumid, params) {
@@ -270,7 +270,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify album id parameter";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncImageAddToAlbum: function (imageuid, albumids) {
@@ -298,7 +298,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify album ids and image uid parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncAlbumCreate: function (album) {
@@ -328,7 +328,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify album object";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
                 
                 asyncAlbumGetListByUser: function(user) {
@@ -353,7 +353,7 @@
                                 return null;
                             });
                     }
-                    throw "MUST specify username parameter";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 }
             }
         )

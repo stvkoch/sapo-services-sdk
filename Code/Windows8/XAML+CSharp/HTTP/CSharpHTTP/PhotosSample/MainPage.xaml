@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="PhotosSample.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PhotosSample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        
+        <StackPanel Height="768" VerticalAlignment="Bottom">
+            <TextBlock x:Name="FeatureName" Text="Photos Service Sample" TextWrapping="Wrap" FontSize="32" HorizontalAlignment="Center" FontFamily="Arial Black" Margin="0,10,0,15"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                <TextBlock Text="ESBUsername: " Margin="35,8,10,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBox x:Name="serverAddressField" Text="" Width="300" HorizontalAlignment="Center" Margin="0,0,10,0" />
+                <TextBlock Text="ESBPassword: " Margin="0,8,10,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBox x:Name="serverAddressField_Copy" Text="" Width="300" HorizontalAlignment="Center" Margin="0,0,10,0" />
+                <TextBlock Text="ESBAccessKey: " Margin="0,8,10,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBox x:Name="serverAddressField_Copy1" Text="" Width="300" HorizontalAlignment="Center" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Margin="0,47,0,0">
+                <Button x:Name="btDummyEcho" Content="Do a dummy echo" Width="270" Click="BtDummyEchoClick"></Button>
+                <Button x:Name="btCreatePhoto" Content="Create a photo" Width="270" Click="BtCreatePhotoClick"></Button>
+                <Button x:Name="btDeletePhoto" Content="Delete a photo" Width="270" Click="BtDeletePhotoClick"></Button>
+                <Button x:Name="btGetPhotoDetails" Content="Get photo details" Width="270" Click="BtGetPhotoDetailsClick"></Button>
+                <Button x:Name="btCreateAlbum" Content="Create an album" Width="270" Click="BtCreateAlbumClick"></Button>
+                <Button x:Name="btAddPhotoToALbum" Content="Add a photo to an album" Width="270" Click="BtAddPhotoToALbumClick"></Button>
+                <Button x:Name="btGetPhotosByTerms" Content="Search photos by terms" Width="270" Click="BtGetPhotosByTermsClick"></Button>
+                <Button x:Name="btGetPhotosByTags" Content="Search photos by tags" Width="270" Click="BtGetPhotosByTagsClick"></Button>
+                <Button x:Name="btGetUserPhotos" Content="Get user photos" Width="270" Click="BtGetUserPhotosClick"></Button>
+                <Button x:Name="btGetUserAlbums" Content="Get user albums" Width="270" Click="BtGetUserAlbumsClick"></Button>
+                <Button x:Name="btGetUserAlbumsPhotos" Content="Get user albums photos" Width="270" Click="BtGetUserAlbumsPhotosClick"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

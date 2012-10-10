@@ -4,6 +4,41 @@
 */
 (function () {
 
+
+    WinJS.Namespace.define("SdkExceptions", {
+
+        Client: WinJS.Namespace.define("SdkExceptions.Client", {
+
+            NonProvidedCredentialsException: {
+                name: "NonProvidedCredentialsException",
+                message: ""
+            },
+            InsuffientParametersException: {
+                name: "InsuffientParametersException",
+                message: ""
+            }
+        }),
+        Service: WinJS.Namespace.define("SdkExceptions.Service", {
+
+            ServiceUnavailableException: {
+                name: "ServiceUnavailableException",
+                message: ""
+            },
+            InvalidRequestOrCredentialsException: {
+                name: "InvalidRequestOrCredentialsException",
+                message: ""
+            },
+            RequestTimeoutException: {
+                name: "RequestTimeoutException",
+                message: ""
+            },
+            UnspecifiedServiceException: {
+                name: "UnspecifiedServiceException",
+                message: ""
+            }
+        })
+    });
+
     WinJS.Namespace.define("Utils", {
 
         /* StringBuilder */
@@ -35,14 +70,12 @@
             sb.append("?");
 
             for (var i = 0; i < allowedParams.length; ++i) {
-                var currParamName = allowedParams[i];
-                var currParamValue = params[currParamName];
-                if ((currParamName in params) && currParamValue) {
+                if ((allowedParams[i] in params) && params[allowedParams[i]]) {
                     if (i != 0)
                         sb.append("&");
-                    sb.append(currParamName);
+                    sb.append(allowedParams[i]);
                     sb.append("=");
-                    sb.append(currParamValue);
+                    sb.append(params[allowedParams[i]]);
                 }
             }
             return sb.toString();
@@ -53,25 +86,12 @@
             var sb = new Utils.StringBuilder();
 
             for (var i = 0; i < allowedParams.length; ++i) {
-                var currParamName = allowedParams[i];
-                var currParamValue = params[currParamName];
-                if ((currParamName in params) && currParamValue) {
-                    if (typeof (currParamValue) !== "string") {
-                        for (var j = 0; j < currParamValue.length; ++j) {
-                            if (i != 0)
-                                sb.append("&");
-                            sb.append(currParamName);
-                            sb.append("=");
-                            sb.append(currParamValue[j]);
-                        }
-                    }
-                    else {
-                        if (i != 0)
-                            sb.append("&");
-                        sb.append(currParamName);
-                        sb.append("=");
-                        sb.append(currParamValue);
-                    }
+                if ((allowedParams[i] in params) && params[allowedParams[i]]) {
+                    if (i != 0)
+                        sb.append("&");
+                    sb.append(allowedParams[i]);
+                    sb.append("=");
+                    sb.append(params[allowedParams[i]]);
                 }
             }
             return sb.toString();

@@ -4,6 +4,41 @@
 */
 (function () {
 
+
+    WinJS.Namespace.define("SdkExceptions", {
+
+        Client: WinJS.Namespace.define("SdkExceptions.Client", {
+
+            NonProvidedCredentialsException: {
+                name: "NonProvidedCredentialsException",
+                message: ""
+            },
+            InsuffientParametersException: {
+                name: "InsuffientParametersException",
+                message: ""
+            }
+        }),
+        Service: WinJS.Namespace.define("SdkExceptions.Service", {
+
+            ServiceUnavailableException: {
+                name: "ServiceUnavailableException",
+                message: ""
+            },
+            InvalidRequestOrCredentialsException: {
+                name: "InvalidRequestOrCredentialsException",
+                message: ""
+            },
+            RequestTimeoutException: {
+                name: "RequestTimeoutException",
+                message: ""
+            },
+            UnspecifiedServiceException: {
+                name: "UnspecifiedServiceException",
+                message: ""
+            }
+        })
+    });
+
     WinJS.Namespace.define("Utils", {
 
         /* StringBuilder */

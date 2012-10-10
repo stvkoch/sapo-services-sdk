@@ -6,7 +6,7 @@
             function (username, password, accessKey) {
 
                 if (!(username && password && accessKey))
-                    throw "MUST provide username, password and accessKey";
+                    throw SdkExceptions.Client.NonProvidedCredentialsException;
                 this.username = username;
                 this.password = password;
                 this.accessKey = accessKey;
@@ -14,8 +14,8 @@
             },
             {
                 asyncWhoIs: function (params) {
-                    var whoIsAllowedParams = ["name", "name_like", "job", "job_like", "date", "margin", "min", "format", "context",
-                        "ESBAccessKey", "ESBUsername", "ESBPassword"];
+                    var whoIsAllowedParams = ["name", "name_like", "job", "job_like", "date", "margin",
+                        "min", "format", "context", "ESBAccessKey", "ESBUsername", "ESBPassword", "json"];
                     if (params) {
                         //transform date to string with the correct format
                         if (params.date)
@@ -24,23 +24,26 @@
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
                         params.ESBAccessKey = this.accessKey;
+                        params.json = "true";
 
                         var uri = new Windows.Foundation
                                 .Uri(Utils.buildUri(this.verbetesBaseUri, params, whoIsAllowedParams, "WhoIs"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
-                            .then(function (xhr) {
+                            .then(function completed(xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
                                     return xhr.responseText;
-                                return null;
-                            });
+                                throw SdkExceptions.Service.UnspecifiedServiceException;
+                            },
+                            Utils.serviceErrorHandler);
                     }
 
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncGetPersonalities: function (params) {
-                    var getPersonalitiesAllowedParams = ["min", "format", "ESBAccessKey", "ESBUsername", "ESBPassword"];
+                    var getPersonalitiesAllowedParams = ["min", "format", "ESBAccessKey",
+                        "ESBUsername", "ESBPassword", "json"];
                     if (params) {
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
@@ -53,19 +56,20 @@
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
                                     return xhr.responseText;
-                                return null;
+                                throw SdkExceptions.Service.UnspecifiedServiceException;
                             });
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncGetErgos: function (params) {
-                    var getErgosAllowedParams = ["min", "format", "ESBAccessKey", "ESBUsername", "ESBPassword"];
+                    var getErgosAllowedParams = ["min", "format", "ESBAccessKey", "ESBUsername", "ESBPassword", "json"];
                     if (params) {
 
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
                         params.ESBAccessKey = this.accessKey;
+                        params.json = "true";
 
                         var uri = new Windows.Foundation
                                 .Uri(Utils.buildUri(this.verbetesBaseUri, params, getErgosAllowedParams, "GetErgos"));
@@ -74,14 +78,16 @@
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
                                     return xhr.responseText;
-                                return null;
-                            });
+                                throw SdkExceptions.Service.UnspecifiedServiceException;
+                            },
+                            Utils.serviceErrorHandler);
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncGetEgoNet: function (params) {
-                    var getEgoNetAllowedParams = ["depth", "minFrequencyEdges", "name", "beginDate", "endDate", "ESBAccessKey", "ESBUsername", "ESBPassword"];
+                    var getEgoNetAllowedParams = ["depth", "minFrequencyEdges", "name", "beginDate", "endDate",
+                        "ESBAccessKey", "ESBUsername", "ESBPassword", "json"];
 
                     if (params) {
                         //Convert dates to Strings
@@ -93,6 +99,7 @@
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
                         params.ESBAccessKey = this.accessKey;
+                        params.json = "true";
 
                         var uri = new Windows.Foundation
                                 .Uri(Utils.buildUri(this.verbetesBaseUri, params, getEgoNetAllowedParams, "GetEgoNet"));
@@ -101,15 +108,16 @@
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
                                     return xhr.responseText;
-                                return null;
-                            });
+                                throw SdkExceptions.Service.UnspecifiedServiceException;
+                            },
+                            Utils.serviceErrorHandler);
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncGetCoOccurrencesTrends: function (params) {
                     var getCoOccurrencesTrendsAllowedParams = ["name1", "name2", "begin_date", "end_date", "format",
-                        "ESBAccessKey", "ESBUsername", "ESBPassword"];
+                        "ESBAccessKey", "ESBUsername", "ESBPassword", "json"];
                     if (params) {
                         //Convert dates to Strings
                         if (params.begin_date)
@@ -120,6 +128,7 @@
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
                         params.ESBAccessKey = this.accessKey;
+                        params.json = "true";
 
                         var uri =
                             new Windows.Foundation
@@ -129,15 +138,16 @@
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
                                     return xhr.responseText;
-                                return null;
-                            });
+                                throw SdkExceptions.Service.UnspecifiedServiceException;
+                            },
+                            Utils.serviceErrorHandler);
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncGetCoOccurrences: function (params) {
                     var getCoOcurrencesAllowedParams = ["name", "begin_date", "end_date", "format",
-                        "ESBAccessKey", "ESBUsername", "ESBPassword"];
+                        "ESBAccessKey", "ESBUsername", "ESBPassword", "json"];
                     if (params) {
                         //Convert dates to Strings
                         if (params.begin_date)
@@ -148,24 +158,25 @@
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
                         params.ESBAccessKey = this.accessKey;
+                        params.json = "true";
 
                         var uri = new Windows.Foundation
-                                .Uri(Utils.buildUri(this.verbetesBaseUri, params, getCoOcurrencesAllowedParams, "GetCoOccurrences"));
+                                .Uri(Utils.buildUri(this.verbetesBaseUri, params, getCoOcurrencesAllowedParams,
+                                    "GetCoOccurrences"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
                             .then(function (xhr) {
                                 if (xhr.status == 200 && xhr.responseText)
                                     return xhr.responseText;
-                                return null;
-                            });
+                                throw SdkExceptions.Service.UnspecifiedServiceException;
+                            },
+                            Utils.serviceErrorHandler);
                     }
-                    throw "MUST specify parameters";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 }
             }
         )
     });
-
-
 })();
 // !Bug at xhr.getAllResponseHeaders()
 

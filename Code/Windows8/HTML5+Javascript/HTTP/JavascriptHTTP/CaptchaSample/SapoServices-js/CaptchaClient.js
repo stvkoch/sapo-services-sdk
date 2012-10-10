@@ -6,7 +6,7 @@
                 function (username, password, accessKey) {
 
                     if (!(username && password && accessKey))
-                        throw "MUST provide username, password and accessKey";
+                        throw SdkExceptions.Client.NonProvidedCredentialsException;
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
@@ -77,7 +77,7 @@
                                 return "ERROR";
                             });
                     }
-                    throw "MUST specify captcha id.";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 //TODO
@@ -109,7 +109,7 @@
                                 return "ERROR";
                             });
                     }
-                    throw "MUST specify captcha id.";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 buildShowURI: function (id, params) {
@@ -130,7 +130,7 @@
                                 allowedParams, "Show"));
                         return uri;
                     }
-                    throw "MUST specify at least captcha id.";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 buildPlayURI: function (id) {
@@ -148,7 +148,7 @@
                                 allowedParams, "Play"));
                         return uri;
                     }
-                    throw "MUST specify captcha id.";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 }
             }
         )

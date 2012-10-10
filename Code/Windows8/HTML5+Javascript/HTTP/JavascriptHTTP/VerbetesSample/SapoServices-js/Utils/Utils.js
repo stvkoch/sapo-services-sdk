@@ -4,6 +4,40 @@
 */
 (function () {
 
+    WinJS.Namespace.define("SdkExceptions", {
+
+        Client: WinJS.Namespace.define("SdkExceptions.Client", {
+
+            NonProvidedCredentialsException: {
+                name: "NonProvidedCredentialsException",
+                message: ""
+            },
+            InsuffientParametersException: {
+                name: "InsuffientParametersException",
+                message: ""
+            }
+        }),
+        Service: WinJS.Namespace.define("SdkExceptions.Service", {
+
+            ServiceUnavailableException: {
+                name: "ServiceUnavailableException",
+                message: ""
+            },
+            InvalidRequestOrCredentialsException: {
+                name: "InvalidRequestOrCredentialsException",
+                message: ""
+            },
+            RequestTimeoutException: {
+                name: "RequestTimeoutException",
+                message: ""
+            },
+            UnspecifiedServiceException: {
+                name: "UnspecifiedServiceException",
+                message: ""
+            }
+        })
+    });
+
     WinJS.Namespace.define("Utils", {
 
         /* StringBuilder */
@@ -80,6 +114,31 @@
                 sb.append("0");
             sb.append(String(monthDay));
             return sb.toString();
+        },
+
+        //WinJS.xhr requests error handling
+        serviceErrorHandler: function (xhr) {
+            if (xhr.status == 503)
+                throw SdkExceptions.Service.ServiceUnavailableException;
+            if (xhr.status == 500) {
+                var e = JSON.parse(xhr.responseText);
+
+                if ("fault" in e) {
+                    var code = e.fault.detail["tns:exceptionInfo"]["tns:code"];
+
+                    switch (code) {
+                        case "1010":
+                            throw SdkExceptions.Service.InvalidRequestOrCredentialsException;
+                        case "2550":
+                            throw SdkExceptions.Service.RequestTimeoutException;
+                    }
+                }
+            }
+            throw SdkExceptions.Service.UnspecifiedServiceException;
+        },
+        requestCompletedHandler: function (xhr) {
+
         }
+
     });
 })();

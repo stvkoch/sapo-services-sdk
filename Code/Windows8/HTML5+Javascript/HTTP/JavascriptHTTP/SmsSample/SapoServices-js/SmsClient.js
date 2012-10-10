@@ -6,7 +6,7 @@
                 function (username, password, accessKey) {
 
                     if (!(username && password && accessKey))
-                        throw "MUST provide username, password and accessKey";
+                        throw SdkExceptions.Client.NonProvidedCredentialsException;
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
@@ -55,7 +55,7 @@
                                 return "ERROR";
                             });
                     }
-                    throw "MUST specify address, message, senderName and senderAddress.";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncsSendSMSToMany: function (addresses, message, senderName, senderAddress) {
@@ -106,7 +106,7 @@
                                 return "ERROR";
                             });
                     }
-                    throw "MUST specify address, message, senderName and senderAddress.";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncGetDeliveryInfos: function (requestId, senderAddress) {
@@ -156,7 +156,7 @@
                                 return "ERROR";
                             });
                     }
-                    throw "MUST specify parameters.";
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 }
             }
         )
