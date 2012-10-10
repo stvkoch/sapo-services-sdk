@@ -329,6 +329,31 @@
                             });
                     }
                     throw "MUST specify album object";
+                },
+                
+                asyncAlbumGetListByUser: function(user) {
+                    var albumGetListByUserAllowedParams = ["username", "json", "ESBUsername", "ESBPassword"];
+                    if (user) {
+                        var params = {};
+                        params.username = user;
+                        params.json = "true";
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        var uri =
+                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                                albumGetListByUserAllowedParams, "AlbumGetListByUser"))
+                            .absoluteCanonicalUri;
+
+                        var headers = {};
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                            .then(function (xhr) {
+                                if (xhr.status == 200 && xhr.responseText)
+                                    return xhr.responseText;
+                                return null;
+                            });
+                    }
+                    throw "MUST specify username parameter";
                 }
             }
         )

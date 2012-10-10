@@ -67,6 +67,9 @@
     <Content Include="pages\tests\AlbumCreate\AlbumCreate.css" />
     <Content Include="pages\tests\AlbumCreate\AlbumCreate.html" />
     <Content Include="pages\tests\AlbumCreate\AlbumCreate.js" />
+    <Content Include="pages\tests\AlbumGetListByUser\AlbumGetListByUser.css" />
+    <Content Include="pages\tests\AlbumGetListByUser\AlbumGetListByUser.html" />
+    <Content Include="pages\tests\AlbumGetListByUser\AlbumGetListByUser.js" />
     <Content Include="pages\tests\DummyEcho\DummyEcho.css" />
     <Content Include="pages\tests\DummyEcho\DummyEcho.html" />
     <Content Include="pages\tests\DummyEcho\DummyEcho.js" />
