@@ -40,7 +40,7 @@ function sendSms() {
     //if(address3)
         addresses.push(address3);
 
-    client.asyncsSendSMSToMany(addresses, message, senderName, senderAddress).then(function (resultText) {
+    client.asyncSendSMSToMany(addresses, message, senderName, senderAddress).then(function (resultText) {
         var elementById = document.getElementById("sendSmsResult");
         elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
     });

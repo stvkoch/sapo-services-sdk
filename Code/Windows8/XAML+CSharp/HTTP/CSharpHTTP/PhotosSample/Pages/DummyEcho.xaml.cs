@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
+using PhotosSample.Common;
+using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -11,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Net.Http;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -47,6 +51,29 @@ namespace PhotosSample.Pages
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        private async void BtDoDummyEchoClick(object sender, RoutedEventArgs e)
+        {
+            App app = Application.Current as App;
+
+            if (app != null)
+            {
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("ESB", "AccessKey=" + app.EsbAccessKey);
+
+                UriBuilder uriBuilder = new UriBuilder("http://services.sapo.pt/" + "Photos/DummyEcho");
+                uriBuilder.Query = "ESBUsername=" + app.EsbUsername + "&ESBPassword=" +
+                    app.EsbPassword+"&EchoStr=" + this.tbEchoStr.Text+"&json=true";
+
+                HttpResponseMessage httpResponseMessage = await client.GetAsync(uriBuilder.Uri);
+
+                string result = await httpResponseMessage.Content.ReadAsStringAsync();
+
+                JsonObject dummyEchoResult = JsonObject.Parse(result);
+                //dummyEchoResult
+            }
         }
     }
 }

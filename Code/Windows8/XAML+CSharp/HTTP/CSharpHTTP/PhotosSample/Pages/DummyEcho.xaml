@@ -37,6 +37,16 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Echo string: " Margin="5,8,10,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="tbEchoStr" Text="" Width="300" HorizontalAlignment="Center" Margin="0,0,10,0" />
+                </StackPanel>
+                <Button x:Name="btDoDummyEcho" Content="Do dummy echo request" Click="BtDoDummyEchoClick"></Button>
+            </StackPanel>
+        </Grid>
+        
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

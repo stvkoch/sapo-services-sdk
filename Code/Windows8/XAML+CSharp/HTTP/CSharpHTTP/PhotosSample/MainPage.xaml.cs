@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using PhotosSample.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -35,13 +36,35 @@ namespace PhotosSample
         {
         }
 
+        private void UpdateCredentials()
+        {
+            App app = Application.Current as App;
+
+            if (app == null) return;
+
+            app.EsbUsername = this.tbEsbUsername.Text;
+            app.EsbPassword = this.tbEsbPassword.Text;
+            app.EsbAccessKey = this.tbEsbAccessKey.Text;
+        }
+
         private void BtDummyEchoClick(object sender, RoutedEventArgs e)
         {
-
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof (DummyEcho));
         }
 
         private void BtCreatePhotoClick(object sender, RoutedEventArgs e)
         {
+            const string baseUri = "http://services.sapo.pt/Photos/";
+
+            Uri uri = new Uri(baseUri);
+
+            UriBuilder uriBuilder = new UriBuilder(uri);
+            uriBuilder.Path += "DummyEcho";
+
+            uriBuilder.Query = "ESBUsername=user&ESBPassword=pass";
+
+
 
         }
 

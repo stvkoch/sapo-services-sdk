@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    WinJS.Namespace.define("Sms", {
+    WinJS.Namespace.define("Mms", {
         ServiceClient: WinJS.Class.define(
                 function (username, password, accessKey) {
 
@@ -10,11 +10,11 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.smsBaseUri = "https://services.sapo.pt/OneAPI/SMS/SMSMessaging/";
+                    this.mmsBaseUri = "https://services.sapo.pt/OneAPI/MMS/";
                 }
             ,
             {
-                asyncSendSMSToOne: function (address, message, senderName, senderAddress) {
+                asyncSendMessageWithInlineAttachmentsToOne: function (address, message, senderName, senderAddress) {
                     var allowedParams = ["senderAddress", "senderName", "message", "address",
                         "ESBUsername", "ESBPassword"];
 
@@ -29,7 +29,7 @@
 
                         //build URI
                         var sb = new Utils.StringBuilder();
-                        sb.append(this.smsBaseUri);
+                        sb.append(this.mmsBaseUri);
                         sb.append("outbound");
                         sb.append("/");
                         sb.append(params.senderAddress);
@@ -58,7 +58,7 @@
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
-                asyncSendSMSToMany: function (addresses, message, senderName, senderAddress) {
+                asyncSendMessageWithInlineAttachmentsToMany: function (addresses, message, senderName, senderAddress) {
                     var allowedParams = ["senderAddress", "senderName", "message", "address",
                         "ESBUsername", "ESBPassword"];
 
@@ -80,7 +80,7 @@
 
                         //build URI
                         var sb = new Utils.StringBuilder();
-                        sb.append(this.smsBaseUri);
+                        sb.append(this.mmsBaseUri);
                         sb.append("outbound");
                         sb.append("/");
                         sb.append(params.senderAddress);
@@ -123,7 +123,7 @@
                         //    .absoluteCanonicalUri;
 
                         var sb = new Utils.StringBuilder();
-                        sb.append(this.smsBaseUri);
+                        sb.append(this.mmsBaseUri);
                         sb.append("outbound");
                         sb.append("/");
                         sb.append(encodeURIComponent("tel:" + senderAddress));
