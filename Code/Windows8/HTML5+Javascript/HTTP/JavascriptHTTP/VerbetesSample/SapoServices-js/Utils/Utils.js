@@ -10,30 +10,30 @@
 
             NonProvidedCredentialsException: {
                 name: "NonProvidedCredentialsException",
-                message: ""
+                message: "MUST provide username, password and accessKey"
             },
             InsuffientParametersException: {
                 name: "InsuffientParametersException",
-                message: ""
+                message: "Parameters not specified or insufficient parameters"
             }
         }),
         Service: WinJS.Namespace.define("SdkExceptions.Service", {
 
             ServiceUnavailableException: {
                 name: "ServiceUnavailableException",
-                message: ""
+                message: "Service temporarily unavailable, retry after"
             },
             InvalidRequestOrCredentialsException: {
                 name: "InvalidRequestOrCredentialsException",
-                message: ""
+                message: "Bad request or invalid credentials"
             },
             RequestTimeoutException: {
                 name: "RequestTimeoutException",
-                message: ""
+                message: "The service took to long to response, try after"
             },
             UnspecifiedServiceException: {
                 name: "UnspecifiedServiceException",
-                message: ""
+                message: "Unspecified server error"
             }
         })
     });
@@ -137,7 +137,9 @@
             throw SdkExceptions.Service.UnspecifiedServiceException;
         },
         requestCompletedHandler: function (xhr) {
-
+            if (xhr.status == 200 && xhr.responseText)
+                return xhr.responseText;
+            throw SdkExceptions.Service.UnspecifiedServiceException;
         }
 
     });

@@ -42,13 +42,25 @@ function getCoOccurences() {
     params.begin_date = beginDateParam || undefined;
     params.end_date = endDateParam || undefined;
 
-    var client = new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    try {
+        var client =
+            new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client
-        .asyncGetCoOccurrences(params)
-        .then(function (resultText) {
-            var resultDiv = document.getElementById("getCoOccurencesResult");
+        client
+            .asyncGetCoOccurrences(params)
+            .then(function(resultText) {
+                var resultDiv = document.getElementById("getCoOccurencesResult");
 
-            resultDiv.innerHTML = resultText;
-        });
+                resultDiv.innerHTML = resultText;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

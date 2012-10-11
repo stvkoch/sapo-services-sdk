@@ -44,14 +44,26 @@ function getEgoNet() {
     params.minFrequencyEdges = minFrequencyEdgesParam || undefined;
     params.beginDate = beginDateParam || undefined;
     params.endDate = endDateParam || undefined;
-    
-    var client = new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client
-        .asyncGetEgoNet(params)
-        .then(function (resultText) {
-            var resultDiv = document.getElementById("getEgoNetResult");
+    try {
+        var client =
+            new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-            resultDiv.innerHTML = resultText;
-        });
+        client
+            .asyncGetEgoNet(params)
+            .then(function (resultText) {
+                var resultDiv = document.getElementById("getEgoNetResult");
+
+                resultDiv.innerHTML = resultText;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

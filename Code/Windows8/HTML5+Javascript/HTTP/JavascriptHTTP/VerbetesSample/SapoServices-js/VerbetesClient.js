@@ -30,12 +30,7 @@
                                 .Uri(Utils.buildUri(this.verbetesBaseUri, params, whoIsAllowedParams, "WhoIs"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
-                            .then(function completed(xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                throw SdkExceptions.Service.UnspecifiedServiceException;
-                            },
-                            Utils.serviceErrorHandler);
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
 
                     throw SdkExceptions.Client.InsuffientParametersException;
@@ -48,16 +43,13 @@
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
                         params.ESBAccessKey = this.accessKey;
+                        params.json = "true";
 
                         var uri = new Windows.Foundation
                                 .Uri(Utils.buildUri(this.verbetesBaseUri, params, getPersonalitiesAllowedParams, "GetPersonalities"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                throw SdkExceptions.Service.UnspecifiedServiceException;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -75,12 +67,7 @@
                                 .Uri(Utils.buildUri(this.verbetesBaseUri, params, getErgosAllowedParams, "GetErgos"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                throw SdkExceptions.Service.UnspecifiedServiceException;
-                            },
-                            Utils.serviceErrorHandler);
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -105,12 +92,7 @@
                                 .Uri(Utils.buildUri(this.verbetesBaseUri, params, getEgoNetAllowedParams, "GetEgoNet"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                throw SdkExceptions.Service.UnspecifiedServiceException;
-                            },
-                            Utils.serviceErrorHandler);
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -135,12 +117,7 @@
                                 .Uri(Utils.buildUri(this.verbetesBaseUri, params, getCoOccurrencesTrendsAllowedParams, "GetCoOccurrencesTrends"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                throw SdkExceptions.Service.UnspecifiedServiceException;
-                            },
-                            Utils.serviceErrorHandler);
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -165,12 +142,7 @@
                                     "GetCoOccurrences"));
                         uri = uri.absoluteCanonicalUri;
                         return WinJS.xhr({ type: "GET", url: uri })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                throw SdkExceptions.Service.UnspecifiedServiceException;
-                            },
-                            Utils.serviceErrorHandler);
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 }

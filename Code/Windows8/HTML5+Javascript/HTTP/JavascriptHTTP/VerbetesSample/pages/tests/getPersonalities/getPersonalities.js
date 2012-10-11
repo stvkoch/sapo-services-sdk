@@ -33,13 +33,26 @@ function getPersonalities() {
     var params = {};
     params.min = minParam || undefined;
     params.format = formatParam || undefined;
-    
-    var client = new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncGetPersonalities(params)
-        .then(function (resultText) {
-            var resultDiv = document.getElementById("getPersonalitiesResult");
 
-            resultDiv.innerHTML = resultText;
-        });
+    try {
+        var client =
+            new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
+
+        client.asyncGetPersonalities(params)
+            .then(function (resultText) {
+                var resultDiv = document.getElementById("getPersonalitiesResult");
+
+                resultDiv.innerHTML = resultText;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

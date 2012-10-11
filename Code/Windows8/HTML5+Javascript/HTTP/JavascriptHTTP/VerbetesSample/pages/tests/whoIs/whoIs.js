@@ -65,57 +65,25 @@ function whoIs() {
     params.format = formatParam || undefined;
     params.date = dateParam || undefined;
 
-    var client = new Verbetes.ServiceClient(
-        authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncWhoIs(params)
-        .then(function (resultText) {
-            var resultDiv = document.getElementById("getWhoIsResult");
+    try {
+        var client = new Verbetes.ServiceClient(
+            authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-            resultDiv.innerHTML = resultText;
-        });
+        client.asyncWhoIs(params)
+            .then(function (resultText) {
+                var resultDiv = document.getElementById("getWhoIsResult");
 
-
-		
-		
-
-    //var uriWithAutentication = "https://services.sapo.pt/InformationRetrieval/Verbetes/WhoIs?ESBUserName=&ESBPassword=&ESBAccessKey=";
-
-    //var finalUri = uriWithAutentication+"&name="+nameParam; 
-
-    //WinJS.xhr({ type: "GET", url: finalUri })
-    //    .then(function (xhr) {
-    //        //var resultDiv = document.getElementById("getWhoIsResult");
-
-    //        //resultDiv.innerHTML = xhr.responseText;
-
-    //        var res = eval("("+xhr.responseText+")");
-
-    //        var res1 = JSON.parse(xhr.responseText);
-
-    //        return xhr.responseText;
-    //    })
-    //    .then(function (text) {
-    //        var resultDiv = document.getElementById("getWhoIsResult");
-
-    //        resultDiv.innerHTML = text;
-    //});
-
-    //WinJS.xhr({ data: "{\"user\":\"slb\"} ", type: "POST", url: "http://127.0.0.1:8080/api/users" }).then(function(xhr) {
-    //        var resultDiv = document.getElementById("getWhoIsResult");
-
-    //        resultDiv.innerHTML = xhr.responseText;    
-    //});
-
-    //var oReq = getXMLHttpRequest();
-    //if (oReq != null) {
-    //    oReq.open("GET", finalUri, true);
-    //    oReq.onreadystatechange = handler;
-    //    oReq.send();
-    //}
-    //function handler() {
-    //    var resultDiv = document.getElementById("getWhoIsResult");
-
-    //    resultDiv.innerHTML = oReq.responseText;
-    //}
+                resultDiv.innerHTML = resultText;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

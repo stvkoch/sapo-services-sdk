@@ -34,12 +34,24 @@ function getErgos() {
     params.min = minParam || undefined;
     params.format = formatParam || undefined;
 
-    var client = new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    try {
+        var client =
+            new Verbetes.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncGetErgos(params)
-        .then(function (resultText) {
-            var resultDiv = document.getElementById("getErgosResult");
+        client.asyncGetErgos(params)
+            .then(function (resultText) {
+                var resultDiv = document.getElementById("getErgosResult");
 
-            resultDiv.innerHTML = resultText;
-        });
+                resultDiv.innerHTML = resultText;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }
