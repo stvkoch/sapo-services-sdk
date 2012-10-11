@@ -27,13 +27,23 @@ var authenticationData;
 function imageGetListByUser() {
     var username = document.getElementById("usernameParam").value || undefined;
 
-    var client = new Photos.ServiceClient(
-        authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    try {
+        var client = new Photos.ServiceClient(
+            authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncImageGetListByUser(username).then(function (resultText) {
-        var resultDiv = document.getElementById("imageGetListByUserResult");
+        client.asyncImageGetListByUser(username).then(function(resultText) {
+            var resultDiv = document.getElementById("imageGetListByUserResult");
 
-        resultDiv.innerHTML = resultText;
-    });
-
+            resultDiv.innerHTML = resultText;
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

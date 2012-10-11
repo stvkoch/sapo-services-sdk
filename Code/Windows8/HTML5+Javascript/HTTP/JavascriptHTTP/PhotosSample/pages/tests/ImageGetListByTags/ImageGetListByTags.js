@@ -41,12 +41,23 @@ function imageGetListByTags() {
     params.m18 = m18Param || undefined;
     params.username = usernameParam || undefined;
     
-    var client = new Photos.ServiceClient(
-        authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    try {
+        var client = new Photos.ServiceClient(
+            authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncImageGetListByTags(params).then(function(resultText) {
-        var resultDiv = document.getElementById("imageGetListByTagResult");
-        
-        resultDiv.innerHTML = resultText;
-    });
+        client.asyncImageGetListByTags(params).then(function(resultText) {
+            var resultDiv = document.getElementById("imageGetListByTagResult");
+
+            resultDiv.innerHTML = resultText;
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

@@ -29,13 +29,24 @@ var authenticationData;
 function imageDelete() {
     var uid = document.getElementById("uidParam").value || undefined;
 
-    var client = new Photos.ServiceClient(
-        authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    try {
+        var client = new Photos.ServiceClient(
+            authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncImageDelete(uid).then(function (resultText) {
-        var resultDiv = document.getElementById("imageDeleteResult");
+        client.asyncImageDelete(uid).then(function(resultText) {
+            var resultDiv = document.getElementById("imageDeleteResult");
 
-        resultDiv.innerHTML = resultText;
-    });
+            resultDiv.innerHTML = resultText;
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 
 }

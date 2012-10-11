@@ -33,14 +33,25 @@ function imageDetails(){
     if (uidParam == "")
         return;
 
-    var client = new Photos.ServiceClient(
-        authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    try {
+        var client = new Photos.ServiceClient(
+            authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncImageDetails(uidParam).then(function (resultText) {
-        var resultDiv = document.getElementById("imageDetailsResult");
+        client.asyncImageDetails(uidParam).then(function(resultText) {
+            var resultDiv = document.getElementById("imageDetailsResult");
 
-        resultDiv.innerHTML = resultText;
-    });
+            resultDiv.innerHTML = resultText;
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 
 
 }

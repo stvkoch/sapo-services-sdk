@@ -45,17 +45,29 @@ function imageCreate() {
     // Open the picker for the user to pick a file
     openPicker.pickSingleFileAsync().then(function (file) {
         if (file) {
-            var client =
-                new Photos.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-            var image = {};
+            try {
+                var client =
+                    new Photos.ServiceClient(authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-            image.title = file.displayName;
-            image.tags = file.displayName;
+                var image = {};
 
-            client.asyncImageCreate(file, image).then(function (resultCode) {
-                document.getElementById("imageCreateResult").innerHTML = resultCode;
-            });
+                image.title = file.displayName;
+                image.tags = file.displayName;
+
+                client.asyncImageCreate(file, image).then(function (resultCode) {
+                    document.getElementById("imageCreateResult").innerHTML = resultCode;
+                },
+                function (e) {
+                    var exceptionName = e.name;
+                    var exceptionMessage = e.message;
+                });
+            }
+            catch (e) {
+                //Add catch exception logic here
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            }
 
         } else {
             // The picker was dismissed with no selected file

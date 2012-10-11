@@ -47,22 +47,33 @@ function imageGetListBySearch() {
     var client = new Photos.ServiceClient(
         authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncImageGetListBySearch(params).then(function (resultText) {
-        var resultDiv = document.getElementById("imageGetListBySearchResult");
+    try {
+        client.asyncImageGetListBySearch(params).then(function(resultText) {
+            var resultDiv = document.getElementById("imageGetListBySearchResult");
 
-        var response = JSON.parse(resultText);
+            var response = JSON.parse(resultText);
 
-        var imageGetListBySearchResult = response.ImageGetListBySearchResponse.ImageGetListBySearchResult;
+            var imageGetListBySearchResult = response.ImageGetListBySearchResponse.ImageGetListBySearchResult;
 
-        var images = imageGetListBySearchResult.images.image;
+            var images = imageGetListBySearchResult.images.image;
 
 
-        //views.view has the various thumbnails of the photos.
-        for (var i = 0; i < images.length ;++i) {
-            resultDiv.innerHTML += images[i].views.view[0].url;
-        }
-        resultDiv.innerHTML += "</br>";
-        resultDiv.innerHTML += resultText;
-        
-    });
+            //views.view has the various thumbnails of the photos.
+            for (var i = 0; i < images.length; ++i) {
+                resultDiv.innerHTML += images[i].views.view[0].url;
+            }
+            resultDiv.innerHTML += "</br>";
+            resultDiv.innerHTML += resultText;
+
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

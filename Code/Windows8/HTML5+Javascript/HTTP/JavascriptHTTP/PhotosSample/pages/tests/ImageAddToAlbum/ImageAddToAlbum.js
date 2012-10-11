@@ -30,14 +30,25 @@ function addImageToAlbum() {
     var albumids = document.getElementById("albumidsParam").value || undefined;
     var imageuid = document.getElementById("imageuidParam").value || undefined;
 
-    var client = new Photos.ServiceClient(
-        authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    try {
+        var client = new Photos.ServiceClient(
+            authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncImageAddToAlbum(imageuid, albumids).then(function (resultText) {
-        var resultDiv = document.getElementById("addImageToAlbumResult");
+        client.asyncImageAddToAlbum(imageuid, albumids).then(function (resultText) {
+            var resultDiv = document.getElementById("addImageToAlbumResult");
 
-        resultDiv.innerHTML = resultText;
-    });
+            resultDiv.innerHTML = resultText;
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }
 
 

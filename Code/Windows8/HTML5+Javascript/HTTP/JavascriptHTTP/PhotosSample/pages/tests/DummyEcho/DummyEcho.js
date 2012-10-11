@@ -31,14 +31,24 @@ function dummyEcho() {
 
     var params = {};
     params.echoStr = echoStrParam || undefined;
+    
+    try {
+        var client = new Photos.ServiceClient(
+            authenticationData.username, authenticationData.password, authenticationData.accessKey);
+        client.asyncDummyEcho(params).then(function (resultText) {
+            var resultDiv = document.getElementById("dummyEchoResult");
 
-    var client = new Photos.ServiceClient(
-        authenticationData.username, authenticationData.password, authenticationData.accessKey);
-
-    client.asyncDummyEcho(params).then(function (resultText) {
-        var resultDiv = document.getElementById("dummyEchoResult");
-
-        resultDiv.innerHTML = resultText;
-    });
+            resultDiv.innerHTML = resultText;
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 
 }

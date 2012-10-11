@@ -136,6 +136,7 @@
             }
             throw SdkExceptions.Service.UnspecifiedServiceException;
         },
+        //Basic request completion handler
         requestCompletedHandler: function (xhr) {
             if (xhr.status == 200 && xhr.responseText)
                 return xhr.responseText;

@@ -26,11 +26,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -58,14 +54,9 @@
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                     return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: imageStr })
-                        .then(function (xhr) {
-                            if (xhr.status == 200 && xhr.responseText)
-                                return xhr.responseText;
-                            return null;
-                        })
+                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler)
                         .then(function (responseText) {
-                            if (responseText == null)
-                                return null;
+                            
                             var response = JSON.parse(responseText);
 
                             var imageCreateResponse = response.ImageCreateResponse.ImageCreateResult;
@@ -76,11 +67,13 @@
 
                             var parts = [];
 
-                            var tokenPart = new Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart("token");
+                            var tokenPart =
+                                new Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart("token");
                             tokenPart.setText(imageCreateResponse.token);
                             parts.push(tokenPart);
 
-                            var photoPart = new Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart("photo", file.name);
+                            var photoPart =
+                                new Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart("photo", file.name);
                             photoPart.setFile(file);
                             photoPart.setHeader("Content-Type", file.contentType);
                             parts.push(photoPart);
@@ -110,7 +103,7 @@
                                     });
                                 });
 
-                        });
+                        }, function (e) { throw e; });
                 },
 
                 asyncImageDetails: function (uid) {
@@ -122,17 +115,14 @@
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
                         var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params, imageDetailsAllowedParams, "ImageDetails"))
+                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri,
+                                params, imageDetailsAllowedParams, "ImageDetails"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -159,11 +149,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -184,11 +170,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
 
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
@@ -210,11 +192,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -235,11 +213,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -264,11 +238,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -292,11 +262,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -322,11 +288,7 @@
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         headers["Content-Type"] = "application/json";
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: albumStr })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -347,11 +309,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return null;
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 }

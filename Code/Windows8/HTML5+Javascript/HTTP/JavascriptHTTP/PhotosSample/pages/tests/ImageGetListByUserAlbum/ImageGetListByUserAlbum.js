@@ -31,13 +31,23 @@ function imageGetListByUserAlbum() {
     params.orderby = document.getElementById("orderbyParam").value || undefined;
 
     var albumid = document.getElementById("albumidParam").value || undefined;
-    
-    var client = new Photos.ServiceClient(
-        authenticationData.username, authenticationData.password, authenticationData.accessKey);
+    try {
+        var client = new Photos.ServiceClient(
+            authenticationData.username, authenticationData.password, authenticationData.accessKey);
 
-    client.asyncimageGetListByUserAlbum(albumid, params).then(function (resultText) {
-        var resultDiv = document.getElementById("imageGetListByUserAlbumResult");
+        client.asyncimageGetListByUserAlbum(albumid, params).then(function(resultText) {
+            var resultDiv = document.getElementById("imageGetListByUserAlbumResult");
 
-        resultDiv.innerHTML = resultText;
-    });
+            resultDiv.innerHTML = resultText;
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }
