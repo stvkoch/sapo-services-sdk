@@ -21,7 +21,11 @@
             </h1>
         </header>
         <section aria-label="Main content" role="main">
-            <p>Content goes here.</p>
+            <form onsubmit="getMessageDeliveryStatus(); return false;">
+                <div><input type="text" id="requestIdParam" placeholder="Request Id Parameter"/></div>
+                <div><button type="submit">Get message delivery status</button></div>
+            </form>
+            <div id="getMessageDeliveryStatusResult"></div>
         </section>
     </div>
 </body>

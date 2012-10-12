@@ -22,10 +22,40 @@
     });
 })();
 
-function aa() {
+function sendMms() {
+    var address = document.getElementById("addressParam").value || undefined;
+    var senderAddress = document.getElementById("senderAddressParam").value || undefined;
+    var subject = document.getElementById("subjectParam").value || undefined;
 
-    var client = Mms.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.password);
+    var attachment1 = {
+        type: "text/plain;charset=utf-8",
+        body: "VGhlIGF0dGFjaG1lbnQgY29udGVudHMgKGJhc2U2NCBlbmNvZGVkKQ=="
+    };
+    var attachment2 = {
+        type: "text/plain;charset=utf-8",
+        body: "VGhlIGF0dGFjaG1lbnQgY29udGVudHMgKGJhc2U2NCBlbmNvZGVkKQ=="
+    };
 
-    client.asyncSendMessageWithInlineAttachmentsToOne("");
+    var attachments = [];
+    attachments.push(attachment1);
+    attachments.push(attachment2);
+
+    try {
+        var client = new Mms.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.password);
+        client.asyncSendMessageWithInlineAttachmentsToOne(address, attachments, subject, senderAddress).then(
+            function (resultText) {
+                var elementById = document.getElementById("sendMmsResult");
+                elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 
 }

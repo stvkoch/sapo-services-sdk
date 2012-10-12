@@ -10,7 +10,7 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.mmsBaseUri = "https://services.sapo.pt/OneAPI/MMS/";
+                    this.mmsBaseUri = "http://services.sapo.pt/OneAPI/MMS/";
                 }
             ,
             {
@@ -20,9 +20,10 @@
                     and body (The attachment contents base64 encoded).
 
                     Example:
-                    var attachment = {};
-                    attachment.type = "text/plain";
-                    attachment.body = "VGhlIGF0dGFjaG1lbnQgY29udGVudHMgKGJhc2U2NCBlbmNvZGVkKQ==";
+                    var attachment = {
+                        type: "text/plain;charset=utf-8",
+                        body: "VGhlIGF0dGFjaG1lbnQgY29udGVudHMgKGJhc2U2NCBlbmNvZGVkKQ=="
+                    };
                 */
                 asyncSendMessageWithInlineAttachmentsToOne: function (address, attachments,
                     subject, senderAddress) {
@@ -30,14 +31,12 @@
 
                     if (address && attachments) {
                         var params = {};
-                        //params.senderAddress = encodeURIComponent("tel:"+senderAddress);
-                        //params.senderName = senderName;
-                        //params.message = encodeURIComponent(message);
-                        //params.address = encodeURIComponent("tel:"+address);
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
 
+                        //construct request body
                         var requestBody = {};
+                        requestBody.sendMessageWithInlineAttachments = { };
                         if (subject)
                             requestBody.sendMessageWithInlineAttachments.subject = subject;
                         if (senderAddress)
@@ -45,11 +44,22 @@
                         requestBody.sendMessageWithInlineAttachments.priority = 'Default';
                         requestBody.sendMessageWithInlineAttachments.format = 'MMS';
 
+                        requestBody.sendMessageWithInlineAttachments.addresses = "tel:" + address;
+
+                        for (var i = 0; i < attachments.length; ++i) {
+                            attachments[i].id = String("<a" + i + "@local>");
+                        }
+
+                        requestBody.sendMessageWithInlineAttachments.attachments = {
+                            attachment:attachments
+                        };
+
                         var data = JSON.stringify(requestBody);
 
                         var uri =
                             Windows.Foundation.Uri(Utils.buildUri(this.mmsBaseUri, params, allowedParams,
-                                "SendMessageInlineAttachments/sendMessageWithInlineAttachments"));
+                                "SendMessageInlineAttachments/sendMessageWithInlineAttachments"))
+                                 .absoluteCanonicalUri;
 
                         var headers = {};
                         headers["Content-Type"] = "application/json";
@@ -112,52 +122,25 @@
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
-                asyncGetMessageDeliveryStatus: function (requestId, senderAddress) {
-                    //var allowedParams = ["ESBUsername", "ESBPassword"];
+                asyncGetMessageDeliveryStatus: function (requestId) {
+                    var allowedParams = ["requestIdentifier", "ESBUsername", "ESBPassword", "json"];
 
-                    if (requestId && senderAddress) {
-                        //var params = {};
-                        //params.ESBUsername = this.username;
-                        //params.ESBPassword = this.password;
+                    if (requestId) {
+                        var params = {};
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+                        params.json = "true";
+                        params.requestIdentifier = String(requestId);
 
-                        //var uri =
-                        //    Windows.Foundation.Uri(Utils.buildUri(this.smsBaseUri, params,
-                        //        allowedParams, "GetURLByCompressedURL"))
-                        //    .absoluteCanonicalUri;
+                        var uri =
+                            Windows.Foundation.Uri(Utils.buildUri(this.mmsBaseUri, params,
+                                allowedParams, "SendMessage/getMessageDeliveryStatus"))
+                            .absoluteCanonicalUri;
 
-                        var sb = new Utils.StringBuilder();
-                        sb.append(this.mmsBaseUri);
-                        sb.append("outbound");
-                        sb.append("/");
-                        sb.append(encodeURIComponent("tel:" + senderAddress));
-                        sb.append("/");
-                        sb.append("requests");
-                        sb.append("/");
-                        sb.append(requestId);
-                        sb.append("/");
-                        sb.append("deliveryInfos");
-                        sb.append("?");
-                        sb.append("ESBUsername=");
-                        sb.append(this.username);
-                        sb.append("&");
-                        sb.append("ESBPassword=");
-                        sb.append(this.password);
-                        
-                        var uri = sb.toString();
-
-                        var headers = {};
-                        //headers["Content-Type"] = "application/json";
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                if (xhr.status == 503)
-                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER";
-                                return "ERROR";
-                            });
+                        //var headers = {};
+                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        return WinJS.xhr({ type: "GET", url: uri/*, headers: headers*/ })
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 }
