@@ -31,6 +31,24 @@
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
+                asyncUserDetails: function () {
+                    var userDetailsAllowedParams = ["json", "ESBUsername", "ESBPassword"];
+                    var params = {};
+                    params.json = "true";
+                    params.ESBUsername = this.username;
+                    params.ESBPassword = this.password;
+                    var uri =
+                        Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                            userDetailsAllowedParams, "UserDetails"))
+                        .absoluteCanonicalUri;
+
+                    var headers = {};
+                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    throw SdkExceptions.Client.InsuffientParametersException;
+                },
+
                 asyncImageCreate: function (file, image) {
                     var imageCreateAllowedParams = ["json", "ESBUsername", "ESBPassword"];
                     var imageToBeSerialized = {};
