@@ -23,6 +23,10 @@ namespace Videos
     /// </summary>
     sealed partial class App : Application
     {
+        public string EsbUsername { get; set; }
+        public string EsbPassword { get; set; }
+        public string EsbAccessKey { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
