@@ -14,46 +14,49 @@
                 }
             ,
             {
-                asyncSendMessageWithInlineAttachmentsToOne: function (address, message, senderName, senderAddress) {
-                    var allowedParams = ["senderAddress", "senderName", "message", "address",
-                        "ESBUsername", "ESBPassword"];
+                /*
+                    Subject and senderAddress are optional. Attachments is an array of attachment objects.
+                    Attachment has two propertys, type (MIME type of the attachment) 
+                    and body (The attachment contents base64 encoded).
 
-                    if (address && message && senderName && senderAddress) {
+                    Example:
+                    var attachment = {};
+                    attachment.type = "text/plain";
+                    attachment.body = "VGhlIGF0dGFjaG1lbnQgY29udGVudHMgKGJhc2U2NCBlbmNvZGVkKQ==";
+                */
+                asyncSendMessageWithInlineAttachmentsToOne: function (address, attachments,
+                    subject, senderAddress) {
+                    var allowedParams = ["ESBUsername", "ESBPassword"];
+
+                    if (address && attachments) {
                         var params = {};
-                        params.senderAddress = encodeURIComponent("tel:"+senderAddress);
-                        params.senderName = senderName;
-                        params.message = encodeURIComponent(message);
-                        params.address = encodeURIComponent("tel:"+address);
+                        //params.senderAddress = encodeURIComponent("tel:"+senderAddress);
+                        //params.senderName = senderName;
+                        //params.message = encodeURIComponent(message);
+                        //params.address = encodeURIComponent("tel:"+address);
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
 
-                        //build URI
-                        var sb = new Utils.StringBuilder();
-                        sb.append(this.mmsBaseUri);
-                        sb.append("outbound");
-                        sb.append("/");
-                        sb.append(params.senderAddress);
-                        sb.append("/");
-                        sb.append("requests");
+                        var requestBody = {};
+                        if (subject)
+                            requestBody.sendMessageWithInlineAttachments.subject = subject;
+                        if (senderAddress)
+                            requestBody.sendMessageWithInlineAttachments.senderAddress = senderAddress;
+                        requestBody.sendMessageWithInlineAttachments.priority = 'Default';
+                        requestBody.sendMessageWithInlineAttachments.format = 'MMS';
 
-                        var uri = Windows.Foundation.Uri(sb.toString()).absoluteCanonicalUri;
+                        var data = JSON.stringify(requestBody);
 
-                        var data = Utils.wwwFormUrlEncode(params, allowedParams);
+                        var uri =
+                            Windows.Foundation.Uri(Utils.buildUri(this.mmsBaseUri, params, allowedParams,
+                                "SendMessageInlineAttachments/sendMessageWithInlineAttachments"));
 
                         var headers = {};
-                        headers["Content-Type"] = "application/x-www-form-urlencoded";
+                        headers["Content-Type"] = "application/json";
                         //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: data })
-                            .then(function (xhr) {
-                                if (xhr.status == 201 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                if (xhr.status == 503)
-                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER";
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
@@ -109,7 +112,7 @@
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
-                asyncGetDeliveryInfos: function (requestId, senderAddress) {
+                asyncGetMessageDeliveryStatus: function (requestId, senderAddress) {
                     //var allowedParams = ["ESBUsername", "ESBPassword"];
 
                     if (requestId && senderAddress) {

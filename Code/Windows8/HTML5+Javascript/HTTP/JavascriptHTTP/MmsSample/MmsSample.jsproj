@@ -67,6 +67,9 @@
     <Content Include="pages\tests\GetMessageDeliveryStatus\GetMessageDeliveryStatus.css" />
     <Content Include="pages\tests\GetMessageDeliveryStatus\GetMessageDeliveryStatus.html" />
     <Content Include="pages\tests\GetMessageDeliveryStatus\GetMessageDeliveryStatus.js" />
+    <Content Include="pages\tests\SendMessageInlineAttachmentsToMany\SendMessageInlineAttachmentsToMany.css" />
+    <Content Include="pages\tests\SendMessageInlineAttachmentsToMany\SendMessageInlineAttachmentsToMany.html" />
+    <Content Include="pages\tests\SendMessageInlineAttachmentsToMany\SendMessageInlineAttachmentsToMany.js" />
     <Content Include="pages\tests\SendMessageInlineAttachments\SendMessageInlineAttachments.css" />
     <Content Include="pages\tests\SendMessageInlineAttachments\SendMessageInlineAttachments.html" />
     <Content Include="pages\tests\SendMessageInlineAttachments\SendMessageInlineAttachments.js" />
