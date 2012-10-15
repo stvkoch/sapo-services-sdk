@@ -87,6 +87,8 @@
                 },
 
                 asyncDeleteVideo: function (randname) {
+                    if (!randname)
+                        throw SdkExceptions.Client.InsuffientParametersException;
                     var deleteVideoAllowedParams = ["Randname", "json", "ESBUsername", "ESBPassword"];
 
                     var params = {};
@@ -107,6 +109,9 @@
                 },
 
                 asyncCheckVideo: function (randname) {
+                    if (!randname)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+
                     var checkVideoAllowedParams = ["VideoRandname", "json", "ESBUsername", "ESBPassword"];
 
                     var params = {};
@@ -160,11 +165,57 @@
                         .absoluteCanonicalUri;
 
                     var headers = {};
-                    //headers["Content-Type"] = "application/json";
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                     return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                         .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                }
+                },
+
+                asyncGetHighlights: function () {
+                    var allowedParams = ["json", "ESBUsername", "ESBPassword"];
+
+                    var params = {};
+                    params.json = "true";
+                    params.ESBUsername = this.username;
+                    params.ESBPassword = this.password;
+
+                    var uri =
+                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params,
+                            allowedParams, "JSON2/Highlights"))
+                        .absoluteCanonicalUri;
+
+                    var headers = {};
+                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                },
+
+                asyncSearchVideos: function (search, user, page, limit, order) {
+                    if (!(search && user))
+                        throw SdkExceptions.Service.InsuffientParametersException;
+
+                    var allowedParams = ["search", "page", "limit", "order", "user",
+                        "json", "ESBUsername", "ESBPassword"];
+
+                    var params = {};
+                    params.json = "true";
+                    params.ESBUsername = this.username;
+                    params.ESBPassword = this.password;
+                    params.search = search;
+                    params.user = user;
+                    params.page = page;
+                    params.limit = limit;
+                    params.order = order;
+                    
+                    var uri =
+                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params,
+                            allowedParams, "JSON2/Query"))
+                        .absoluteCanonicalUri;
+
+                    var headers = {};
+                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                },
             }
         )
     });

@@ -51,6 +51,12 @@
             
             elementById = document.getElementById("btListUserVideos");
             elementById.addEventListener("click", function () { navigateTo('pages/tests/ListUserVideos/ListUserVideos.html'); });
+            
+            elementById = document.getElementById("btGetHighlights");
+            elementById.addEventListener("click", function () { navigateTo('pages/tests/GetHighlights/GetHighlights.html'); });
+            
+            elementById = document.getElementById("btSearchVideos");
+            elementById.addEventListener("click", function () { navigateTo('pages/tests/SearchVideos/SearchVideos.html'); });
         }
     });
 })();
