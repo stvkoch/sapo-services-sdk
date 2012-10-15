@@ -22,24 +22,35 @@
             // TODO: Respond to changes in viewState.
         },
         generateCaptcha: function () {
-            var client = new Captcha.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
-
             var params = {};
             params.length = document.getElementById("lengthParam").value || undefined;
             params.ttl = document.getElementById("ttlParam").value || undefined;
             params.mode = document.getElementById("modeParam").value || undefined;
 
-            client.asyncGet(params).then(function (result) {
-                if (result != "ERROR") {
-                    var captchaImg = document.getElementById("captchaImg"); 
-                    captchaImg.src = client.buildShowURI(result.id).absoluteCanonicalUri;
+            try {
+                var client = new Captcha.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
-                    document.getElementById("captchaSolution").innerHTML =
-                        "Captcha Solution: " + result.code;
-                }
-            });
+                client.asyncGet(params).then(function (result) {
+                    if (result != "ERROR") {
+                        var captchaImg = document.getElementById("captchaImg");
+                        captchaImg.src = client.buildShowURI(result.id).absoluteCanonicalUri;
 
-            
+                        document.getElementById("captchaSolution").innerHTML =
+                            "Captcha Solution: " + result.code;
+                    }
+                },
+                function (e) {
+                    var exceptionName = e.name;
+                    var exceptionMessage = e.message;
+                });
+            }
+            catch (e) {
+                //Add catch exception logic here
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            }
+
+
         }
     });
 })();

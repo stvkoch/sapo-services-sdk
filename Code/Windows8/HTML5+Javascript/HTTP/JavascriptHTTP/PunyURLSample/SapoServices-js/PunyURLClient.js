@@ -15,13 +15,14 @@
             ,
             {
                 asyncGetCompressedURLByURL: function (url) {
-                    var allowedParams = ["url", "ESBUsername", "ESBPassword"];
+                    var allowedParams = ["url", "ESBUsername", "ESBPassword", "json"];
 
                     if (url != null) {
                         var params = {};
                         params.url = url;
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
+                        params.json = "true";
 
                         var uri =
                             Windows.Foundation.Uri(Utils.buildUri(this.punyUrlBaseUri, params,
@@ -32,15 +33,9 @@
                         //headers["Content-Type"] = "application/json";
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
-
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncGetURLByCompressedURL: function (url) {
@@ -63,13 +58,7 @@
                         //headers["Content-Type"] = "application/json";
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 }

@@ -25,7 +25,6 @@
 function searchByTerms() {
     //document.getElementById("searchByTermsResult").innerHTML = "Search results";
 
-    var client = new Auto.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
     var params = {};
 
@@ -34,9 +33,21 @@ function searchByTerms() {
     params.sort = document.getElementById("sortParam").value || undefined;
     params.rows = document.getElementById("rowsParam").value || undefined;
 
-    client.asyncSearchByTerms(params).then(function (resultText) {
-        var elementById = document.getElementById("searchByTermsResult");
-        elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
-        
-    });
+    try {
+        var client = new Auto.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+        client.asyncSearchByTerms(params).then(function (resultText) {
+            var elementById = document.getElementById("searchByTermsResult");
+            elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+
+        },
+        function (e) {
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

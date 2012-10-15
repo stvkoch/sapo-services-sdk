@@ -15,12 +15,13 @@
             ,
             {
                 asyncSearchByTerms: function (params) {
-                    var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword"];
+                    var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword", "json"];
 
                     if (params != null && allowedParams[0] in params && params[allowedParams[0]]) {
 
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
+                        params.json = "true";
 
                         var uri =
                             Windows.Foundation.Uri(Utils.buildUri(this.autoBaseUri, params,
@@ -31,19 +32,13 @@
                         //headers["Content-Type"] = "application/json";
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
-
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncSearchByBrandModelPrice: function (params) {
-                    var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword"];
+                    var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword", "json"];
 
                     function tryExtractBrandModelPrice(params) {
                         var qParams = ["Brand","Model","Price"];
@@ -67,10 +62,11 @@
                         var res = tryExtractBrandModelPrice(params);
 
                         if (!res)
-                            throw "At least one of Brand, Model or Price MUST be specified."
+                            throw SdkExceptions.Client.InsuffientParametersException;
                         params.q = res;
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
+                        params.json = "true";
 
                         var uri =
                             Windows.Foundation.Uri(Utils.buildUri(this.autoBaseUri, params,
@@ -81,13 +77,7 @@
                         //headers["Content-Type"] = "application/json";
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 }

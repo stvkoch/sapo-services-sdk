@@ -26,11 +26,20 @@
 })();
 
 function videoDelete() {
-    var client = new Videos.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
-
     var randname = document.getElementById("randnameParam").value;
 
-    client.asyncDeleteVideo(randname || undefined).then(function (resultCode) {
-        document.getElementById("videoDeleteResult").innerHTML = resultCode;
-    });
+    try {
+        var client = new Videos.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+        client.asyncDeleteVideo(randname || undefined).then(function (resultCode) {
+            document.getElementById("videoDeleteResult").innerHTML = resultCode;
+        },
+        function (e) {
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        });
+    }
+    catch (e) {
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

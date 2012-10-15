@@ -48,7 +48,7 @@
 
                 /*Helper method*/
                 doRequestHelper: function (year, operation) {
-                    var allowedParams = ["jsonText", "year", "ESBUsername", "ESBPassword"];
+                    var allowedParams = ["jsonText", "year", "ESBUsername", "ESBPassword", "json"];
 
                     if (year) {
                         var params = {};
@@ -56,6 +56,7 @@
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
                         params.jsonText = "false";
+                        params.jsonText = "true";
 
                         var uri =
                             Windows.Foundation.Uri(Utils.buildUri(this.holidayBaseUri, params,
@@ -65,13 +66,7 @@
                         var headers = {};
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 }

@@ -25,30 +25,43 @@ var playCaptchaEvtHandler;
             // TODO: Respond to changes in viewState.
         },
         generateCaptcha: function () {
-            var client = new Captcha.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
-            client.asyncGet().then(function (result) {
-                if (result != "ERROR") {
-                    var btPlayCaptcha = document.getElementById("btPlayCaptcha");
+            try {
+                var client = new Captcha.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
-                    if (playCaptchaEvtHandler)
-                        btPlayCaptcha.removeEventListener("click", playCaptchaEvtHandler, false);
+                client.asyncGet().then(function (result) {
+                    if (result != "ERROR") {
+                        var btPlayCaptcha = document.getElementById("btPlayCaptcha");
 
-                    playCaptchaEvtHandler = function () {
-                        //play the audio captcha
-                        var audio = new Audio(client.buildPlayURI(result.id).absoluteCanonicalUri);
-                        audio.load();
-                        audio.play();
-                    };
+                        if (playCaptchaEvtHandler)
+                            btPlayCaptcha.removeEventListener("click", playCaptchaEvtHandler, false);
 
-                    btPlayCaptcha.addEventListener("click", playCaptchaEvtHandler);
+                        playCaptchaEvtHandler = function () {
+                            //play the audio captcha
+                            var audio = new Audio(client.buildPlayURI(result.id).absoluteCanonicalUri);
+                            audio.load();
+                            audio.play();
+                        };
 
-                    btPlayCaptcha.disabled = "";
+                        btPlayCaptcha.addEventListener("click", playCaptchaEvtHandler);
 
-                    document.getElementById("captchaSolution").innerHTML =
-                        "Captcha Solution: " + result.code;
-                }
-            });
+                        btPlayCaptcha.disabled = "";
+
+                        document.getElementById("captchaSolution").innerHTML =
+                            "Captcha Solution: " + result.code;
+                    }
+                },
+                function (e) {
+                    var exceptionName = e.name;
+                    var exceptionMessage = e.message;
+                });
+            }
+            catch (e) {
+                //Add catch exception logic here
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            }
+
         },
     });
 })();

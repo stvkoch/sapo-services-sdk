@@ -23,12 +23,21 @@
 })();
 
 function getCompressedURLByURL() {
-    var client = new PunyURL.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
-
     var url = document.getElementById("urlParam").value;
-
-    client.asyncGetCompressedURLByURL(url).then(function (resultText) {
-        var elementById = document.getElementById("getCompressedURLByURLResult");
-        elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
-    });
+    try {
+        var client = new PunyURL.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+        client.asyncGetCompressedURLByURL(url).then(function (resultText) {
+            var elementById = document.getElementById("getCompressedURLByURLResult");
+            elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+        },
+        function (e) {
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

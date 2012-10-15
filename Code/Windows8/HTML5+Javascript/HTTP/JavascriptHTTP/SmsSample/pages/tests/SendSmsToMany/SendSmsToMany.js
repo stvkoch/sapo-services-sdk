@@ -23,8 +23,6 @@
 })();
 
 function sendSms() {
-    var client = new Sms.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
-
     var senderName = document.getElementById("senderNameParam").value || undefined;
     var senderAddress = document.getElementById("senderAddressParam").value || undefined;
     var address1 = document.getElementById("address1Param").value || undefined;
@@ -33,15 +31,27 @@ function sendSms() {
     var message = document.getElementById("messageParam").value || undefined;
 
     var addresses = [];
-    //if(address1)
+    if(address1)
         addresses.push(address1);
-    //if(address2)
+    if(address2)
         addresses.push(address2);
-    //if(address3)
+    if(address3)
         addresses.push(address3);
 
-    client.asyncSendSMSToMany(addresses, message, senderName, senderAddress).then(function (resultText) {
-        var elementById = document.getElementById("sendSmsResult");
-        elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
-    });
+    try {
+        var client = new Sms.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+        client.asyncSendSMSToMany(addresses, message, senderName, senderAddress).then(function (resultText) {
+            var elementById = document.getElementById("sendSmsResult");
+            elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+        },
+        function (e) {
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

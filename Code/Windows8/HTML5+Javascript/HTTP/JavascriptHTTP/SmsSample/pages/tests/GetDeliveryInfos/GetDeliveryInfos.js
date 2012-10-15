@@ -23,13 +23,25 @@
 })();
 
 function getDeliveryInfos() {
-    var client = new Sms.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
     var senderAddress = document.getElementById("senderAddressParam").value || undefined;
     var requestId = document.getElementById("requestIdParam").value || undefined;
 
-    client.asyncGetDeliveryInfos(requestId, senderAddress).then(function (resultText) {
-        var elementById = document.getElementById("getDeliveryInfosResult");
-        elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
-    });
+    try {
+        var client = new Sms.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+
+        client.asyncGetDeliveryInfos(requestId, senderAddress).then(function (resultText) {
+            var elementById = document.getElementById("getDeliveryInfosResult");
+            elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+        },
+        function (e) {
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

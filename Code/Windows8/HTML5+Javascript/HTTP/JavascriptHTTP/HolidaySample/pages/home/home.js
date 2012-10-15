@@ -7,11 +7,22 @@
         var accessKey = document.getElementById("accessKey").value || undefined;
         var year = document.getElementById("year").value || undefined;
 
-        var client = new Holiday.ServiceClient(username, password, accessKey);
+        try {
+            var client = new Holiday.ServiceClient(username, password, accessKey);
 
-        client.asyncGetAllHolidays(year).then(function (result) {
-            document.getElementById("resultsDiv").innerHTML = result;
-        });
+            client.asyncGetAllHolidays(year).then(function (result) {
+                document.getElementById("resultsDiv").innerHTML = result;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+        }
+        catch (e) {
+            //Add catch exception logic here
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        }
     }
 
     function getCarnival() {
@@ -20,11 +31,22 @@
         var accessKey = document.getElementById("accessKey").value || undefined;
         var year = document.getElementById("year").value || undefined;
 
-        var client = new Holiday.ServiceClient(username, password, accessKey);
+        try {
+            var client = new Holiday.ServiceClient(username, password, accessKey);
 
-        client.asyncGetCarnival(year).then(function (result) {
-            document.getElementById("resultsDiv").innerHTML = result;
-        });
+            client.asyncGetCarnival(year).then(function (result) {
+                document.getElementById("resultsDiv").innerHTML = result;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+        }
+        catch (e) {
+            //Add catch exception logic here
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        }
     }
 
     function getCorpusChristi() {
@@ -33,11 +55,22 @@
         var accessKey = document.getElementById("accessKey").value || undefined;
         var year = document.getElementById("year").value || undefined;
 
-        var client = new Holiday.ServiceClient(username, password, accessKey);
+        try {
+            var client = new Holiday.ServiceClient(username, password, accessKey);
 
-        client.asyncGetCorpusChristi(year).then(function (result) {
-            document.getElementById("resultsDiv").innerHTML = result;
-        });
+            client.asyncGetCorpusChristi(year).then(function (result) {
+                document.getElementById("resultsDiv").innerHTML = result;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+        }
+        catch (e) {
+            //Add catch exception logic here
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        }
     }
 
     function getEaster() {
@@ -46,11 +79,22 @@
         var accessKey = document.getElementById("accessKey").value || undefined;
         var year = document.getElementById("year").value || undefined;
 
-        var client = new Holiday.ServiceClient(username, password, accessKey);
+        try {
+            var client = new Holiday.ServiceClient(username, password, accessKey);
 
-        client.asyncGetEaster(year).then(function (result) {
-            document.getElementById("resultsDiv").innerHTML = result;
-        });
+            client.asyncGetEaster(year).then(function (result) {
+                document.getElementById("resultsDiv").innerHTML = result;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+        }
+        catch (e) {
+            //Add catch exception logic here
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        }
     }
 
     function getGoodFriday() {
@@ -59,11 +103,22 @@
         var accessKey = document.getElementById("accessKey").value || undefined;
         var year = document.getElementById("year").value || undefined;
 
-        var client = new Holiday.ServiceClient(username, password, accessKey);
+        try {
+            var client = new Holiday.ServiceClient(username, password, accessKey);
 
-        client.asyncGetGoodFriday(year).then(function (result) {
-            document.getElementById("resultsDiv").innerHTML = result;
-        });
+            client.asyncGetGoodFriday(year).then(function (result) {
+                document.getElementById("resultsDiv").innerHTML = result;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+        }
+        catch (e) {
+            //Add catch exception logic here
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        }
     }
 
     function getLocalHolidays() {
@@ -72,11 +127,22 @@
         var accessKey = document.getElementById("accessKey").value || undefined;
         var year = document.getElementById("year").value || undefined;
 
-        var client = new Holiday.ServiceClient(username, password, accessKey);
+        try {
+            var client = new Holiday.ServiceClient(username, password, accessKey);
 
-        client.asyncGetLocalHolidays(year).then(function (result) {
-            document.getElementById("resultsDiv").innerHTML = result;
-        });
+            client.asyncGetLocalHolidays(year).then(function (result) {
+                document.getElementById("resultsDiv").innerHTML = result;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+        }
+        catch (e) {
+            //Add catch exception logic here
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        }
     }
 
     function getNationalHolidays() {
@@ -85,11 +151,22 @@
         var accessKey = document.getElementById("accessKey").value || undefined;
         var year = document.getElementById("year").value || undefined;
 
-        var client = new Holiday.ServiceClient(username, password, accessKey);
+        try {
+            var client = new Holiday.ServiceClient(username, password, accessKey);
 
-        client.asyncGetNationalHolidays(year).then(function (result) {
-            document.getElementById("resultsDiv").innerHTML = result;
-        });
+            client.asyncGetNationalHolidays(year).then(function (result) {
+                document.getElementById("resultsDiv").innerHTML = result;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+        }
+        catch (e) {
+            //Add catch exception logic here
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        }
     }
 
     function getRegionalHolidays() {
@@ -98,11 +175,22 @@
         var accessKey = document.getElementById("accessKey").value || undefined;
         var year = document.getElementById("year").value || undefined;
 
-        var client = new Holiday.ServiceClient(username, password, accessKey);
+        try {
+            var client = new Holiday.ServiceClient(username, password, accessKey);
 
-        client.asyncGetRegionalHolidays(year).then(function (result) {
-            document.getElementById("resultsDiv").innerHTML = result;
-        });
+            client.asyncGetRegionalHolidays(year).then(function (result) {
+                document.getElementById("resultsDiv").innerHTML = result;
+            },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+        }
+        catch (e) {
+            //Add catch exception logic here
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        }
     }
 
     WinJS.UI.Pages.define("/pages/home/home.html", {

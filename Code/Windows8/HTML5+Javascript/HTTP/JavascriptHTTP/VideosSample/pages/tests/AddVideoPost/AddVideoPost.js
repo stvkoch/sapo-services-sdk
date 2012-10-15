@@ -43,23 +43,33 @@ var authenticationData;
 
             openPicker.pickSingleFileAsync().then(function (file) {
                 if (file) {
-                    var client =
-                        new Videos.ServiceClient(
-                            GlobalAuth.username,
-                            GlobalAuth.password,
-                            GlobalAuth.accessKey);
-
                     var video = {};
-
                     //Important 1: MUST specify at least Title, Tags and Synopse.
                     //Important 2:All video attribute names begin with capital letter.
                     video.Title = file.displayName;
                     video.Tags = file.displayName;
                     video.Synopse = file.displayName;
-                    client.asyncAddVideoPost(file, video).then(function (resultCode) {
-                        document.getElementById("addVideoPostResult").innerHTML = resultCode;
-                    });
-                    
+                    try {
+                        var client =
+                            new Videos.ServiceClient(
+                                GlobalAuth.username,
+                                GlobalAuth.password,
+                                GlobalAuth.accessKey);
+
+
+                        client.asyncAddVideoPost(file, video).then(function(resultCode) {
+                            document.getElementById("addVideoPostResult").innerHTML = resultCode;
+                        },
+                        function (e) {
+                            var exceptionName = e.name;
+                            var exceptionMessage = e.message;
+                        });
+                    }
+                    catch(e) {
+                        var exceptionName = e.name;
+                        var exceptionMessage = e.message;
+                    }
+
                 } else {
                     // The picker was dismissed with no selected file
 

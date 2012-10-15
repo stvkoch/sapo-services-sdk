@@ -24,21 +24,29 @@
 
 function searchByBrandModelPrice() {
     //document.getElementById("searchByBrandModelPriceResult").innerHTML = "Search results";
-    var client = new Auto.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
-
     var params = {};
-
     params.Brand = document.getElementById("brandParam").value || undefined;
     params.Model = document.getElementById("modelParam").value || undefined;
     params.Price = document.getElementById("priceParam").value || undefined;
-
     params.start = document.getElementById("startParam").value || undefined;
     params.sort = document.getElementById("sortParam").value || undefined;
     params.rows = document.getElementById("rowsParam").value || undefined;
 
-    client.asyncSearchByBrandModelPrice(params).then(function (resultText) {
-        var elementById = document.getElementById("searchByBrandModelPriceResult");
-        elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+    try {
+        var client = new Auto.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+        client.asyncSearchByBrandModelPrice(params).then(function (resultText) {
+            var elementById = document.getElementById("searchByBrandModelPriceResult");
+            elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
 
-    });
+        },
+            function (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

@@ -36,14 +36,8 @@
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                     return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: videoStr })
-                        .then(function (xhr) {
-                            if (xhr.status == 200 && xhr.responseText)
-                                return xhr.responseText;
-                            return null;
-                        })
+                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler)
                         .then(function (responseText) {
-                            if (responseText == null)
-                                return null;
                             var response = JSON.parse(responseText);
 
                             var addVideoPostResponse = response.AddVideoPostResponse.AddVideoPostResult;
@@ -89,7 +83,7 @@
 
                                 return resultTag[0].localName;
                             });
-                        });
+                        }, function (e) { throw e; });
                 },
 
                 asyncDeleteVideo: function (randname) {
@@ -109,13 +103,7 @@
                     //headers["Content-Type"] = "application/json";
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                     return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(function (xhr) {
-                            if (xhr.status == 200)
-                                return "SUCCESS";
-                            return "ERROR";
-                        }, function (xhr) {
-                            return "ERROR";
-                        });
+                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                 },
 
                 asyncCheckVideo: function (randname) {
@@ -135,13 +123,7 @@
                     //headers["Content-Type"] = "application/json";
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                     return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(function (xhr) {
-                            if (xhr.status == 200 && xhr.responseText)
-                                return xhr.responseText;
-                            return "ERROR";
-                        }, function (xhr) {
-                            return "ERROR";
-                        });
+                       .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                 },
 
                 asyncGetUserInfo: function () {
@@ -161,13 +143,7 @@
                     //headers["Content-Type"] = "application/json";
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                     return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(function (xhr) {
-                            if (xhr.status == 200 && xhr.responseText)
-                                return xhr.responseText;
-                            return "ERROR";
-                        }, function (xhr) {
-                            return "ERROR";
-                        });
+                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                 },
 
                 asyncListUserVideos: function () {
@@ -187,13 +163,7 @@
                     //headers["Content-Type"] = "application/json";
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                     return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(function (xhr) {
-                            if (xhr.status == 200 && xhr.responseText)
-                                return xhr.responseText;
-                            return "ERROR";
-                        }, function (xhr) {
-                            return "ERROR";
-                        });
+                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                 }
             }
         )

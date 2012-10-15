@@ -23,12 +23,21 @@
 })();
 
 function checkVideo() {
-    var client = new Videos.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
-
     var randname = document.getElementById("randnameParam").value;
 
-    client.asyncCheckVideo(randname || undefined).then(function (resultText) {
-        var elementById = document.getElementById("checkVideoResult");
-        elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
-    });
+    try {
+        var client = new Videos.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+        client.asyncCheckVideo(randname || undefined).then(function(resultText) {
+            var elementById = document.getElementById("checkVideoResult");
+            elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+        },
+        function (e) {
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
+        });
+    }
+    catch(e) {
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }

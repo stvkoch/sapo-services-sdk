@@ -22,12 +22,23 @@
             // TODO: Respond to changes in viewState.
         },
         getUserInfo: function () {
-            var client = new Videos.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
-            client.asyncGetUserInfo().then(function (resultText) {
-                var elementById = document.getElementById("getUserInfoResult");
-                elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
-            });
+            try {
+                var client = new Videos.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
+
+                client.asyncGetUserInfo().then(function (resultText) {
+                    var elementById = document.getElementById("getUserInfoResult");
+                    elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+                },
+                function (e) {
+                    var exceptionName = e.name;
+                    var exceptionMessage = e.message;
+                });
+            }
+            catch (e) {
+                var exceptionName = e.name;
+                var exceptionMessage = e.message;
+            }
         }
     });
 })();

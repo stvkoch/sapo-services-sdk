@@ -23,15 +23,27 @@
 })();
 
 function sendSms() {
-    var client = new Sms.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
-        var senderName = document.getElementById("senderNameParam").value || undefined;
-        var senderAddress = document.getElementById("senderAddressParam").value || undefined;
-        var address = document.getElementById("addressParam").value || undefined;
-        var message = document.getElementById("messageParam").value || undefined;
+    var senderName = document.getElementById("senderNameParam").value || undefined;
+    var senderAddress = document.getElementById("senderAddressParam").value || undefined;
+    var address = document.getElementById("addressParam").value || undefined;
+    var message = document.getElementById("messageParam").value || undefined;
+
+    try {
+        var client = new Sms.ServiceClient(GlobalAuth.username, GlobalAuth.password, GlobalAuth.accessKey);
 
         client.asyncSendSMSToOne(address, message, senderName, senderAddress).then(function (resultText) {
             var elementById = document.getElementById("sendSmsResult");
             elementById.appendChild(elementById.ownerDocument.createTextNode(resultText));
+        },
+        function (e) {
+            var exceptionName = e.name;
+            var exceptionMessage = e.message;
         });
+    }
+    catch (e) {
+        //Add catch exception logic here
+        var exceptionName = e.name;
+        var exceptionMessage = e.message;
+    }
 }
