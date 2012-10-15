@@ -27,12 +27,13 @@
                 */
                 asyncSendMessageWithInlineAttachmentsToOne: function (address, attachments,
                     subject, senderAddress) {
-                    var allowedParams = ["ESBUsername", "ESBPassword"];
+                    var allowedParams = ["ESBUsername", "ESBPassword", "json"];
 
                     if (address && attachments) {
                         var params = {};
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
+                        params.json = "true";
 
                         //construct request body
                         var requestBody = {};
@@ -85,12 +86,13 @@
                 */
                 asyncSendMessageWithInlineAttachmentsToMany: function (addresses, attachments,
                     subject, senderAddress) {
-                    var allowedParams = ["ESBUsername", "ESBPassword"];
+                    var allowedParams = ["ESBUsername", "ESBPassword", "json"];
 
                     if (addresses && attachments) {
                         var params = {};
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
+                        params.json = "true";
 
                         //construct request body
                         var requestBody = {};
