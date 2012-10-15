@@ -21,7 +21,18 @@
             </h1>
         </header>
         <section aria-label="Main content" role="main">
-            <p>Content goes here.</p>
+            <form onsubmit="sendMms(); return false;">
+                <div>
+                    <span><input type="text" id="address1Param" placeholder="Address1 Parameter"/></span>
+                    <span><input type="text" id="address2Param" placeholder="Address2 Parameter"/></span>
+                    <span><input type="text" id="address3Param" placeholder="Address3 Parameter"/></span>
+                </div>
+                <div><input type="text" id="senderAddressParam" placeholder="SenderAddress Parameter"/></div>
+                <div><input type="text" id="subjectParam" placeholder="Subject Parameter"/></div>
+                <!--<div><input type="text" id="messageParam" placeholder="Message Parameter"/></div>-->
+                <div><button type="submit">Send MMS</button></div>
+            </form>
+            <div id="sendMmsResult"></div>
         </section>
     </div>
 </body>

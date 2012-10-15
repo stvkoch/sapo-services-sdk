@@ -10,7 +10,7 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.mmsBaseUri = "http://services.sapo.pt/OneAPI/MMS/";
+                    this.mmsBaseUri = "https://services.sapo.pt/OneAPI/MMS/";
                 }
             ,
             {
@@ -71,6 +71,18 @@
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
+
+                /*
+                    Subject and senderAddress are optional. Attachments is an array of attachment objects.
+                    Attachment has two propertys, type (MIME type of the attachment) 
+                    and body (The attachment contents base64 encoded).
+
+                    Example:
+                    var attachment = {
+                        type: "text/plain;charset=utf-8",
+                        body: "VGhlIGF0dGFjaG1lbnQgY29udGVudHMgKGJhc2U2NCBlbmNvZGVkKQ=="
+                    };
+                */
                 asyncSendMessageWithInlineAttachmentsToMany: function (addresses, attachments,
                     subject, senderAddress) {
                     var allowedParams = ["ESBUsername", "ESBPassword"];
