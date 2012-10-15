@@ -46,7 +46,6 @@
                     headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                     return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                         .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncImageCreate: function (file, image) {

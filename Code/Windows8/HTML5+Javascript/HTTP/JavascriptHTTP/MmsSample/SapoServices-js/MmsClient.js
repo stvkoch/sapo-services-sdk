@@ -71,53 +71,50 @@
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
-                asyncSendMessageWithInlineAttachmentsToMany: function (addresses, message, senderName, senderAddress) {
-                    var allowedParams = ["senderAddress", "senderName", "message", "address",
-                        "ESBUsername", "ESBPassword"];
+                asyncSendMessageWithInlineAttachmentsToMany: function (addresses, attachments,
+                    subject, senderAddress) {
+                    var allowedParams = ["ESBUsername", "ESBPassword"];
 
-                    if (addresses && message && senderName && senderAddress) {
+                    if (addresses && attachments) {
                         var params = {};
-                        params.senderAddress = encodeURIComponent("tel:"+senderAddress);
-                        params.senderName = senderName;
-                        params.message = encodeURIComponent(message);
-
-                        var address = [];
-                        for (var i = 0; i < addresses.length; ++i) {
-                            if (addresses[i])
-                                address.push(encodeURIComponent("tel:" + addresses[i]));
-                        }
-                        params.address = address;
-
                         params.ESBUsername = this.username;
                         params.ESBPassword = this.password;
 
-                        //build URI
-                        var sb = new Utils.StringBuilder();
-                        sb.append(this.mmsBaseUri);
-                        sb.append("outbound");
-                        sb.append("/");
-                        sb.append(params.senderAddress);
-                        sb.append("/");
-                        sb.append("requests");
+                        //construct request body
+                        var requestBody = {};
+                        requestBody.sendMessageWithInlineAttachments = {};
+                        if (subject)
+                            requestBody.sendMessageWithInlineAttachments.subject = subject;
+                        if (senderAddress)
+                            requestBody.sendMessageWithInlineAttachments.senderAddress = senderAddress;
+                        requestBody.sendMessageWithInlineAttachments.priority = 'Default';
+                        requestBody.sendMessageWithInlineAttachments.format = 'MMS';
 
-                        var uri = Windows.Foundation.Uri(sb.toString()).absoluteCanonicalUri;
+                        for (var i = 0; i < addresses.length; ++i)
+                            addresses[i] = "tel:" + addresses[i];
 
-                        var data = Utils.wwwFormUrlEncode(params, allowedParams);
+                        requestBody.sendMessageWithInlineAttachments.addresses = addresses;
+
+                        for (var i = 0; i < attachments.length; ++i) 
+                            attachments[i].id = String("<a" + i + "@local>");
+
+                        requestBody.sendMessageWithInlineAttachments.attachments = {
+                            attachment: attachments
+                        };
+
+                        var data = JSON.stringify(requestBody);
+
+                        var uri =
+                            Windows.Foundation.Uri(Utils.buildUri(this.mmsBaseUri, params, allowedParams,
+                                "SendMessageInlineAttachments/sendMessageWithInlineAttachments"))
+                                 .absoluteCanonicalUri;
 
                         var headers = {};
-                        headers["Content-Type"] = "application/x-www-form-urlencoded";
+                        headers["Content-Type"] = "application/json";
                         //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: data })
-                            .then(function (xhr) {
-                                if (xhr.status == 201 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                if (xhr.status == 503)
-                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER";
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
