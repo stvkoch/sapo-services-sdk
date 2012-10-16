@@ -15,6 +15,8 @@
             ,
             {
                 asyncAddVideoPost: function (file, video) {
+                    if (!(file && video))
+                        throw SdkExceptions.Client.InsuffientParametersException;
                     var addVideoPostAllowedParams = ["json", "ESBUsername", "ESBPassword"];
 
                     //Ensure server expected format
@@ -92,22 +94,9 @@
                     var deleteVideoAllowedParams = ["Randname", "json", "ESBUsername", "ESBPassword"];
 
                     var params = {};
-                    //params.json = "true";
-                    //params.ESBUsername = this.username;
-                    //params.ESBPassword = this.password;
                     params.Randname = randname;
 
                     return Utils.doGetRequestHelper(this, params, deleteVideoAllowedParams, "DeleteVideo");
-
-                    //var uri =
-                    //    Windows.Foundation.Uri(Utils.buildUri(this.baseUri, params, deleteVideoAllowedParams,
-                    //        "DeleteVideo"))
-                    //    .absoluteCanonicalUri;
-
-                    //var headers = {};
-                    //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                    //return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                    //    .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                 },
 
                 asyncCheckVideo: function (randname) {
