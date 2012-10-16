@@ -10,7 +10,7 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.videosBaseUri = "https://services.sapo.pt/Videos/";
+                    this.baseUri = "https://services.sapo.pt/Videos/";
                 }
             ,
             {
@@ -28,7 +28,7 @@
                     params.ESBPassword = this.password;
 
                     var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params, addVideoPostAllowedParams, "AddVideoPost"))
+                        Windows.Foundation.Uri(Utils.buildUri(this.baseUri, params, addVideoPostAllowedParams, "AddVideoPost"))
                         .absoluteCanonicalUri;
 
                     var headers = {};
@@ -92,20 +92,22 @@
                     var deleteVideoAllowedParams = ["Randname", "json", "ESBUsername", "ESBPassword"];
 
                     var params = {};
-                    params.json = "true";
-                    params.ESBUsername = this.username;
-                    params.ESBPassword = this.password;
+                    //params.json = "true";
+                    //params.ESBUsername = this.username;
+                    //params.ESBPassword = this.password;
                     params.Randname = randname;
 
-                    var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params, deleteVideoAllowedParams, "DeleteVideo"))
-                        .absoluteCanonicalUri;
+                    return Utils.doGetRequestHelper(this, params, deleteVideoAllowedParams, "DeleteVideo");
 
-                    var headers = {};
-                    //headers["Content-Type"] = "application/json";
-                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    //var uri =
+                    //    Windows.Foundation.Uri(Utils.buildUri(this.baseUri, params, deleteVideoAllowedParams,
+                    //        "DeleteVideo"))
+                    //    .absoluteCanonicalUri;
+
+                    //var headers = {};
+                    //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                    //return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                    //    .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                 },
 
                 asyncCheckVideo: function (randname) {
@@ -115,78 +117,30 @@
                     var checkVideoAllowedParams = ["VideoRandname", "json", "ESBUsername", "ESBPassword"];
 
                     var params = {};
-                    params.json = "true";
-                    params.ESBUsername = this.username;
-                    params.ESBPassword = this.password;
                     params.VideoRandname = randname;
 
-                    var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params, checkVideoAllowedParams, "CheckVideo"))
-                        .absoluteCanonicalUri;
-
-                    var headers = {};
-                    //headers["Content-Type"] = "application/json";
-                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                       .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    return Utils.doGetRequestHelper(this, params, checkVideoAllowedParams, "CheckVideo");
                 },
 
                 asyncGetUserInfo: function () {
                     var getUserInfoAllowedParams = ["Email", "json", "ESBUsername", "ESBPassword"];
 
                     var params = {};
-                    params.json = "true";
-                    params.ESBUsername = this.username;
-                    params.ESBPassword = this.password;
                     params.Email = this.username;
 
-                    var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params, getUserInfoAllowedParams, "GetUserInfo"))
-                        .absoluteCanonicalUri;
-
-                    var headers = {};
-                    //headers["Content-Type"] = "application/json";
-                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    return Utils.doGetRequestHelper(this, params, getUserInfoAllowedParams, "GetUserInfo");
                 },
 
                 asyncListUserVideos: function () {
                     var listUserVideosAllowedParams = ["json", "ESBUsername", "ESBPassword"];
 
-                    var params = {};
-                    params.json = "true";
-                    params.ESBUsername = this.username;
-                    params.ESBPassword = this.password;
-
-                    var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params,
-                            listUserVideosAllowedParams, "ListUserVideos"))
-                        .absoluteCanonicalUri;
-
-                    var headers = {};
-                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    return Utils.doGetRequestHelper(this, undefined, listUserVideosAllowedParams, "ListUserVideos");
                 },
 
                 asyncGetHighlights: function () {
                     var allowedParams = ["json", "ESBUsername", "ESBPassword"];
 
-                    var params = {};
-                    params.json = "true";
-                    params.ESBUsername = this.username;
-                    params.ESBPassword = this.password;
-
-                    var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params,
-                            allowedParams, "JSON2/Highlights"))
-                        .absoluteCanonicalUri;
-
-                    var headers = {};
-                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    return Utils.doGetRequestHelper(this, undefined, allowedParams, "JSON2/Highlights");
                 },
 
                 asyncSearchVideos: function (search, user, page, limit, order) {
@@ -197,24 +151,13 @@
                         "json", "ESBUsername", "ESBPassword"];
 
                     var params = {};
-                    params.json = "true";
-                    params.ESBUsername = this.username;
-                    params.ESBPassword = this.password;
                     params.search = search;
                     params.user = user;
                     params.page = page;
                     params.limit = limit;
                     params.order = order;
-                    
-                    var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.videosBaseUri, params,
-                            allowedParams, "JSON2/Query"))
-                        .absoluteCanonicalUri;
 
-                    var headers = {};
-                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    return Utils.doGetRequestHelper(this, params, allowedParams, "JSON2/Query");
                 },
             }
         )
