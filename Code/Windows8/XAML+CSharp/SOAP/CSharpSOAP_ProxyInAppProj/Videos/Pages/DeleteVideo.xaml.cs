@@ -50,6 +50,8 @@ namespace Videos.Pages
             var client = new VideosServiceClient(app.EsbUsername, app.EsbPassword, app.EsbAccessKey);
 
             client.DeleteVideoAsync(this.tb_VideoRandnameForDeleteVideo.Text);
+
+            this.tblock_Result.Text = "SUCCESS";
         }
 
         /// <summary>

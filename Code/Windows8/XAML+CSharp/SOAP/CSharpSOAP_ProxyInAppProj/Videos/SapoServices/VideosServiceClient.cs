@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using Videos.SapoServices.Utils;
-using Videos.StsServiceReference;
 using Videos.VideosServiceReference;
 using Windows.Data.Xml.Dom;
 using Windows.Networking.BackgroundTransfer;
@@ -61,7 +60,7 @@ namespace Videos.SapoServices
                     boundary);
         }
 
-        private static string GetResponseMessage(UploadOperation uploadOperation)
+        private async static Task<string> GetResponseMessage(UploadOperation uploadOperation)
         {
             ResponseInformation responseInformation = uploadOperation.GetResponseInformation();
 
@@ -73,10 +72,10 @@ namespace Videos.SapoServices
 
             IInputStream resultStreamAt = uploadOperation.GetResultStreamAt(0);
 
-            IBuffer result = resultStreamAt.ReadAsync(
+            IBuffer result = await resultStreamAt.ReadAsync(
                 new Windows.Storage.Streams.Buffer(contentLength),
                 contentLength,
-                InputStreamOptions.None).GetResults();
+                InputStreamOptions.None);
 
             Stream responseStream = result.AsStream();
 
@@ -134,14 +133,8 @@ namespace Videos.SapoServices
                     throw;
                 }
             }
-            var stsClient = new STSSoapSecureClient();
-            StsServiceReference.ESBCredentials credentials = new StsServiceReference.ESBCredentials
-                                                                 {
-                                                                     ESBUsername = this.Username,
-                                                                     ESBPassword = this.Password,
-                                                                     ESBTokenExtraInfo = createdVideo.Randname
-                                                                 };
-            string token = await stsClient.GetTokenAsync(credentials, false);
+            
+            string token = createdVideo.Token;
 
             BackgroundUploader uploader = new BackgroundUploader();
 
@@ -150,7 +143,7 @@ namespace Videos.SapoServices
 
             await uploadOperation.StartAsync();
 
-            return GetResponseMessage(uploadOperation);
+            return await GetResponseMessage(uploadOperation);
         }
 
         public async void DeleteVideoAsync(string randname)

@@ -137,11 +137,6 @@
     <Compile Include="SapoServices\Utils\EnsureCredentialsUseContext.cs" />
     <Compile Include="SapoServices\Utils\EsbCredentials.cs" />
     <Compile Include="SapoServices\VideosServiceClient.cs" />
-    <Compile Include="Service References\StsServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\VideosServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -153,20 +148,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
-    <None Include="Service References\StsServiceReference\esbCredentials.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\StsServiceReference\STS.wsdl" />
-    <None Include="Service References\StsServiceReference\STS.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\StsServiceReference\Videos.StsServiceReference.UserInfo.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\StsServiceReference\_Metadata_Schema_Market.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\VideosServiceReference\esbCredentials.xsd">
+    <None Include="Service References\VideosServiceReference\esbCredentials1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\VideosServiceReference\Videos.VideosServiceReference.GetEncodeProfilesForUserResponse.datasource">
@@ -205,11 +187,11 @@
     <None Include="Service References\VideosServiceReference\Videos.VideosServiceReference.Video.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\VideosServiceReference\Videos.wsdl" />
-    <None Include="Service References\VideosServiceReference\Videos.xsd">
+    <None Include="Service References\VideosServiceReference\Videos1.wsdl" />
+    <None Include="Service References\VideosServiceReference\Videos1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\VideosServiceReference\_Metadata_Schema_Market.xsd">
+    <None Include="Service References\VideosServiceReference\_Metadata_Schema_Market1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Videos_TemporaryKey.pfx" />
@@ -220,12 +202,6 @@
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Common\ReadMe.txt" />
-    <None Include="Service References\StsServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\StsServiceReference\configuration.svcinfo" />
-    <None Include="Service References\StsServiceReference\configuration91.svcinfo" />
     <None Include="Service References\VideosServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -275,7 +251,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\StsServiceReference\" />
     <WCFMetadataStorage Include="Service References\VideosServiceReference\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

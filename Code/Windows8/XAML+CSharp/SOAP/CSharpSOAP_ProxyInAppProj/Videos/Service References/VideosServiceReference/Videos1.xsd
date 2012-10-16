@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://services.sapo.pt/definitions" elementFormDefault="qualified" targetNamespace="http://services.sapo.pt/definitions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="VideoSubmition">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Subtitle" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Synopse" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Active" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FileName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Randname" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Tags" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ReferedExternal" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CategoryId" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="HD" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CanPublish" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CanShare" type="xs:int" />
+      <xs:element minOccurs="0" name="PublishDate" type="xs:string" />
+      <xs:element minOccurs="0" name="RemovalDate" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Video">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Active" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CreationDate" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Length" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Pending" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Randname" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Subtitle" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Synopse" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Username" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="URL" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Thumbnail" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Embed" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Rating" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Views" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Comments" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ReferedExternal" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Tags" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CommentsContent" type="tns:ArrayOfComment" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CategoryId" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="HD" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CanPublish" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CanShare" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResultTotalVideos" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Token" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfComment">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Comment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Comment">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Date" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Nickname" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Website" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Body" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Playlist">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Active" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CreationDate" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Description" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Tags" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="URL" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Thumbnail" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalVideos" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResultTotalPlaylists" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PlaylistSubmition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Title" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Active" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Description" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Tags" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Params">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="ExpWidth" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ExpHeight" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ScaleWidth" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ScaleHeight" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SoundRate" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SoundMode" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="VideoFps" type="xs:float" />
+      <xs:element minOccurs="1" maxOccurs="1" name="VideoExtension" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="VideoBitrate" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfEncodeProfile">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:EncodeProfile" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EncodeProfile">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Extension" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ToEncode" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Active" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Banned" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CommentCaptcha" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CommentModerate" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CommentNotify" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CreationDate" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Email" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LastLogin" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Partner" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="UploadMail" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Username" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ViewAll" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Website" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserForDashboad">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalPublicVideos" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalPrivateVideos" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalPublicPlaylist" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalPrivatePlaylist" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalComments" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalFavorites" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCategory">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Category" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Category">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPlaylist">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Playlist" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfTag">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Tag" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Tag">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Tag" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Count" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfVideo">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:Video" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

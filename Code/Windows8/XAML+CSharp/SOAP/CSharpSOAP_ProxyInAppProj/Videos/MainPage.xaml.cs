@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Videos.Pages;
 using Videos.SapoServices;
 using Videos.VideosServiceReference;
 using Windows.Foundation;
@@ -37,90 +38,60 @@ namespace Videos
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            App app = Application.Current as App;
+
+            if (app == null) return;
+
+            this.tbEsbUsername.Text = app.EsbUsername;
+            this.tbEsbPassword.Text = app.EsbPassword;
+            this.tbEsbAccessKey.Text = app.EsbAccessKey;
         }
 
-        private async void BtPickVideoClick(object sender, RoutedEventArgs e)
+        private void UpdateCredentials()
         {
-            FileOpenPicker openPicker = new FileOpenPicker
-            {
-                ViewMode = PickerViewMode.Thumbnail,
-                SuggestedStartLocation = PickerLocationId.VideosLibrary
-            };
-            openPicker.FileTypeFilter.Add(".avi");
-            openPicker.FileTypeFilter.Add(".mp4");
+            App app = Application.Current as App;
 
-            StorageFile file = await openPicker.PickSingleFileAsync();
-            if (file != null)
-            {
-                var client = new VideosServiceClient(this.tb_authUsername.Text,
-                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
-                Video video = new Video {Title = file.DisplayName, Tags = file.DisplayName, Synopse = file.DisplayName};
-                this.tblock_PostVideoResult.Text = await client.CreateVideoAsync(file, video);
-            }
-            else
-            {
-                this.tblock_PostVideoResult.Text = "Error reading file";
-            }
+            if (app == null) return;
 
+            app.EsbUsername = this.tbEsbUsername.Text;
+            app.EsbPassword = this.tbEsbPassword.Text;
+            app.EsbAccessKey = this.tbEsbAccessKey.Text;
+        }
+
+        private void BtAddVideoClick(object sender, RoutedEventArgs e)
+        {
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof(AddVideo));
         }
 
         private void BtDeleteVideoClick(object sender, RoutedEventArgs e)
         {
-            var client = new VideosServiceClient(this.tb_authUsername.Text,
-                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
-
-            client.DeleteVideoAsync(this.tb_VideoRandnameForDeleteVideo.Text);
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof(DeleteVideo));
         }
 
         private void BtEditVideoClick(object sender, RoutedEventArgs e)
         {
-            var client = new VideosServiceClient(this.tb_authUsername.Text,
-                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
-
-
-            //Title é obrigatório!!!!!!!!!
-
-            VideoSubmition v = new VideoSubmition
-                                   {
-                                       Randname = this.tb_VideoRandnameForEditVideo.Text,
-                                       Synopse = this.tb_VideoSynopseForEditVideo.Text,
-                                       Title = "Novo nome"
-
-                                   };
-
-            client.EditVideoAsync(v);
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof(EditVideo));
         }
 
-        private async void BtGetVideoClick(object sender, RoutedEventArgs e)
+        private void BtGetVideoClick(object sender, RoutedEventArgs e)
         {
-            var client = new VideosServiceClient(this.tb_authUsername.Text,
-                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
-
-            Video v = await client.GetVideoAsync(null, null, this.tb_VideoRandnameForGetVideo.Text, null, 0);
-
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof(GetVideo));
         }
 
-        private async void BtGetUserClick(object sender, RoutedEventArgs e)
+        private void BtGetUserClick(object sender, RoutedEventArgs e)
         {
-            var client = new VideosServiceClient(this.tb_authUsername.Text,
-                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
-
-            User u = await client.GetUserAsync(this.tb_UserNameForGetUser.Text);
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof(GetUser));
         }
 
-        private async void BtGetUserVideosClick(object sender, RoutedEventArgs e)
+        private void BtGetUserVideosClick(object sender, RoutedEventArgs e)
         {
-            var client = new VideosServiceClient(this.tb_authUsername.Text,
-                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
-            Video[] videos = await client.GetUserVideos(null, null, null, 50, 1);
-        }
-
-        private async void BtQueryVideosClick(object sender, RoutedEventArgs e)
-        {
-            var client = new VideosServiceClient(this.tb_authUsername.Text,
-                    this.tb_authPassword.Text, this.tb_authAccessKey.Text);
-
-            Video[] videos = await client.QueryAsync(null, this.tb_TagsForQueryVideos.Text, 0, 30, null, 5, null, 5);
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof(GetUserVideos));
         }
     }
 }

@@ -21,13 +21,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="C:\Win8_ServicesSAPO_SDK\WSDLs\VideosWSDL\Videos.wsdl" Protocol="file" SourceId="1" />
+    <MetadataSource Address="C:\tmp\wsdl\Videos\Videos.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="_Metadata_Schema_Market.xsd" MetadataType="Schema" ID="0e6f2872-ba07-4236-8068-64a600089b40" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/VideosWSDL/_Metadata_Schema_Market.xsd" />
-    <MetadataFile FileName="esbCredentials.xsd" MetadataType="Schema" ID="fd2b9ca8-dfe5-49bd-a937-da0d2ef86d1c" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/VideosWSDL/esbCredentials.xsd" />
-    <MetadataFile FileName="Videos.wsdl" MetadataType="Wsdl" ID="d7792109-8dc0-41ed-8b3c-1f51b6b3522a" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/VideosWSDL/Videos.wsdl" />
-    <MetadataFile FileName="Videos.xsd" MetadataType="Schema" ID="e51ac157-bd9b-4080-8aa0-da26796bb3f9" SourceId="1" SourceUrl="file:///C:/Win8_ServicesSAPO_SDK/WSDLs/VideosWSDL/Videos.xsd" />
+    <MetadataFile FileName="Videos1.xsd" MetadataType="Schema" ID="c29f3dd6-2890-47cd-89b9-311ae2161416" SourceId="1" SourceUrl="file:///C:/tmp/wsdl/Videos/Videos.xsd" />
+    <MetadataFile FileName="esbCredentials1.xsd" MetadataType="Schema" ID="efb32703-3f5e-4689-ba3d-e464e499d0e9" SourceId="1" SourceUrl="file:///C:/tmp/wsdl/Videos/esbCredentials.xsd" />
+    <MetadataFile FileName="Videos1.wsdl" MetadataType="Wsdl" ID="ccd70e60-ed1e-4f79-9bdd-fe10bd7339c9" SourceId="1" SourceUrl="file:///C:/tmp/wsdl/Videos/Videos.wsdl" />
+    <MetadataFile FileName="_Metadata_Schema_Market1.xsd" MetadataType="Schema" ID="d91cd8eb-f225-4914-a6fe-dcfb48bd4da0" SourceId="1" SourceUrl="file:///C:/tmp/wsdl/Videos/_Metadata_Schema_Market.xsd" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

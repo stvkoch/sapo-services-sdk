@@ -60,6 +60,8 @@ namespace Videos.Pages
             };
 
             client.EditVideoAsync(v);
+
+            this.tblock_Result.Text = "SUCCESS";
         }
 
 

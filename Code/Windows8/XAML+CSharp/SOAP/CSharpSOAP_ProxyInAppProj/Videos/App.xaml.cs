@@ -35,6 +35,9 @@ namespace Videos
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.EsbUsername = "";
+            this.EsbPassword = "";
+            this.EsbAccessKey = "";
         }
 
         /// <summary>

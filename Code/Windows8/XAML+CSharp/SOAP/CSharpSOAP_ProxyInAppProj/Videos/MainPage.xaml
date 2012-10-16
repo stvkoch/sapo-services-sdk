@@ -8,78 +8,25 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="210" />
-            <RowDefinition Height="210" />
-            <RowDefinition Height="210" />
-            <RowDefinition Height="210" />
-            <RowDefinition Height="210" />
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Grid.Column="0">
-            <StackPanel>
-                <TextBox x:Name="tb_authUsername" TextWrapping="Wrap" Text="Username" />
-                <TextBox x:Name="tb_authPassword" TextWrapping="Wrap" Text="Password" />
-                <TextBox x:Name="tb_authAccessKey" TextWrapping="Wrap" Text="Access Key" />
+        <StackPanel Height="768" VerticalAlignment="Bottom">
+            <TextBlock x:Name="FeatureName" Text="Videos Service Sample" TextWrapping="Wrap" FontSize="32" HorizontalAlignment="Center" FontFamily="Arial Black" Margin="0,10,0,15"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                <TextBlock Text="ESBUsername: " Margin="35,8,10,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBox x:Name="tbEsbUsername" Text="" Width="300" HorizontalAlignment="Center" Margin="0,0,10,0" />
+                <TextBlock Text="ESBPassword: " Margin="0,8,10,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBox x:Name="tbEsbPassword" Text="" Width="300" HorizontalAlignment="Center" Margin="0,0,10,0" />
+                <TextBlock Text="ESBAccessKey: " Margin="0,8,10,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBox x:Name="tbEsbAccessKey" Text="" Width="300" HorizontalAlignment="Center" />
             </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="0">
-            <StackPanel>
-                <Button x:Name="bt_pickVideo" Content="Pick Video" Width="200" Click="BtPickVideoClick" />
-                <TextBlock x:Name="tblock_PostVideoResult" TextWrapping="Wrap" Text="" Style="{StaticResource ResourceKey=TitleTextStyle}" />
+            <StackPanel HorizontalAlignment="Center" Margin="0,47,0,0">
+                <Button x:Name="btAddVideo" Content="Add videos" Width="270" Click="BtAddVideoClick"></Button>
+                <Button x:Name="btDeleteVideo" Content="Delete videos" Width="270" Click="BtDeleteVideoClick"></Button>
+                <Button x:Name="btEditVideo" Content="Edit videos" Width="270" Click="BtEditVideoClick"/>
+                <Button x:Name="btGetVideo" Content="Get videos" Width="270" Click="BtGetVideoClick"></Button>
+                <Button x:Name="btGetUser" Content="Get user details" Width="270" Click="BtGetUserClick"></Button>
+                <Button x:Name="btGetUserVideos" Content="Get user videos" Width="270" Click="BtGetUserVideosClick"></Button>
             </StackPanel>
-
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="0">
-            <StackPanel>
-                <TextBox x:Name="tb_VideoRandnameForDeleteVideo" Text="Randname" />
-                <Button x:Name="bt_DeleteVideo" Content="Delete Video" Width="200" Click="BtDeleteVideoClick"/>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="3" Grid.Column="0">
-            <StackPanel>
-                <TextBox x:Name="tb_VideoRandnameForEditVideo" Text="Randname" />
-                <TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />
-                <Button x:Name="bt_EditVideo" Content="Edit Video" Width="200" Click="BtEditVideoClick" />
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="1">
-            <StackPanel>
-                <TextBox x:Name="tb_VideoRandnameForGetVideo" Text="Randname" />
-                <!--<TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />-->
-                <Button x:Name="bt_GetVideo" Content="Get Video" Width="200" Click="BtGetVideoClick" />
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="1">
-            <StackPanel>
-                <TextBox x:Name="tb_UserNameForGetUser" Text="Username" />
-                <!--<TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />-->
-                <Button x:Name="bt_GetUser" Content="Get User" Width="200" Click="BtGetUserClick" />
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="2">
-            <StackPanel>
-                <TextBox x:Name="tb_UserNameForGetVideos" Text="Username" />
-                <!--<TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />-->
-                <Button x:Name="bt_GetUserVideos" Content="Get User Videos" Width="200" Click="BtGetUserVideosClick" />
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="2">
-            <StackPanel>
-                <TextBox x:Name="tb_TagsForQueryVideos" Text="Tags" />
-                <!--<TextBox x:Name="tb_VideoSynopseForEditVideo" Text="Synopse" />-->
-                <Button x:Name="bt_QueryVideos" Content="Query" Width="200" Click="BtQueryVideosClick" />
-            </StackPanel>
-        </Grid>
+        </StackPanel>
         
         
     </Grid>

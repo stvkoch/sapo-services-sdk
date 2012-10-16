@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Videos.Common;
+using Videos.SapoServices;
+using Videos.VideosServiceReference;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -47,6 +50,21 @@ namespace Videos.Pages
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        private async void BtGetUserClick(object sender, RoutedEventArgs e)
+        {
+            App app = Application.Current as App;
+
+            if (app == null)
+                return;
+
+            var client = new VideosServiceClient(app.EsbUsername, app.EsbPassword, app.EsbAccessKey);
+
+            User u = await client.GetUserAsync(this.tb_UserNameForGetUser.Text);
+
+            this.tblock_Result.Text = String.Format("Username: {0}\nCreationDate: {1}\nLastLogin: {2}", 
+                u.Username, u.CreationDate, u.LastLogin);
         }
     }
 }

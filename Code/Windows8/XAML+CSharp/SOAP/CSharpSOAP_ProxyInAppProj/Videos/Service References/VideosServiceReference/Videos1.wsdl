@@ -578,32 +578,32 @@
   </message>
   <portType name="VideosSoapSecure">
     <operation name="AddVideo">
-      <documentation>Adicionar um novo vídeo na plataforma a partir de um ficheiro que se encontra no servidor de FTP, carregado anteriormente (para obter uma conta no servidor de FTP deve-se contactar a equipa técnica do Vídeos)</documentation>
+      <documentation>Add a new video to the platform from a file located in the FTP server, loaded previously (to get a FTP server account contact the Video technical team)</documentation>
       <input message="esb:AddVideoSoapIn" />
       <output message="esb:AddVideoSoapOut" />
     </operation>
     <operation name="AddVideoPost">
-      <documentation>Adicionar um novo vídeo na plataforma e fazer o upload deste por POST posteriormente.
+      <documentation>Add a new video to the platform and its later uploading via POST.
 
-De modo a fazer o POST do ficheiro é necessário obter um token ao BUS com o randname do vídeo como parâmetro ExtraInfo. Este post deverá conter os seguintes campos:
-- token: token obtido a partir do BUS;
-- content_file: ficheiro a carregar;
-- redir: redireccionamento para o qual a janela de formulário deve ir após o POST (opcional, no caso de não ser passado este parâmetro é devolvido o resultado em XML; caso contrario é passado o resultado no parâmetro error do redireccionamento).</documentation>
+In way to do the file POST it is necessary to get a token from BUS with the video randname as ExtraInfo parameter. This post will have the following fields: campos:
+- token: token obtained from the BUS;
+- content_file: file to upload;
+- redir: redirect to which the form window should go after the POST (optional, in case the parameter is not passed it is returned the result in XML; otherwise it is passed the result in error parameter from redirect.</documentation>
       <input message="esb:AddVideoPostSoapIn" />
       <output message="esb:AddVideoPostSoapOut" />
     </operation>
     <operation name="AddVideoToPlaylist">
-      <documentation>Adicionar video à playlist</documentation>
+      <documentation>Add video to playlist</documentation>
       <input message="esb:AddVideoToPlaylistSoapIn" />
       <output message="esb:AddVideoToPlaylistSoapOut" />
     </operation>
     <operation name="CheckPlaylist">
-      <documentation>Devolve a informação de uma determinada playlist</documentation>
+      <documentation>Returns the information for a specific playlist</documentation>
       <input message="esb:CheckPlaylistSoapIn" />
       <output message="esb:CheckPlaylistSoapOut" />
     </operation>
     <operation name="CheckVideo">
-      <documentation>Devolve a informação de um determinado vídeo</documentation>
+      <documentation>Returns the information for a specific video</documentation>
       <input message="esb:CheckVideoSoapIn" />
       <output message="esb:CheckVideoSoapOut" />
     </operation>
@@ -613,42 +613,42 @@ De modo a fazer o POST do ficheiro é necessário obter um token ao BUS com o ra
       <output message="esb:CreatePlaylistSoapOut" />
     </operation>
     <operation name="CreateUser">
-      <documentation>Cria um novo utilizador</documentation>
+      <documentation>Creates a new user</documentation>
       <input message="esb:CreateUserSoapIn" />
       <output message="esb:CreateUserSoapOut" />
     </operation>
     <operation name="DeletePlaylist">
-      <documentation>Remover um playlist</documentation>
+      <documentation>Remove a Playlist</documentation>
       <input message="esb:DeletePlaylistSoapIn" />
       <output message="esb:DeletePlaylistSoapOut" />
     </operation>
     <operation name="DeleteVideo">
-      <documentation>Remover um vídeo</documentation>
+      <documentation>Remove a video</documentation>
       <input message="esb:DeleteVideoSoapIn" />
       <output message="esb:DeleteVideoSoapOut" />
     </operation>
     <operation name="EditPlaylist">
-      <documentation>Alterar os dados de determinada Playlist</documentation>
+      <documentation>Change the data of a specific playlist</documentation>
       <input message="esb:EditPlaylistSoapIn" />
       <output message="esb:EditPlaylistSoapOut" />
     </operation>
     <operation name="EditVideo">
-      <documentation>Alterar os dados de determinado vídeo</documentation>
+      <documentation>Change the data of a specific video</documentation>
       <input message="esb:EditVideoSoapIn" />
       <output message="esb:EditVideoSoapOut" />
     </operation>
     <operation name="GetEncodeParameters">
-      <documentation>Devolve os parâmetros de codificação de um vídeo para determinado perfil de codificação</documentation>
+      <documentation>Returns the encoding parameters of the video for a certain encoding profile</documentation>
       <input message="esb:GetEncodeParametersSoapIn" />
       <output message="esb:GetEncodeParametersSoapOut" />
     </operation>
     <operation name="GetEncodeProfilesForUser">
-      <documentation>Devolve um array de perfis de codificação, que podem ser carregados pelo utilizador que estiver autenticado no serviço web.</documentation>
+      <documentation>Returns an array of encoding profiles, which can be uploaded by the user when authenticated in the webservice.</documentation>
       <input message="esb:GetEncodeProfilesForUserSoapIn" />
       <output message="esb:GetEncodeProfilesForUserSoapOut" />
     </operation>
     <operation name="GetUserInfo">
-      <documentation>Devolve informação sobre um utilizador</documentation>
+      <documentation>Returns information about a user</documentation>
       <input message="esb:GetUserInfoSoapIn" />
       <output message="esb:GetUserInfoSoapOut" />
     </operation>
@@ -658,12 +658,12 @@ De modo a fazer o POST do ficheiro é necessário obter um token ao BUS com o ra
       <output message="esb:GetUserInfoForDashboardSoapOut" />
     </operation>
     <operation name="ListCategories">
-      <documentation>Lista de categorias de plataformas</documentation>
+      <documentation>List platform categories</documentation>
       <input message="esb:ListCategoriesSoapIn" />
       <output message="esb:ListCategoriesSoapOut" />
     </operation>
     <operation name="ListUserPlaylists">
-      <documentation>Retorna a lista de canais do utilizador.</documentation>
+      <documentation>Returns a list of playlists for the current user</documentation>
       <input message="esb:ListUserPlaylistsSoapIn" />
       <output message="esb:ListUserPlaylistsSoapOut" />
     </operation>
@@ -678,22 +678,22 @@ De modo a fazer o POST do ficheiro é necessário obter um token ao BUS com o ra
       <output message="esb:ListUserVideosSoapOut" />
     </operation>
     <operation name="ListVideosFromPlaylist">
-      <documentation>Retorna os videos de um canal</documentation>
+      <documentation>Returns a list of videos from a given playlist</documentation>
       <input message="esb:ListVideosFromPlaylistSoapIn" />
       <output message="esb:ListVideosFromPlaylistSoapOut" />
     </operation>
     <operation name="NotifyComment">
-      <documentation>Notificar a plataforma de vídeos para esta actualizar as suas contagens quando são adicionados, alterados ou apagados comentários directamente na plataforma do SimpleForum (só utilizadores com permissões de "super utilizador" podem invocar este método)</documentation>
+      <documentation>Notify the video platform so it can update its countings when comments are added, changed ou removed directly at the SimpleForum platform (only users with superuser permissions can call this method)</documentation>
       <input message="esb:NotifyCommentSoapIn" />
       <output message="esb:NotifyCommentSoapOut" />
     </operation>
     <operation name="Query">
-      <documentation>Devolve uma listagem de vídeos com a possibilidade de aplicação de filtros</documentation>
+      <documentation>Returns a list of videos with the possibility of filter applying</documentation>
       <input message="esb:QuerySoapIn" />
       <output message="esb:QuerySoapOut" />
     </operation>
     <operation name="RemoveVideoFromPlaylist">
-      <documentation>Remove um video da playlist</documentation>
+      <documentation>Remove video from playlist</documentation>
       <input message="esb:RemoveVideoFromPlaylistSoapIn" />
       <output message="esb:RemoveVideoFromPlaylistSoapOut" />
     </operation>
@@ -955,7 +955,11 @@ De modo a fazer o POST do ficheiro é necessário obter um token ao BUS com o ra
     </operation>
   </binding>
   <service name="Videos">
-    <documentation>Permite a pesquisa de vídeos usando as tags e categorias do serviço SAPO Videos.</documentation>
+    <documentation>API created to allow an easy access to video different main features, such as video adding, editing and removing from the.platform. It also allows content listing using this API.
+
+The webservice access is made via BUS, at the following endpoint: http://services.sapo.pt/Videos/
+
+The authentication in the webservice is made at the BUS side. The user, by default, only as permission to access is own contents. In case he is a superuser (contact video technical team) he can give permissions to another user to access his contents.</documentation>
     <port name="VideosSoapSecure" binding="esb:VideosSoapSecure">
       <soap:address location="https://services.sapo.pt/Videos" />
     </port>

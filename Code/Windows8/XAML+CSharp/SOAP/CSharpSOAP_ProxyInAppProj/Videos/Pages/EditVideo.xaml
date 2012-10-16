@@ -53,6 +53,8 @@
                 </StackPanel>
 
                 <Button x:Name="bt_EditVideo" Content="Edit Video" Width="200" Click="BtEditVideoClick" />
+                <TextBlock x:Name="tblock_Result" TextWrapping="Wrap" 
+                           Text="" Style="{StaticResource ResourceKey=TitleTextStyle}" />
             </StackPanel>
         </Grid>
 

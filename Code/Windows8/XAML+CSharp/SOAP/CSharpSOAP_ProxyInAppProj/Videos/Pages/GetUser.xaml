@@ -13,7 +13,7 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
+        <x:String x:Key="PageName">Get User details</x:String>
     </Page.Resources>
 
     <!--
@@ -34,9 +34,21 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource PageName}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Username:" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="5,0,2,0"></TextBlock>
+                    <TextBox x:Name="tb_UserNameForGetUser" Width="300" />
+                </StackPanel>
+                <Button x:Name="bt_GetUser" Content="Get User Details" Width="200" Click="BtGetUserClick"/>
+                <TextBlock x:Name="tblock_Result" TextWrapping="Wrap" 
+                           Text="" Style="{StaticResource ResourceKey=TitleTextStyle}" />
+            </StackPanel>
+        </Grid>
+        
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

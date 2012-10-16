@@ -44,6 +44,8 @@
                     <TextBox x:Name="tb_VideoRandnameForDeleteVideo" Width="300" />
                 </StackPanel>
                 <Button x:Name="bt_DeleteVideo" Content="Delete Video" Width="200" Click="BtDeleteVideoClick"/>
+                <TextBlock x:Name="tblock_Result" TextWrapping="Wrap" 
+                           Text="" Style="{StaticResource ResourceKey=TitleTextStyle}" />
             </StackPanel>
         </Grid>
 
