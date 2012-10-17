@@ -8,47 +8,27 @@
                 this.username = username;
                 this.password = password;
                 this.accessKey = accessKey;
-                this.photosBaseUri = "https://services.sapo.pt/Photos/";
+                this.baseUri = "https://services.sapo.pt/Photos/";
             },
             {
                 asyncDummyEcho: function (params) {
+                    if (!params)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+
                     var dummyEchoAllowedParams = ["echoStr", "json", "ESBUsername", "ESBPassword"];
-                    if (params) {
 
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
-                                dummyEchoAllowedParams, "DummyEcho"))
-                            .absoluteCanonicalUri;
-
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    return Utils.doGetRequestHelper(this, params, dummyEchoAllowedParams, "DummyEcho");
                 },
 
                 asyncUserDetails: function () {
                     var userDetailsAllowedParams = ["json", "ESBUsername", "ESBPassword"];
-                    var params = {};
-                    params.json = "true";
-                    params.ESBUsername = this.username;
-                    params.ESBPassword = this.password;
-                    var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
-                            userDetailsAllowedParams, "UserDetails"))
-                        .absoluteCanonicalUri;
 
-                    var headers = {};
-                    headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                    return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                        .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    return Utils.doGetRequestHelper(this, undefined, userDetailsAllowedParams, "UserDetails");
                 },
 
                 asyncImageCreate: function (file, image) {
+                    if (!(file && image))
+                        throw SdkExceptions.Client.InsuffientParametersException;
                     var imageCreateAllowedParams = ["json", "ESBUsername", "ESBPassword"];
                     var imageToBeSerialized = {};
                     imageToBeSerialized.image = image;
@@ -61,7 +41,7 @@
                     params.ESBUsername = this.username;
                     params.ESBPassword = this.password;
                     var uri =
-                        Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
+                        Windows.Foundation.Uri(Utils.buildUri(this.baseUri, params,
                             imageCreateAllowedParams, "ImageCreate"))
                         .absoluteCanonicalUri;
 
@@ -124,164 +104,93 @@
                 },
 
                 asyncImageDetails: function (uid) {
-                    var imageDetailsAllowedParams = ["uid", "json", "ESBUsername", "ESBPassword"];
-                    if (uid) {
-                        var params = {};
-                        params.uid = uid;
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri,
-                                params, imageDetailsAllowedParams, "ImageDetails"))
-                            .absoluteCanonicalUri;
+                    if (!uid)
+                        throw SdkExceptions.Client.InsuffientParametersException;
 
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    var imageDetailsAllowedParams = ["uid", "json", "ESBUsername", "ESBPassword"];
+                    
+                    var params = {};
+                    params.uid = uid;
+
+                    return Utils.doGetRequestHelper(this, params, imageDetailsAllowedParams, "ImageDetails");
                 },
 
                 asyncImageGetListBySearch: function (params) {
+                    if (!params)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+
                     var imageGetListBySearchAllowedParams =
-                    ["string", "page", "interface", "datefrom", "dateto", "json", "ESBUsername", "ESBPassword"];
-                    if (params) {
+                        ["string", "page", "interface", "datefrom", "dateto", "json", "ESBUsername", "ESBPassword"];
+                    
+                    //Convert dates to Strings
+                    if (params.datefrom)
+                        params.datefrom = Utils.dateToString(params.datefrom);
+                    if (params.dateto)
+                        params.dateto = Utils.dateToString(params.dateto);
 
-                        //Convert dates to Strings
-                        if (params.datefrom)
-                            params.datefrom = Utils.dateToString(params.datefrom);
-                        if (params.dateto)
-                            params.dateto = Utils.dateToString(params.dateto);
-
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
-                                imageGetListBySearchAllowedParams, "ImageGetListBySearch"))
-                            .absoluteCanonicalUri;
-
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    return Utils.doGetRequestHelper(this, params, imageGetListBySearchAllowedParams, "ImageGetListBySearch");
                 },
 
                 asyncImageGetListByTags: function (params) {
+                    if (!params)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+
                     var imageGetListByTagsAllowedParams =
-                    ["tag", "page", "orderby", "m18", "username", "interface", "json", "ESBUsername", "ESBPassword"];
-                    if (params) {
+                        ["tag", "page", "orderby", "m18", "username", "interface", "json", "ESBUsername", "ESBPassword"];
 
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
-                                imageGetListByTagsAllowedParams, "ImageGetListByTags"))
-                            .absoluteCanonicalUri;
-
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    return Utils.doGetRequestHelper(this, params, imageGetListByTagsAllowedParams, "ImageGetListByTags");
                 },
 
                 asyncImageDelete: function (uid) {
-                    var imageDeleteAllowedParams = ["uid", "json", "ESBUsername", "ESBPassword"];
-                    if (uid) {
-                        var params = {};
-                        params.uid = uid;
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
-                                imageDeleteAllowedParams, "ImageDelete"))
-                            .absoluteCanonicalUri;
+                    if (!uid)
+                        throw SdkExceptions.Client.InsuffientParametersException;
 
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    var imageDeleteAllowedParams = ["uid", "json", "ESBUsername", "ESBPassword"];
+                    
+                    var params = {};
+                    params.uid = uid;
+
+                    return Utils.doGetRequestHelper(this, params, imageDeleteAllowedParams, "ImageDelete");
                 },
 
                 asyncImageGetListByUser: function (user) {
-                    var imageGetListByUserAllowedParams = ["username", "json", "ESBUsername", "ESBPassword"];
-                    if (user) {
-                        var params = {};
-                        params.username = user;
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
-                                imageGetListByUserAllowedParams, "ImageGetListByUser"))
-                            .absoluteCanonicalUri;
+                    if (!user)
+                        throw SdkExceptions.Client.InsuffientParametersException;
 
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    var imageGetListByUserAllowedParams = ["username", "json", "ESBUsername", "ESBPassword"];
+                    
+                    var params = {};
+                    params.username = user;
+
+                    return Utils.doGetRequestHelper(this, params, imageGetListByUserAllowedParams, "ImageGetListByUser");
                 },
 
                 asyncimageGetListByUserAlbum: function (albumid, params) {
+                    if (!albumid)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+
                     var imageGetListByUserAlbumAllowedParams = ["page", "orderby", "id", "username", "json",
                         "ESBUsername", "ESBPassword"];
-                    if (albumid) {
 
-                        if (!params)
-                            params = {};
-                        params.id = albumid;
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(
-                                Utils.buildUri(this.photosBaseUri, params,
-                                    imageGetListByUserAlbumAllowedParams, "ImageGetListByUserAlbum"))
-                            .absoluteCanonicalUri;
+                    if (!params)
+                        params = {};
+                    params.id = albumid;
 
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    return Utils.doGetRequestHelper(this, params,
+                        imageGetListByUserAlbumAllowedParams, "ImageGetListByUserAlbum");
                 },
 
                 asyncImageAddToAlbum: function (imageuid, albumids) {
+                    if (albumids == undefined || imageuid == undefined)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+
                     var imageAddToAlbumAllowedParams = ["imageuid", "albumid", "json", "ESBUsername", "ESBPassword"];
-                    if (albumids != undefined && imageuid != undefined) {
+                    
+                    var params = {};
+                    params.imageuid = imageuid;
+                    params.albumid = albumids;
 
-                        var params = {};
-                        params.imageuid = imageuid;
-                        params.albumid = albumids;
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(
-                                Utils.buildUri(this.photosBaseUri, params,
-                                    imageAddToAlbumAllowedParams, "ImageAddToAlbum"))
-                            .absoluteCanonicalUri;
-
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    return Utils.doGetRequestHelper(this, params, imageAddToAlbumAllowedParams, "ImageAddToAlbum");
                 },
 
                 asyncAlbumCreate: function (album) {
@@ -298,7 +207,7 @@
                         params.ESBPassword = this.password;
                         var uri =
                             Windows.Foundation.Uri(
-                                Utils.buildUri(this.photosBaseUri, params, albumCreateAllowedParams, "AlbumCreate"))
+                                Utils.buildUri(this.baseUri, params, albumCreateAllowedParams, "AlbumCreate"))
                             .absoluteCanonicalUri;
 
                         var headers = {};
@@ -311,24 +220,15 @@
                 },
                 
                 asyncAlbumGetListByUser: function(user) {
+                    if (!user)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+                    
                     var albumGetListByUserAllowedParams = ["username", "json", "ESBUsername", "ESBPassword"];
-                    if (user) {
-                        var params = {};
-                        params.username = user;
-                        params.json = "true";
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.photosBaseUri, params,
-                                albumGetListByUserAllowedParams, "AlbumGetListByUser"))
-                            .absoluteCanonicalUri;
+                    
+                    var params = {};
+                    params.username = user;
 
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    return Utils.doGetRequestHelper(this, params, albumGetListByUserAllowedParams, "AlbumGetListByUser");
                 }
             }
         )

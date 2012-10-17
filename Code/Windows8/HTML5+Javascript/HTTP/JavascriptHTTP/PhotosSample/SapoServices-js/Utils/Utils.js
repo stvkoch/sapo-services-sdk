@@ -138,9 +138,28 @@
         },
         //Basic request completion handler
         requestCompletedHandler: function (xhr) {
-            if (xhr.status == 200 && xhr.responseText)
+            if (xhr.status == 200)
                 return xhr.responseText;
             throw SdkExceptions.Service.UnspecifiedServiceException;
+        },
+
+        doGetRequestHelper: function (client, params, allowedParams, operation) {
+            if (!params)
+                params = {};
+
+            params.json = "true";
+            params.ESBUsername = client.username;
+            params.ESBPassword = client.password;
+
+            var uri =
+                    Windows.Foundation.Uri(Utils.buildUri(client.baseUri, params, allowedParams,
+                        operation))
+                    .absoluteCanonicalUri;
+
+            var headers = {};
+            headers["Authorization"] = "ESB AccessKey=" + client.accessKey;
+            return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
         }
 
     });

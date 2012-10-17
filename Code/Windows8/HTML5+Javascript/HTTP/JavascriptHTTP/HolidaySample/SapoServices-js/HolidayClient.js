@@ -10,7 +10,7 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.holidayBaseUri = "https://services.sapo.pt/Holiday/";
+                    this.baseUri = "https://services.sapo.pt/Holiday/";
                 }
             ,
             {
@@ -48,27 +48,16 @@
 
                 /*Helper method*/
                 doRequestHelper: function (year, operation) {
+                    if (!year)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+                    
                     var allowedParams = ["jsonText", "year", "ESBUsername", "ESBPassword", "json"];
+                    
+                    var params = {};
+                    params.year = year;
+                    params.jsonText = "false";
 
-                    if (year) {
-                        var params = {};
-                        params.year = year;
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        params.jsonText = "false";
-                        params.jsonText = "true";
-
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.holidayBaseUri, params,
-                                allowedParams, operation))
-                            .absoluteCanonicalUri;
-
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
-                    }
-                    throw SdkExceptions.Client.InsuffientParametersException;
+                    return Utils.doGetRequestHelper(this, params, allowedParams, operation);
                 }
             }
         )
