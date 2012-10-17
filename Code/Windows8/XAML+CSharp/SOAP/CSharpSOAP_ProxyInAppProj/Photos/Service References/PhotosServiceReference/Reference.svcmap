@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="073a3da5-f269-475c-a42b-cb6c8abc114d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="C:\tmp\wsdl\Photos\Photos.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Photos_Types.xsd" MetadataType="Schema" ID="22504df9-736c-4e69-a624-69edf90d2989" SourceId="1" SourceUrl="file:///C:/tmp/wsdl/Photos/Photos_Types.xsd" />
+    <MetadataFile FileName="esbCredentials.xsd" MetadataType="Schema" ID="5d9f160c-68f8-48f3-9dbf-7622713f9fe3" SourceId="1" SourceUrl="file:///C:/tmp/wsdl/Photos/esbCredentials.xsd" />
+    <MetadataFile FileName="Photos.wsdl" MetadataType="Wsdl" ID="36a3a9dc-a1bc-4be9-8831-b3d893a73107" SourceId="1" SourceUrl="file:///C:/tmp/wsdl/Photos/Photos.wsdl" />
+    <MetadataFile FileName="_Metadata_Schema_Market.xsd" MetadataType="Schema" ID="48420f8b-df59-403a-9b44-e38b70d2d586" SourceId="1" SourceUrl="file:///C:/tmp/wsdl/Photos/_Metadata_Schema_Market.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
