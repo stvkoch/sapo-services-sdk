@@ -10,7 +10,7 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.baseUri = "https://services.sapo.pt/Videos/";
+                    this.baseUri = "http://services.sapo.pt/Videos/";
                 }
             ,
             {
