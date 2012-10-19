@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Image = Photos.PhotosServiceReference.Image;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -20,9 +21,9 @@ namespace Photos.Pages
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class AddPhotoToAlbum : Photos.Common.LayoutAwarePage
+    public sealed partial class GetUserTags : Photos.Common.LayoutAwarePage
     {
-        public AddPhotoToAlbum()
+        public GetUserTags()
         {
             this.InitializeComponent();
         }
@@ -50,7 +51,7 @@ namespace Photos.Pages
         {
         }
 
-        private async void BtAddPhotoClick(object sender, RoutedEventArgs e)
+        private async void BtGetUserTagsClick(object sender, RoutedEventArgs e)
         {
             App app = Application.Current as App;
 
@@ -59,18 +60,12 @@ namespace Photos.Pages
 
             var client = new PhotosServiceClient(app.EsbUsername, app.EsbPassword, app.EsbAccessKey);
 
+            string[] tags = await client.GetUserTags();
 
-            //You MUST provide to albums for this example to work
-            bool result =
-                await
-                client.AddImageToAlbums(this.tb_PhotoUidForAddPhotoToAlbum.Text,
-                                                     new int[]
-                                                         {
-                                                             Convert.ToInt32(this.tb_Album1AidForAddPhotoToAlbum.Text),
-                                                             Convert.ToInt32(this.tb_Album2AidForAddPhotoToAlbum.Text)
-                                                         });
-
-            this.tblock_Result.Text = result ? "Photo sucessfully added to the specified albums" : "Error!";
+            foreach (string tag in tags)
+            {
+                this.tblock_Result.Text += tag+"; ";
+            }
         }
     }
 }

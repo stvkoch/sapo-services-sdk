@@ -101,5 +101,17 @@ namespace Photos
             this.UpdateCredentials();
             this.Frame.Navigate(typeof (GetUserAlbums));
         }
+
+        private void BtGetUserPhotosClick(object sender, RoutedEventArgs e)
+        {
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof(GetUserImageList));
+        }
+
+        private void BtGetUserTagsClick(object sender, RoutedEventArgs e)
+        {
+            this.UpdateCredentials();
+            this.Frame.Navigate(typeof(GetUserTags));
+        }
     }
 }

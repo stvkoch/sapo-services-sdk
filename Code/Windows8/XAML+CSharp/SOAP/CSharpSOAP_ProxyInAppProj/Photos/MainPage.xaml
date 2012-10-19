@@ -27,6 +27,8 @@
                 <Button x:Name="btCreateAlbum" Content="Create an album" Width="270" Click="BtCreateAlbumClick"></Button>
                 <Button x:Name="btAddPhotoToAlbum" Content="Add a photo to an album" Width="270" Click="BtAddPhotoToAlbumClick"></Button>
                 <Button x:Name="btGetUserAlbums" Content="Get user albums" Width="270" Click="BtGetUserAlbumsClick"></Button>
+                <Button x:Name="btGetUserPhotos" Content="Get user photos" Width="270" Click="BtGetUserPhotosClick"></Button>
+                <Button x:Name="btGetUserTags" Content="Get user tags" Width="270" Click="BtGetUserTagsClick"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

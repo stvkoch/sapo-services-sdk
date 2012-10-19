@@ -140,6 +140,12 @@
     <Compile Include="Pages\GetUserAlbums.xaml.cs">
       <DependentUpon>GetUserAlbums.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\GetUserImageList.xaml.cs">
+      <DependentUpon>GetUserImageList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GetUserTags.xaml.cs">
+      <DependentUpon>GetUserTags.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SapoServices\CreateImageResult.cs" />
     <Compile Include="SapoServices\PhotosServiceClient.cs" />
@@ -304,6 +310,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\GetUserAlbums.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\GetUserImageList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\GetUserTags.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -37,6 +37,30 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource PageName}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Photo uid:" VerticalAlignment="Center" 
+                               FontSize="16" FontWeight="Bold" Margin="5,0,2,0"></TextBlock>
+                    <TextBox x:Name="tb_PhotoUidForAddPhotoToAlbum" Width="300" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Album1 aid:" VerticalAlignment="Center" 
+                               FontSize="16" FontWeight="Bold" Margin="5,0,2,0"></TextBlock>
+                    <TextBox x:Name="tb_Album1AidForAddPhotoToAlbum" Width="300" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Album2 aid:" VerticalAlignment="Center" 
+                               FontSize="16" FontWeight="Bold" Margin="5,0,2,0"></TextBlock>
+                    <TextBox x:Name="tb_Album2AidForAddPhotoToAlbum" Width="300" />
+                </StackPanel>
+                <Button x:Name="bt_AddPhoto" Content="Add Photo" Width="200" Click="BtAddPhotoClick" />
+                <TextBlock x:Name="tblock_Result" TextWrapping="Wrap" 
+                           Text="" Style="{StaticResource ResourceKey=TitleTextStyle}" />
+            </StackPanel>
+        </Grid>
+        
+        
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->
