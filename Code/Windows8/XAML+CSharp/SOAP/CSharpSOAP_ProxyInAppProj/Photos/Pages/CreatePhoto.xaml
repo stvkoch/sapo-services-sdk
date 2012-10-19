@@ -37,6 +37,13 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource PageName}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <Button x:Name="bt_PickPhoto" Content="Pick Photo" Width="200" Click="BtPickPhotoClick"/>
+                <TextBlock x:Name="tblock_Result" TextWrapping="Wrap" 
+                           Text="" Style="{StaticResource ResourceKey=TitleTextStyle}" />
+            </StackPanel>
+        </Grid>
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

@@ -37,6 +37,34 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource PageName}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Photo uid:" VerticalAlignment="Center" 
+                               FontSize="16" FontWeight="Bold" Margin="5,0,2,0"></TextBlock>
+                    <TextBox x:Name="tb_PhotoUidForEditPhoto" Width="300" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Photo title:" VerticalAlignment="Center" 
+                               FontSize="16" FontWeight="Bold" Margin="5,0,2,0"></TextBlock>
+                    <TextBox x:Name="tb_PhotoTitleForGetPhoto" Width="300" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Photo tags:" VerticalAlignment="Center" 
+                               FontSize="16" FontWeight="Bold" Margin="5,0,2,0"></TextBlock>
+                    <TextBox x:Name="tb_PhotoTagsForGetPhoto" Width="300" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Photo synopse:" VerticalAlignment="Center" 
+                               FontSize="16" FontWeight="Bold" Margin="5,0,2,0"></TextBlock>
+                    <TextBox x:Name="tb_PhotoSynopseForGetPhoto" Width="300" />
+                </StackPanel>
+                <Button x:Name="bt_GetPhoto" Content="Edit Photo" Width="200" Click="BtGetPhotoClick" />
+                <TextBlock x:Name="tblock_Result" TextWrapping="Wrap" 
+                           Text="" Style="{StaticResource ResourceKey=TitleTextStyle}" />
+            </StackPanel>
+        </Grid>
+        
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

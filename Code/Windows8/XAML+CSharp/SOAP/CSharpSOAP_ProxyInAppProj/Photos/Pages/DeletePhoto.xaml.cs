@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Photos.SapoServices;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -47,6 +48,23 @@ namespace Photos.Pages
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        private async void BtDeletePhotoClick(object sender, RoutedEventArgs e)
+        {
+            App app = Application.Current as App;
+
+            if (app == null)
+                return;
+
+            var client = new PhotosServiceClient(app.EsbUsername, app.EsbPassword, app.EsbAccessKey);
+
+            bool success = await client.DeleteImageAsync(this.tb_PhotoUidForDeletePhoto.Text);
+
+            this.tblock_Result.Text = 
+                success 
+                ? String.Format("Photo with uid {0} sucessfully deleted", this.tb_PhotoUidForDeletePhoto.Text) 
+                : "Error!";
         }
     }
 }
