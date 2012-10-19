@@ -6,44 +6,41 @@
                 function (username, password, accessKey) {
 
                     if (!(username && password && accessKey))
-                        throw "MUST provide username, password and accessKey";
+                        throw SdkExceptions.Client.NonProvidedCredentialsException;
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.autoBaseUri = "https://services.sapo.pt/Auto/";
+                    this.baseUri = "https://services.sapo.pt/Auto/";
                 }
             ,
             {
                 asyncSearchByTerms: function (params) {
-                    var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword"];
+                    var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword", "json"];
 
                     if (params != null && allowedParams[0] in params && params[allowedParams[0]]) {
 
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
+                        return Utils.doGetRequestHelper(this, params, allowedParams, "JSON");
 
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.autoBaseUri, params,
-                                allowedParams, "JSON"))
-                            .absoluteCanonicalUri;
+                        //params.ESBUsername = this.username;
+                        //params.ESBPassword = this.password;
+                        //params.json = "true";
 
-                        var headers = {};
-                        //headers["Content-Type"] = "application/json";
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                return "ERROR";
-                            });
+                        //var uri =
+                        //    Windows.Foundation.Uri(Utils.buildUri(this.baseUri, params,
+                        //        allowedParams, "JSON"))
+                        //    .absoluteCanonicalUri;
+
+                        //var headers = {};
+                        ////headers["Content-Type"] = "application/json";
+                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        //return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        //    .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
-
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
 
                 asyncSearchByBrandModelPrice: function (params) {
-                    var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword"];
+                    var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword", "json"];
 
                     function tryExtractBrandModelPrice(params) {
                         var qParams = ["Brand","Model","Price"];
@@ -67,29 +64,27 @@
                         var res = tryExtractBrandModelPrice(params);
 
                         if (!res)
-                            throw "At least one of Brand, Model or Price MUST be specified."
+                            throw SdkExceptions.Client.InsuffientParametersException;
                         params.q = res;
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
 
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.autoBaseUri, params,
-                                allowedParams, "JSON"))
-                            .absoluteCanonicalUri;
+                        return Utils.doGetRequestHelper(this, params, allowedParams, "JSON");
 
-                        var headers = {};
-                        //headers["Content-Type"] = "application/json";
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                return "ERROR";
-                            });
+                        //params.ESBUsername = this.username;
+                        //params.ESBPassword = this.password;
+                        //params.json = "true";
+
+                        //var uri =
+                        //    Windows.Foundation.Uri(Utils.buildUri(this.baseUri, params,
+                        //        allowedParams, "JSON"))
+                        //    .absoluteCanonicalUri;
+
+                        //var headers = {};
+                        ////headers["Content-Type"] = "application/json";
+                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        //return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                        //    .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
-                    throw "MUST specify parameters."
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 }
             }
         )

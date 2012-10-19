@@ -6,15 +6,15 @@
                 function (username, password, accessKey) {
 
                     if (!(username && password && accessKey))
-                        throw "MUST provide username, password and accessKey";
+                        throw SdkExceptions.Client.NonProvidedCredentialsException;
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.smsBaseUri = "http://services.sapo.pt/OneAPI/SMS/SMSMessaging/";
+                    this.smsBaseUri = "https://services.sapo.pt/OneAPI/SMS/SMSMessaging/";
                 }
             ,
             {
-                asyncsSendSMS: function (address, message, senderName, senderAddress) {
+                asyncSendSMSToOne: function (address, message, senderName, senderAddress) {
                     var allowedParams = ["senderAddress", "senderName", "message", "address",
                         "ESBUsername", "ESBPassword"];
 
@@ -45,22 +45,58 @@
                         //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: data })
-                            .then(function (xhr) {
-                                if (xhr.status == 201 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                if (xhr.status == 503)
-                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER"
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
-                    throw "MUST specify address, message, senderName and senderAddress."
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 },
-                asyncGetDeliveryInfos: function (requestID, senderAddress) {
+
+                asyncSendSMSToMany: function (addresses, message, senderName, senderAddress) {
+                    var allowedParams = ["senderAddress", "senderName", "message", "address",
+                        "ESBUsername", "ESBPassword"];
+
+                    if (addresses && message && senderName && senderAddress) {
+                        var params = {};
+                        params.senderAddress = encodeURIComponent("tel:"+senderAddress);
+                        params.senderName = senderName;
+                        params.message = encodeURIComponent(message);
+
+                        var address = [];
+                        for (var i = 0; i < addresses.length; ++i) {
+                            if (addresses[i])
+                                address.push(encodeURIComponent("tel:" + addresses[i]));
+                        }
+                        params.address = address;
+
+                        params.ESBUsername = this.username;
+                        params.ESBPassword = this.password;
+
+                        //build URI
+                        var sb = new Utils.StringBuilder();
+                        sb.append(this.smsBaseUri);
+                        sb.append("outbound");
+                        sb.append("/");
+                        sb.append(params.senderAddress);
+                        sb.append("/");
+                        sb.append("requests");
+
+                        var uri = Windows.Foundation.Uri(sb.toString()).absoluteCanonicalUri;
+
+                        var data = Utils.wwwFormUrlEncode(params, allowedParams);
+
+                        var headers = {};
+                        headers["Content-Type"] = "application/x-www-form-urlencoded";
+                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+
+                        return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: data })
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
+                    }
+                    throw SdkExceptions.Client.InsuffientParametersException;
+                },
+
+                asyncGetDeliveryInfos: function (requestId, senderAddress) {
                     //var allowedParams = ["ESBUsername", "ESBPassword"];
 
-                    if (requestID && senderAddress) {
+                    if (requestId && senderAddress) {
                         //var params = {};
                         //params.ESBUsername = this.username;
                         //params.ESBPassword = this.password;
@@ -78,7 +114,7 @@
                         sb.append("/");
                         sb.append("requests");
                         sb.append("/");
-                        sb.append(requestID);
+                        sb.append(requestId);
                         sb.append("/");
                         sb.append("deliveryInfos");
                         sb.append("?");
@@ -94,17 +130,9 @@
                         //headers["Content-Type"] = "application/json";
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                if (xhr.status == 503)
-                                    return "SERVICE_UNAVAILABLE_RETRY_AFTER"
-                                return "ERROR";
-                            });
+                            .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
-                    throw "MUST specify parameters."
+                    throw SdkExceptions.Client.InsuffientParametersException;
                 }
             }
         )

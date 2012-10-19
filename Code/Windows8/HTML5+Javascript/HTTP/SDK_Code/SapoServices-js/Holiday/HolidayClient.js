@@ -6,11 +6,11 @@
                 function (username, password, accessKey) {
 
                     if (!(username && password && accessKey))
-                        throw "MUST provide username, password and accessKey";
+                        throw SdkExceptions.Client.NonProvidedCredentialsException;
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.holidayBaseUri = "https://services.sapo.pt/Holiday/";
+                    this.baseUri = "https://services.sapo.pt/Holiday/";
                 }
             ,
             {
@@ -48,32 +48,16 @@
 
                 /*Helper method*/
                 doRequestHelper: function (year, operation) {
-                    var allowedParams = ["jsonText", "year", "ESBUsername", "ESBPassword"];
+                    if (!year)
+                        throw SdkExceptions.Client.InsuffientParametersException;
+                    
+                    var allowedParams = ["jsonText", "year", "ESBUsername", "ESBPassword", "json"];
+                    
+                    var params = {};
+                    params.year = year;
+                    params.jsonText = "false";
 
-                    if (year) {
-                        var params = {};
-                        params.year = year;
-                        params.ESBUsername = this.username;
-                        params.ESBPassword = this.password;
-                        params.jsonText = "false";
-
-                        var uri =
-                            Windows.Foundation.Uri(Utils.buildUri(this.holidayBaseUri, params,
-                                allowedParams, operation))
-                            .absoluteCanonicalUri;
-
-                        var headers = {};
-                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
-                            .then(function (xhr) {
-                                if (xhr.status == 200 && xhr.responseText)
-                                    return xhr.responseText;
-                                return "ERROR";
-                            }, function (xhr) {
-                                return "ERROR";
-                            });
-                    }
-                    throw "MUST specify year";
+                    return Utils.doGetRequestHelper(this, params, allowedParams, operation);
                 }
             }
         )

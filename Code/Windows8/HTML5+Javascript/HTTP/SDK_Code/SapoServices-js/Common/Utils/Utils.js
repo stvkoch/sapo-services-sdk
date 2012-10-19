@@ -4,6 +4,40 @@
 */
 (function () {
 
+    WinJS.Namespace.define("SdkExceptions", {
+
+        Client: WinJS.Namespace.define("SdkExceptions.Client", {
+
+            NonProvidedCredentialsException: {
+                name: "NonProvidedCredentialsException",
+                message: "MUST provide username, password and accessKey"
+            },
+            InsuffientParametersException: {
+                name: "InsuffientParametersException",
+                message: "Parameters not specified or insufficient parameters"
+            }
+        }),
+        Service: WinJS.Namespace.define("SdkExceptions.Service", {
+
+            ServiceUnavailableException: {
+                name: "ServiceUnavailableException",
+                message: "Service temporarily unavailable, retry after"
+            },
+            InvalidRequestOrCredentialsException: {
+                name: "InvalidRequestOrCredentialsException",
+                message: "Bad request or invalid credentials"
+            },
+            RequestTimeoutException: {
+                name: "RequestTimeoutException",
+                message: "The service took to long to response, try after"
+            },
+            UnspecifiedServiceException: {
+                name: "UnspecifiedServiceException",
+                message: "Unspecified server error"
+            }
+        })
+    });
+
     WinJS.Namespace.define("Utils", {
 
         /* StringBuilder */
@@ -80,6 +114,53 @@
                 sb.append("0");
             sb.append(String(monthDay));
             return sb.toString();
+        },
+
+        //WinJS.xhr requests error handling
+        serviceErrorHandler: function (xhr) {
+            if (xhr.status == 503)
+                throw SdkExceptions.Service.ServiceUnavailableException;
+            if (xhr.status == 500) {
+                var e = JSON.parse(xhr.responseText);
+
+                if ("fault" in e) {
+                    var code = e.fault.detail["tns:exceptionInfo"]["tns:code"];
+
+                    switch (code) {
+                        case "1010":
+                            throw SdkExceptions.Service.InvalidRequestOrCredentialsException;
+                        case "2550":
+                            throw SdkExceptions.Service.RequestTimeoutException;
+                    }
+                }
+            }
+            throw SdkExceptions.Service.UnspecifiedServiceException;
+        },
+        //Basic request completion handler
+        requestCompletedHandler: function (xhr) {
+            if (xhr.status == 200)
+                return xhr.responseText;
+            throw SdkExceptions.Service.UnspecifiedServiceException;
+        },
+
+        doGetRequestHelper: function (client, params, allowedParams, operation) {
+            if (!params)
+                params = { };
+
+            params.json = "true";
+            params.ESBUsername = client.username;
+            params.ESBPassword = client.password;
+
+            var uri =
+                    Windows.Foundation.Uri(Utils.buildUri(client.baseUri, params, allowedParams,
+                        operation))
+                    .absoluteCanonicalUri;
+
+            var headers = {};
+            headers["Authorization"] = "ESB AccessKey=" + client.accessKey;
+            return WinJS.xhr({ type: "GET", url: uri, headers: headers })
+                .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
         }
+
     });
 })();
