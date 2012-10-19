@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ServiceModel;
-using Photos.PhotosServiceReference;
 
 namespace Photos.SapoServices.Utils
 {
@@ -14,7 +13,7 @@ namespace Photos.SapoServices.Utils
         private readonly OperationContextScope _scope;
 
         public EnsureCredentialsUseContext(
-            string username, string password, string accessKey, PhotosSoapSecureClient client)
+            string username, string password, string accessKey, IContextChannel channel)
         {
             EsbCredentials credentials = new EsbCredentials
             {
@@ -22,19 +21,19 @@ namespace Photos.SapoServices.Utils
                 Password = password,
             };
 
-             _scope = new OperationContextScope(client.InnerChannel);
-                MessageHeader<EsbCredentials> credentialsMessageHeader = 
-                    new MessageHeader<EsbCredentials>(credentials);
-                MessageHeader<string> accessKeyMessageHeader =
-                    new MessageHeader<string>(accessKey);
+            _scope = new OperationContextScope(channel);
+            MessageHeader<EsbCredentials> credentialsMessageHeader =
+                new MessageHeader<EsbCredentials>(credentials);
+            MessageHeader<string> accessKeyMessageHeader =
+                new MessageHeader<string>(accessKey);
 
-                OperationContext.Current.OutgoingMessageHeaders
-                    .Add(credentialsMessageHeader
-                    .GetUntypedHeader(Esbcredentials, HttpServicesSapoPtDefinitions));
+            OperationContext.Current.OutgoingMessageHeaders
+                .Add(credentialsMessageHeader
+                .GetUntypedHeader(Esbcredentials, HttpServicesSapoPtDefinitions));
 
-                OperationContext.Current.OutgoingMessageHeaders
-                    .Add(accessKeyMessageHeader
-                    .GetUntypedHeader(Esbaccesskey, HttpServicesSapoPtMetadataMarket));
+            OperationContext.Current.OutgoingMessageHeaders
+                .Add(accessKeyMessageHeader
+                .GetUntypedHeader(Esbaccesskey, HttpServicesSapoPtMetadataMarket));
         }
 
         public void Dispose()

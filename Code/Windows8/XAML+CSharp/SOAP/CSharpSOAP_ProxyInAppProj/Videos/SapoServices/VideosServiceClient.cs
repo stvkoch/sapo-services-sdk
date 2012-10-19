@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using Videos.SapoServices.Utils;
 using Videos.VideosServiceReference;
-using Windows.Data.Xml.Dom;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -110,7 +106,7 @@ namespace Videos.SapoServices
 
 
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                        this.Username, this.Password, this.AccessKey, _client))
+                        this.Username, this.Password, this.AccessKey, _client.InnerChannel))
                 {
                     createdVideo = await this._client.AddVideoPostAsync(videoSubmition, null);
 
@@ -151,7 +147,7 @@ namespace Videos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.AccessKey, _client))
+                    this.Username, this.Password, this.AccessKey, _client.InnerChannel))
                 {
                     await this._client.DeleteVideoAsync(randname, null, null);
                 }
@@ -179,7 +175,7 @@ namespace Videos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.AccessKey, _client))
+                    this.Username, this.Password, this.AccessKey, _client.InnerChannel))
                 {
                     await this._client.EditVideoAsync(v, null, null);
                 }
@@ -206,7 +202,7 @@ namespace Videos.SapoServices
         public async Task<Video> GetVideoAsync(string videoId, string email, string videoRandname, string Interface, int showComments)
         {
             using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.AccessKey, _client))
+                    this.Username, this.Password, this.AccessKey, _client.InnerChannel))
             {
                 return await this._client.CheckVideoAsync(videoId, email, videoRandname, Interface, showComments)
                     .ContinueWith(t => t.Result);
@@ -216,7 +212,7 @@ namespace Videos.SapoServices
         public async Task<User> GetUserAsync(string username)
         {
             using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.AccessKey, _client))
+                    this.Username, this.Password, this.AccessKey, _client.InnerChannel))
             {
                 return await this._client.GetUserInfoAsync(null, username).ContinueWith(t => t.Result);
             }
@@ -227,7 +223,7 @@ namespace Videos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.AccessKey, _client))
+                    this.Username, this.Password, this.AccessKey, _client.InnerChannel))
                 {
                     return await this._client.ListUserVideosAsync(email, Interface, order, limit, page)
                                      .ContinueWith(t => t.Result.ListUserVideosResult);
@@ -263,7 +259,7 @@ namespace Videos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.AccessKey, _client))
+                    this.Username, this.Password, this.AccessKey, _client.InnerChannel))
                 {
                     return await this._client.QueryAsync(emails, tags, cos, limit, order, viewAll, itfc, showTags)
                                      .ContinueWith(t => t.Result.QueryResult);

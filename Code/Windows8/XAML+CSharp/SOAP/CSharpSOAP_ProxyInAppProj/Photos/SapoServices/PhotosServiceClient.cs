@@ -41,7 +41,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return _client
                         .DummyEchoAsync(echoStr)
@@ -110,7 +110,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     res = await this._client.ImageCreateAsync(img, FotosSapoPtInterface);
                 }
@@ -189,7 +189,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return await this._client.ImageDeleteAsync(img).ContinueWith(t =>
                     {
@@ -225,7 +225,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return await this._client.ImageDetailsAsync(img).ContinueWith(t =>
                     {
@@ -270,7 +270,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return await this._client
                         .ImageEditAsync(img)
@@ -317,7 +317,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return await this._client
                         .UserDetailsAsync(user, new Format())
@@ -357,7 +357,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return await this._client
                                      .AlbumCreateAsync(album)
@@ -401,7 +401,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return await this._client
                                      .ImageAddToAlbumAsync(img, PhotosServiceClient.FotosSapoPtInterface)
@@ -434,7 +434,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return await this._client
                                      .ImageAddToAlbumAsync(img, PhotosServiceClient.FotosSapoPtInterface)
@@ -470,7 +470,7 @@ namespace Photos.SapoServices
             try
             {
                 using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
                 {
                     return await this._client
                         .AlbumGetListByUserAsync(user, 0, null, FotosSapoPtInterface)
@@ -499,10 +499,10 @@ namespace Photos.SapoServices
         public async Task<Image[]> GetUserImageList()
         {
             using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
             {
                 return await this._client
-                    .ImageGetListByUserAsync(0, new User{username = "test8"})
+                    .ImageGetListByUserAsync(0, null)
                     .ContinueWith(t => t.Result.images);
             }
         }
@@ -510,10 +510,10 @@ namespace Photos.SapoServices
         public async Task<string[]> GetUserTags()
         {
             using (EnsureCredentialsUseContext context = new EnsureCredentialsUseContext(
-                    this.Username, this.Password, this.Accesskey, _client))
+                    this.Username, this.Password, this.Accesskey, _client.InnerChannel))
             {
                 return await this._client
-                                 .UserGetTagsAsync(new User{username = "test8"}, null)
+                                 .UserGetTagsAsync(null, null)
                                  .ContinueWith(t => t.Result.tags);
             }
         }

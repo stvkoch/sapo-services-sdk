@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using Videos.VideosServiceReference;
 
 namespace Videos.SapoServices.Utils
 {
-    public sealed class EnsureCredentialsUseContext : IDisposable
+    public class EnsureCredentialsUseContext : IDisposable
     {
         private const string Esbcredentials = "ESBCredentials";
         private const string HttpServicesSapoPtDefinitions = "http://services.sapo.pt/definitions";
@@ -18,15 +13,15 @@ namespace Videos.SapoServices.Utils
         private readonly OperationContextScope _scope;
 
         public EnsureCredentialsUseContext(
-            string username, string password, string accessKey, VideosSoapSecureClient client)
+            string username, string password, string accessKey, IContextChannel channel)
         {
             EsbCredentials credentials = new EsbCredentials
-            {
-                Username = username,
-                Password = password,
-            };
+                                             {
+                                                 Username = username,
+                                                 Password = password,
+                                             };
 
-            _scope = new OperationContextScope(client.InnerChannel);
+            _scope = new OperationContextScope(channel);
             MessageHeader<EsbCredentials> credentialsMessageHeader =
                 new MessageHeader<EsbCredentials>(credentials);
             MessageHeader<string> accessKeyMessageHeader =
@@ -34,11 +29,11 @@ namespace Videos.SapoServices.Utils
 
             OperationContext.Current.OutgoingMessageHeaders
                 .Add(credentialsMessageHeader
-                .GetUntypedHeader(Esbcredentials, HttpServicesSapoPtDefinitions));
+                         .GetUntypedHeader(Esbcredentials, HttpServicesSapoPtDefinitions));
 
             OperationContext.Current.OutgoingMessageHeaders
                 .Add(accessKeyMessageHeader
-                .GetUntypedHeader(Esbaccesskey, HttpServicesSapoPtMetadataMarket));
+                         .GetUntypedHeader(Esbaccesskey, HttpServicesSapoPtMetadataMarket));
         }
 
         public void Dispose()
