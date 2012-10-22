@@ -21,7 +21,15 @@
             </h1>
         </header>
         <section aria-label="Main content" role="main">
-            <p>Content goes here.</p>
+            <form onsubmit="searchVideos(); return false;">
+                <div><input type="text" id="searchParam" placeholder="Search Terms Parameter"/> (Search terms)</div>
+                <div><input type="text" id="userParam" placeholder="Username Parameter"/> (Specify a username and only the video for that user will be searched)</div>
+                <div><input type="text" id="pageParam" placeholder="Page Parameter"/> (Page number)</div>
+                <div><input type="text" id="limitParam" placeholder="Limit Parameter"/> (Number of results per page)</div>
+                <div><input type="text" id="orderParam" placeholder="Order Parameter"/> (e.g. views)</div>
+                <div><button type="submit">Get Video</button></div>
+            </form>
+            <div id="searchVideosResult"></div>
         </section>
     </div>
 </body>

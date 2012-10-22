@@ -10,7 +10,7 @@
                     this.username = username;
                     this.password = password;
                     this.accessKey = accessKey;
-                    this.baseUri = "http://services.sapo.pt/Videos/";
+                    this.baseUri = "https://services.sapo.pt/Videos/";
                 }
             ,
             {
@@ -133,7 +133,7 @@
                 },
 
                 asyncSearchVideos: function (search, user, page, limit, order) {
-                    if (!(search && user))
+                    if (search == undefined && user == undefined)
                         throw SdkExceptions.Service.InsuffientParametersException;
 
                     var allowedParams = ["search", "page", "limit", "order", "user",
