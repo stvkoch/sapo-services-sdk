@@ -145,7 +145,7 @@
 
         doGetRequestHelper: function (client, params, allowedParams, operation) {
             if (!params)
-                params = { };
+                params = {};
 
             params.json = "true";
             params.ESBUsername = client.username;
