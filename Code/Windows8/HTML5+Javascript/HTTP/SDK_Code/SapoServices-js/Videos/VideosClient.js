@@ -15,6 +15,10 @@
             ,
             {
                 asyncAddVideoPost: function (file, video) {
+                    /// <summary>Do a request to SAPO Videos Service to submit a video to the service.</summary>
+                    /// <param name="file" type="Object">The StorageFile of the video to be submited.</param>
+                    /// <param name="video" type="Object">An object with the video metadata. At least "Title", "Tags" and "Synopse" MUST be provided. A complete list of the properties of the video object can be found at the service documentation.</param>
+                    /// <returns type="String">A string with "Ok" if video is successfully submited.</returns>
                     if (!(file && video))
                         throw SdkExceptions.Client.InsuffientParametersException;
                     var addVideoPostAllowedParams = ["json", "ESBUsername", "ESBPassword"];
@@ -89,6 +93,10 @@
                 },
 
                 asyncDeleteVideo: function (randname) {
+                    /// <summary>Do a request to SAPO Videos Service to delete the given video in the service.</summary>
+                    /// <param name="file" type="Object">The StorageFile of the video to be submited.</param>
+                    /// <param name="video" type="Object">An object with the video metadata. At least "Title", "Tags" and "Synopse" MUST be provided. A complete list of the properties of the video object can be found at the service documentation.</param>
+                    
                     if (!randname)
                         throw SdkExceptions.Client.InsuffientParametersException;
                     var deleteVideoAllowedParams = ["Randname", "json", "ESBUsername", "ESBPassword"];
@@ -100,6 +108,9 @@
                 },
 
                 asyncCheckVideo: function (randname) {
+                    /// <summary>Do a request to SAPO Videos Service to get the details of a given video of the service.</summary>
+                    /// <param name="randname" type="String">The video's randname.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     if (!randname)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
@@ -112,6 +123,8 @@
                 },
 
                 asyncGetUserInfo: function () {
+                    /// <summary>Do a request to SAPO Videos Service to get the details of the authenticated user.</summary>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     var getUserInfoAllowedParams = ["Email", "json", "ESBUsername", "ESBPassword"];
 
                     var params = {};
@@ -121,18 +134,29 @@
                 },
 
                 asyncListUserVideos: function () {
+                    /// <summary>Do a request to SAPO Videos Service to get the video's list of the authenticated user.</summary>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     var listUserVideosAllowedParams = ["json", "ESBUsername", "ESBPassword"];
 
                     return Utils.doGetRequestHelper(this, undefined, listUserVideosAllowedParams, "ListUserVideos");
                 },
 
                 asyncGetHighlights: function () {
+                    /// <summary>Do a request to SAPO Videos Service to get the list of highlighted videos.</summary>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     var allowedParams = ["json", "ESBUsername", "ESBPassword"];
 
                     return Utils.doGetRequestHelper(this, undefined, allowedParams, "JSON2/Highlights");
                 },
 
                 asyncSearchVideos: function (search, user, page, limit, order) {
+                    /// <summary>Do a request to SAPO Videos Service to get the details of a given video of the service.</summary>
+                    /// <param name="search" type="String">The search terms.</param>
+                    /// <param name="user" type="String">You can provide the SAPO Videos username if you want to search videos of a specific user.</param>
+                    /// <param name="page" type="String">The page number.</param>
+                    /// <param name="limit" type="String">Number of videos per page.</param>
+                    /// <param name="order" type="String">Ordering criteria of the returned videos.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     if (search == undefined && user == undefined)
                         throw SdkExceptions.Service.InsuffientParametersException;
 

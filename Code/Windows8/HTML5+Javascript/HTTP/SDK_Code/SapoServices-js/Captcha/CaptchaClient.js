@@ -15,7 +15,11 @@
             ,
             {
                 asyncGet: function (params) {
-                    
+                    /// <summary>Do a request to SAPO Captcha Service to generate a captcha.</summary>
+                    /// <param name="params" type="Object">An object with the parameters to be included in request.</param>
+                    /// <returns type="Object">An object with two properties: id - captcha id; code - captcha solution.</returns>
+
+                    //Allowed parameters for this request
                     var allowedParams = ["r","ttl", "length", "mode", "ESBUsername", "ESBPassword", "json"];
 
                     if (!params) 
@@ -50,6 +54,12 @@
                 },
 
                 buildShowURI: function (id, params) {
+                    /// <summary>Build an URI to an image representation for a given captcha.</summary>
+                    /// <param name="id" type="String">Captcha id</param>
+                    /// <param name="params" type="Object">An object with the parameters to be included in request.</param>
+                    /// <returns type="Object">The captcha's image URI (Windows.Foundation.Uri).</returns>
+                    
+                    //Allowed parameters for this request
                     var allowedParams =
                        ["id", "font", "textcolor", "size", "background", "url", "ESBUsername", "ESBPassword",
                            "ESBAccessKey"];
@@ -71,6 +81,10 @@
                 },
 
                 buildPlayURI: function (id) {
+                    /// <summary>Build an URI to an audio representation of a given captcha.</summary>
+                    /// <param name="id" type="String">Captcha id</param>
+                    /// <returns type="Object">The captcha's audio URI (Windows.Foundation.Uri).</returns>
+                    
                     var allowedParams = ["id", "ESBUsername", "ESBPassword", "ESBAccessKey"];
 
                     if (id) {

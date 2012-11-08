@@ -27,6 +27,13 @@
                 */
                 asyncSendMessageWithInlineAttachmentsToOne: function (address, attachments,
                     subject, senderAddress) {
+                    /// <summary>Do a request to SAPO MMS Service to send a MMS to a single address.</summary>
+                    /// <param name="address" type="String">The address to which the message is sent.</param>
+                    /// <param name="attachments" type="Object">An object with the attachments of the message.</param>
+                    /// <param name="subject" type="String">The message subject.</param>
+                    /// <param name="senderAddress" type="String">The sender address.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+
                     var allowedParams = ["ESBUsername", "ESBPassword", "json"];
 
                     if (address && attachments) {
@@ -64,7 +71,7 @@
 
                         var headers = {};
                         headers["Content-Type"] = "application/json";
-                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: data })
                             .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
@@ -86,6 +93,13 @@
                 */
                 asyncSendMessageWithInlineAttachmentsToMany: function (addresses, attachments,
                     subject, senderAddress) {
+                    /// <summary>Do a request to SAPO MMS Service to send a MMS to multiple addresses.</summary>
+                    /// <param name="addresses" type="Array">The addresses to which the message is sent.</param>
+                    /// <param name="attachments" type="Object">An object with the attachments of the message.</param>
+                    /// <param name="subject" type="String">The message subject.</param>
+                    /// <param name="senderAddress" type="String">The sender address.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+                    
                     var allowedParams = ["ESBUsername", "ESBPassword", "json"];
 
                     if (addresses && attachments) {
@@ -125,7 +139,7 @@
 
                         var headers = {};
                         headers["Content-Type"] = "application/json";
-                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: data })
                             .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
@@ -134,6 +148,10 @@
                 },
 
                 asyncGetMessageDeliveryStatus: function (requestId) {
+                    /// <summary>Do a request to SAPO MMS Service get the delivery status of a given message.</summary>
+                    /// <param name="requestId" type="String">The request id of the message.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+                    
                     var allowedParams = ["requestIdentifier", "ESBUsername", "ESBPassword", "json"];
 
                     if (requestId) {
@@ -148,9 +166,9 @@
                                 allowedParams, "SendMessage/getMessageDeliveryStatus"))
                             .absoluteCanonicalUri;
 
-                        //var headers = {};
-                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
-                        return WinJS.xhr({ type: "GET", url: uri/*, headers: headers*/ })
+                        var headers = {};
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
                     }
                     throw SdkExceptions.Client.InsuffientParametersException;

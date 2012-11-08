@@ -46,22 +46,33 @@
             function () { this.content = []; },
         {
             append: function (string) {
+                /// <summary>Appends the specified string to this instance.</summary>
+                /// <param name="string" type="String">The string to append.</param>
                 if (string && string.length > 0)
                     this.content.push(string);
             },
 
             toString: function () {
+                /// <summary>Converts the value of this instance to a String.</summary>
+                /// <returns type="String">A string whose value is the same as this instance.</returns>
                 return this.content.join("");
             },
 
             clear: function () {
+                /// <summary>Removes all strings from the current StringBuilder instance</summary>
                 this.content = [];
             },
         }),
 
         /* Uri Utils */
-        //Function to build a URI from a base URI, a list of params and and operation. Only includes the allowed params
+        
         buildUri: function (baseUri, params, allowedParams, operation) {
+            /// <summary>Function to build a URI from a base URI, a list of params and and operation. Only includes the allowed params in the returned URI.</summary>
+            /// <param name="baseUri" type="String">The base URI.</param>
+            /// <param name="params" type="Object">An object with the parameters to be included in the query string.</param>
+            /// <param name="allowedParams" type="Array">Array with the allowed parameters for the query string.</param>
+            /// <param name="operation" type="String">Value to be added to the path of the baseURI</param>
+            /// <returns type="String">A string with the constructed URI</returns>
 
             var sb = new Utils.StringBuilder();
             sb.append(baseUri);
@@ -80,8 +91,12 @@
             return sb.toString();
         },
 
-        //Function to url-encode a list of params that are allowed
         wwwFormUrlEncode: function (params, allowedParams) {
+            /// <summary>Function to www-form-url-encode the allowed properties of an object.</summary>
+            /// <param name="params" type="Object">An object with the parameters to be included in the www-form-url-encoded content.</param>
+            /// <param name="allowedParams" type="Array">Array with the allowed parameters for the www-form-url-encoded content.</param>
+            /// <returns type="String">A string with the constructed www-form-url-encode content.</returns>
+            
             var sb = new Utils.StringBuilder();
 
             for (var i = 0; i < allowedParams.length; ++i) {
@@ -98,8 +113,11 @@
         },
 
         /* Date Utils */
-        //Converts a date object to a string in the yyyy-mm-dd format
         dateToString: function (date) {
+            /// <summary>Converts a date object to a string in the yyyy-mm-dd format.</summary>
+            /// <param name="date" type="Object">Date object to be converted.</param>
+            /// <returns type="String">A string with the specified date in the yyyy-mm-dd format.</returns>
+
             var sb = new Utils.StringBuilder();
             sb.append(date.getFullYear().toString());
             sb.append("-");
@@ -116,7 +134,7 @@
             return sb.toString();
         },
 
-        //WinJS.xhr requests error handling
+        //WinJS.xhr requests error handler
         serviceErrorHandler: function (xhr) {
             if (xhr.status == 503)
                 throw SdkExceptions.Service.ServiceUnavailableException;
@@ -136,13 +154,13 @@
             }
             throw SdkExceptions.Service.UnspecifiedServiceException;
         },
-        //Basic request completion handler
+        //WinJS.xhr requests completion handler
         requestCompletedHandler: function (xhr) {
-            if (xhr.status == 200)
+            if (xhr.status == 200 || xhr.status == 201)
                 return xhr.responseText;
             throw SdkExceptions.Service.UnspecifiedServiceException;
         },
-
+        //Do GET request helper
         doGetRequestHelper: function (client, params, allowedParams, operation) {
             if (!params)
                 params = {};

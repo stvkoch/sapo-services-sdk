@@ -15,6 +15,13 @@
             ,
             {
                 asyncSendSMSToOne: function (address, message, senderName, senderAddress) {
+                    /// <summary>Do a request to SAPO SMS Service to send a SMS to a single address.</summary>
+                    /// <param name="address" type="String">The address to which the message is sent.</param>
+                    /// <param name="message" type="String">The message content.</param>
+                    /// <param name="senderName" type="String">The sender name subject.</param>
+                    /// <param name="senderAddress" type="String">The sender address.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+                    
                     var allowedParams = ["senderAddress", "senderName", "message", "address",
                         "ESBUsername", "ESBPassword"];
 
@@ -42,7 +49,7 @@
 
                         var headers = {};
                         headers["Content-Type"] = "application/x-www-form-urlencoded";
-                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: data })
                             .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
@@ -51,6 +58,13 @@
                 },
 
                 asyncSendSMSToMany: function (addresses, message, senderName, senderAddress) {
+                    /// <summary>Do a request to SAPO SMS Service to send a SMS to multiple addresses.</summary>
+                    /// <param name="addresses" type="Array">The addresses to which the message is sent.</param>
+                    /// <param name="message" type="String">The message content.</param>
+                    /// <param name="senderName" type="String">The sender name subject.</param>
+                    /// <param name="senderAddress" type="String">The sender address.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+                    
                     var allowedParams = ["senderAddress", "senderName", "message", "address",
                         "ESBUsername", "ESBPassword"];
 
@@ -85,7 +99,7 @@
 
                         var headers = {};
                         headers["Content-Type"] = "application/x-www-form-urlencoded";
-                        //headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
+                        headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
 
                         return WinJS.xhr({ type: "POST", url: uri, headers: headers, data: data })
                             .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
@@ -94,6 +108,11 @@
                 },
 
                 asyncGetDeliveryInfos: function (requestId, senderAddress) {
+                    /// <summary>Do a request to SAPO SMS Service to get the delivery infos of a given message.</summary>
+                    /// <param name="requestId" type="String">The request id of the message.</param>
+                    /// <param name="senderAddress" type="String">The message sender address.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+
                     //var allowedParams = ["ESBUsername", "ESBPassword"];
 
                     if (requestId && senderAddress) {

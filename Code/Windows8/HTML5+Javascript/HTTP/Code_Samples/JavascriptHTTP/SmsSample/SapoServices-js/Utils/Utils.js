@@ -156,7 +156,7 @@
         },
         //WinJS.xhr requests completion handler
         requestCompletedHandler: function (xhr) {
-            if (xhr.status == 200)
+            if (xhr.status == 200 || xhr.status == 201)
                 return xhr.responseText;
             throw SdkExceptions.Service.UnspecifiedServiceException;
         },

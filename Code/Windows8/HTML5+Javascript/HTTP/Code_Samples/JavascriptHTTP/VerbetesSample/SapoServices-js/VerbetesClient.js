@@ -97,12 +97,3 @@
         )
     });
 })();
-// !Bug at xhr.getAllResponseHeaders()
-
-//var contentLength = xhr.getAllResponseHeaders();
-//if (xhr.status == 200 && contentLength > 0)
-//    return xhr.responseText;
-
-//var res = eval("(" + xhr.responseText + ")");
-
-//var res1 = JSON.parse(xhr.responseText);

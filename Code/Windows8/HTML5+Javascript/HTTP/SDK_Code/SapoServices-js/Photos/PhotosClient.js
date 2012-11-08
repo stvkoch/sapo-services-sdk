@@ -11,22 +11,37 @@
                 this.baseUri = "https://services.sapo.pt/Photos/";
             },
             {
-                asyncDummyEcho: function (params) {
-                    if (!params)
+                asyncDummyEcho: function (echoStr) {
+                    /// <summary>Do a dummy echo request to SAPO Photos Service.</summary>
+                    /// <param name="echoStr" type="String">An object with the parameters to be included in request.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+                    
+                    if (!echoStr)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
                     var dummyEchoAllowedParams = ["echoStr", "json", "ESBUsername", "ESBPassword"];
+
+                    var params = {};
+                    params.echoStr = echoStr;
 
                     return Utils.doGetRequestHelper(this, params, dummyEchoAllowedParams, "DummyEcho");
                 },
 
                 asyncUserDetails: function () {
+                    /// <summary>Do a request to SAPO Photos Service to obtain the authenticated user details.</summary>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+                    
                     var userDetailsAllowedParams = ["json", "ESBUsername", "ESBPassword"];
 
                     return Utils.doGetRequestHelper(this, undefined, userDetailsAllowedParams, "UserDetails");
                 },
-
+                
                 asyncImageCreate: function (file, image) {
+                    /// <summary>Do a request to SAPO Photos Service to submit a photo to the service.</summary>
+                    /// <param name="file" type="Object">The StorageFile of the photo to be submited.</param>
+                    /// <param name="image" type="Object">An object with the image metadata. At least "title" and "tags" MUST be provided. A complete list of the properties of the image object can be found at the service documentation.</param>
+                    /// <returns type="Object">A promisse Object with a string with the operation result code. A complete list of result codes cand be found in the service documentation (https://store.services.sapo.pt/en/Catalog/social/free-api-photos/technical-description#service-Photos-operation-ImageCreate)</returns>
+
                     if (!(file && image))
                         throw SdkExceptions.Client.InsuffientParametersException;
                     var imageCreateAllowedParams = ["json", "ESBUsername", "ESBPassword"];
@@ -104,6 +119,9 @@
                 },
 
                 asyncImageDetails: function (uid) {
+                    /// <summary>Do request to SAPO Photos Service to get the details of the photo with the given id.</summary>
+                    /// <param name="uid" type="String">Photo uid</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     if (!uid)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
@@ -116,6 +134,9 @@
                 },
 
                 asyncImageGetListBySearch: function (params) {
+                    /// <summary>Do request to SAPO Photos Service to search for photos by terms.</summary>
+                    /// <param name="params" type="Object">An object with the parameters to be included in request. The "string" parameter holds the terms.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     if (!params)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
@@ -132,6 +153,9 @@
                 },
 
                 asyncImageGetListByTags: function (params) {
+                    /// <summary>Do request to SAPO Photos Service to search for photos by tags.</summary>
+                    /// <param name="params" type="Object">An object with the parameters to be included in request. The "tag" parameter holds the tags.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     if (!params)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
@@ -142,6 +166,9 @@
                 },
 
                 asyncImageDelete: function (uid) {
+                    /// <summary>Do request to SAPO Photos Service to delete the photo with the given id.</summary>
+                    /// <param name="uid" type="String">Photo uid</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     if (!uid)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
@@ -154,6 +181,9 @@
                 },
 
                 asyncImageGetListByUser: function (user) {
+                    /// <summary>Do request to SAPO Photos Service to get the photos of a given user.</summary>
+                    /// <param name="user" type="String">User's username</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     if (!user)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
@@ -165,7 +195,12 @@
                     return Utils.doGetRequestHelper(this, params, imageGetListByUserAllowedParams, "ImageGetListByUser");
                 },
 
-                asyncimageGetListByUserAlbum: function (albumid, params) {
+                asyncImageGetListByUserAlbum: function (albumid, params) {
+                    /// <summary>Do request to SAPO Photos Service to get the photos of a given album of the authenticated user.</summary>
+                    /// <param name="albumid" type="String">The album id.</param>
+                    /// <param name="params" type="Object">User's username.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+
                     if (!albumid)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
@@ -181,6 +216,11 @@
                 },
 
                 asyncImageAddToAlbum: function (imageuid, albumids) {
+                    /// <summary>Do request to SAPO Photos Service to add a given photo to a list of albums of the authenticated user.</summary>
+                    /// <param name="albumids" type="Array">An array with the album ids.</param>
+                    /// <param name="imageuid" type="String">The id of the photo to be added.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+                    
                     if (albumids == undefined || imageuid == undefined)
                         throw SdkExceptions.Client.InsuffientParametersException;
 
@@ -194,6 +234,9 @@
                 },
 
                 asyncAlbumCreate: function (album) {
+                    /// <summary>Do a request to SAPO Photos Service to create an album in service.</summary>
+                    /// <param name="album" type="Object">An object with the album metadata. At least "title" MUST be provided. A complete list of the properties of the album object can be found at the service documentation.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
                     var albumCreateAllowedParams = ["json", "ESBUsername", "ESBPassword"];
                     if (album) {
                         var albumToBeSerialized = {};
@@ -219,7 +262,11 @@
                     throw SdkExceptions.Client.InsuffientParametersException;
                 },
                 
-                asyncAlbumGetListByUser: function(user) {
+                asyncAlbumGetListByUser: function (user) {
+                    /// <summary>Do request to SAPO Photos Service to get the albums of a given user.</summary>
+                    /// <param name="user" type="String">User's username</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+
                     if (!user)
                         throw SdkExceptions.Client.InsuffientParametersException;
                     

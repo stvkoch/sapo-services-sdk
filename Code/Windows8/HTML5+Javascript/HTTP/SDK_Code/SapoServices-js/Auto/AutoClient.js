@@ -15,6 +15,11 @@
             ,
             {
                 asyncSearchByTerms: function (params) {
+                    /// <summary>Do a request to SAPO Auto Service to search auto vehicles by terms.</summary>
+                    /// <param name="params" type="Object">An object with the parameters to be included in request.</param>
+                    /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
+
+                    //Allowed parameters for this request
                     var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword", "json"];
 
                     if (params != null && allowedParams[0] in params && params[allowedParams[0]]) {
@@ -25,6 +30,11 @@
                 },
 
                 asyncSearchByBrandModelPrice: function (params) {
+                    /// <summary>Do a request to SAPO Auto Service to search auto vehicles by brand, model and price.</summary>
+                    /// <param name="params" type="Object">An object with the parameters to be included in request.</param>
+                    /// <returns type="String">A promisse Object with a string with the response body of the request in JSON format.</returns>
+
+                    //Allowed parameters for this request
                     var allowedParams = ["q", "start", "rows", "sort", "ESBUsername", "ESBPassword", "json"];
 
                     function tryExtractBrandModelPrice(params) {
