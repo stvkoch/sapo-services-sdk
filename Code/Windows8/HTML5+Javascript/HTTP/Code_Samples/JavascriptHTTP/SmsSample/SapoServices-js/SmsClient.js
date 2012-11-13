@@ -113,17 +113,7 @@
                     /// <param name="senderAddress" type="String">The message sender address.</param>
                     /// <returns type="Object">A promisse Object with a string with the response body of the request in JSON format.</returns>
 
-                    //var allowedParams = ["ESBUsername", "ESBPassword"];
-
                     if (requestId && senderAddress) {
-                        //var params = {};
-                        //params.ESBUsername = this.username;
-                        //params.ESBPassword = this.password;
-
-                        //var uri =
-                        //    Windows.Foundation.Uri(Utils.buildUri(this.smsBaseUri, params,
-                        //        allowedParams, "GetURLByCompressedURL"))
-                        //    .absoluteCanonicalUri;
 
                         var sb = new Utils.StringBuilder();
                         sb.append(this.smsBaseUri);
@@ -146,7 +136,6 @@
                         var uri = sb.toString();
 
                         var headers = {};
-                        //headers["Content-Type"] = "application/json";
                         headers["Authorization"] = "ESB AccessKey=" + this.accessKey;
                         return WinJS.xhr({ type: "GET", url: uri, headers: headers })
                             .then(Utils.requestCompletedHandler, Utils.serviceErrorHandler);
