@@ -1,0 +1,367 @@
+<definitions targetNamespace="http://services.sapo.pt/Metadata/Cinema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://services.sapo.pt/Metadata/Cinema" xmlns:esb="http://services.sapo.pt/definitions" xmlns:mrkt0="http://services.sapo.pt/Metadata/Market">
+  <types>
+    <xsd:schema targetNamespace="http://services.sapo.pt/Metadata/Cinema" elementFormDefault="qualified">
+      <xsd:import namespace="http://services.sapo.pt/definitions" schemaLocation="esbCredentials.xsd" />
+      <xsd:import namespace="http://services.sapo.pt/Metadata/Market" schemaLocation="Market.xsd" />
+      <xsd:include schemaLocation="Cinema.xsd" />
+      <xsd:element name="GetContributorRoles">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="PageNumber" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="RecordsPerPage" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetContributorRolesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetContributorRolesResult" type="tns:ListOfContributorRoles" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCountryAuthority">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="CountryId" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCountryAuthorityResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetCountryAuthorityResult" type="tns:Authority" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetGenres">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="PageNumber" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="RecordsPerPage" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetGenresResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetGenresResult" type="tns:ListOfGenres" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetMoviesWithShowTimes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ReleaseCountryId" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="LocationIds" type="tns:ArrayOfLocationId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="StartDate" type="xsd:date" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="EndDate" type="xsd:date" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="ProductionCountryIds" type="tns:ArrayOfProductionCountryId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="GenreIds" type="tns:ArrayOfGenreId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="ReleaseRatingIds" type="tns:ArrayOfRatingId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="IncludeShowTimesDetails" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="IncludeContributors" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="IncludeSynopsis" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="IncludeGenres" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">Disables show details of the genre in the film</xsd:documentation>
+                <xsd:documentation xml:lang="pt">Desativa mostrar detalhes do genero na ficha do filme</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="IncludeReferences" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                </xsd:documentation>
+                <xsd:documentation xml:lang="pt">
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="IncludeRelease" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                </xsd:documentation>
+                <xsd:documentation xml:lang="pt">
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="IncludeMedia" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                </xsd:documentation>
+                <xsd:documentation xml:lang="pt">
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Version" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="false">
+              <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                </xsd:documentation>
+                <xsd:documentation xml:lang="pt">Filtra filmes pelo versionId</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="PageNumber" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="RecordsPerPage" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetMoviesWithShowTimesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetMoviesWithShowTimesResult" type="tns:ListOfMovies" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPersons">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="BirthCountryId" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="IncludeReleaseWithCountryId" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="SearchTerms" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="PageNumber" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="RecordsPerPage" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPersonsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetPersonsResult" type="tns:ListOfPerson" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTheaters">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ReleaseCountryId" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false" />
+            <xsd:element name="LocationIds" type="tns:ArrayOfLocationId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="PageNumber" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="RecordsPerPage" type="xsd:int" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTheatersResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetTheatersResult" type="tns:ListOfTheaters" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTheatersWithShowTimes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ReleaseCountryId" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="LocationIds" type="tns:ArrayOfLocationId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="StartDate" type="xsd:date" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="EndDate" type="xsd:date" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="ProductionCountryIds" type="tns:ArrayOfProductionCountryId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="GenreIds" type="tns:ArrayOfGenreId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="ReleaseRatingIds" type="tns:ArrayOfRatingId" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="IncludeShowTimeDetails" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="IncludeLocation" type="xsd:boolean" minOccurs="0" maxOccurs="1" nillable="false" />
+            <xsd:element name="PageNumber" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+            <xsd:element name="RecordsPerPage" type="xsd:int" minOccurs="0" maxOccurs="1" nillable="true" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTheatersWithShowTimesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetTheatersWithShowTimesResult" type="tns:ListOfTheaters" minOccurs="1" maxOccurs="1" nillable="false" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="ESBCredentialsSoapIn">
+    <part name="ESBCredentials" element="esb:ESBCredentials" />
+  </message>
+  <message name="GetContributorRolesSoapIn">
+    <part name="parameters" element="tns:GetContributorRoles" />
+  </message>
+  <message name="GetContributorRolesSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetContributorRolesSoapOut">
+    <part name="parameters" element="tns:GetContributorRolesResponse" />
+  </message>
+  <message name="GetCountryAuthoritySoapIn">
+    <part name="parameters" element="tns:GetCountryAuthority" />
+  </message>
+  <message name="GetCountryAuthoritySoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetCountryAuthoritySoapOut">
+    <part name="parameters" element="tns:GetCountryAuthorityResponse" />
+  </message>
+  <message name="GetGenresSoapIn">
+    <part name="parameters" element="tns:GetGenres" />
+  </message>
+  <message name="GetGenresSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetGenresSoapOut">
+    <part name="parameters" element="tns:GetGenresResponse" />
+  </message>
+  <message name="GetMoviesWithShowTimesSoapIn">
+    <part name="parameters" element="tns:GetMoviesWithShowTimes" />
+  </message>
+  <message name="GetMoviesWithShowTimesSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetMoviesWithShowTimesSoapOut">
+    <part name="parameters" element="tns:GetMoviesWithShowTimesResponse" />
+  </message>
+  <message name="GetPersonsSoapIn">
+    <part name="parameters" element="tns:GetPersons" />
+  </message>
+  <message name="GetPersonsSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetPersonsSoapOut">
+    <part name="parameters" element="tns:GetPersonsResponse" />
+  </message>
+  <message name="GetTheatersSoapIn">
+    <part name="parameters" element="tns:GetTheaters" />
+  </message>
+  <message name="GetTheatersSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetTheatersSoapOut">
+    <part name="parameters" element="tns:GetTheatersResponse" />
+  </message>
+  <message name="GetTheatersWithShowTimesSoapIn">
+    <part name="parameters" element="tns:GetTheatersWithShowTimes" />
+  </message>
+  <message name="GetTheatersWithShowTimesSoapInHeaders">
+    <part name="ESBAccessKey" element="mrkt0:ESBAccessKey" />
+  </message>
+  <message name="GetTheatersWithShowTimesSoapOut">
+    <part name="parameters" element="tns:GetTheatersWithShowTimesResponse" />
+  </message>
+  <portType name="CinemaSoapSecure">
+    <operation name="GetContributorRoles">
+      <documentation>Listar tipos de contribuições. PageNumber defaults to 1; RecordsPerPage defaults to 1;</documentation>
+      <input message="tns:GetContributorRolesSoapIn" />
+      <output message="tns:GetContributorRolesSoapOut" />
+    </operation>
+    <operation name="GetCountryAuthority">
+      <documentation>Consultar detalhes da autoridade de um determinado país, incluindo a lista de classificações que atribui aos filmes</documentation>
+      <input message="tns:GetCountryAuthoritySoapIn" />
+      <output message="tns:GetCountryAuthoritySoapOut" />
+    </operation>
+    <operation name="GetGenres">
+      <documentation>Consultar lista de géneros de filmes. PageNumber defaults to 1; RecordsPerPage defaults to 10;</documentation>
+      <input message="tns:GetGenresSoapIn" />
+      <output message="tns:GetGenresSoapOut" />
+    </operation>
+    <operation name="GetMoviesWithShowTimes">
+      <documentation>Listar filmes com horários de exibição dentro dos locais e período de tempo. ReleaseCountryId default = PT; LocationIds do ReleaseCountry;  DateTime StartDate default = última quinta-feira; EndDate default = próxima quinta-feira; PageNumber default = 1; RecordsPerPage default = 10, Max itens = 20;</documentation>
+      <input message="tns:GetMoviesWithShowTimesSoapIn" />
+      <output message="tns:GetMoviesWithShowTimesSoapOut" />
+    </operation>
+    <operation name="GetPersons">
+      <documentation>Listar filmes de acordo com os filtros (paginado). IncludeReleaseWithCountryId default = PT; PageNumber default = 1; RecordsPerPage default = 10, Max itens = 20;</documentation>
+      <input message="tns:GetPersonsSoapIn" />
+      <output message="tns:GetPersonsSoapOut" />
+    </operation>
+    <operation name="GetTheaters">
+      <documentation>Lista de salas de cinema na localização, com quantidade de filmes em exibição.</documentation>
+      <input message="tns:GetTheatersSoapIn" />
+      <output message="tns:GetTheatersSoapOut" />
+    </operation>
+    <operation name="GetTheatersWithShowTimes">
+      <documentation>Listar filmes dentro dos locais com horários de exibição dentro do período de tempo. ReleaseCountryId default = PT; LocationIds do ReleaseCountry; StartDate default = última quinta-feira; EndDate default = próxima quinta-feira; IncludeLocation filtra elemento location default = true; IncludeShowTimeDetails filtra elemento sessions default = true;  PageNumber default = 1; RecordsPerPage default = 10, Max itens 20;</documentation>
+      <input message="tns:GetTheatersWithShowTimesSoapIn" />
+      <output message="tns:GetTheatersWithShowTimesSoapOut" />
+    </operation>
+  </portType>
+  <binding name="CinemaSoapSecure" type="tns:CinemaSoapSecure">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <operation name="GetContributorRoles">
+      <soap:operation soapAction="http://services.sapo.pt/Metadata/Cinema/GetContributorRoles" style="document" />
+      <input>
+        <soap:header message="tns:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header message="tns:GetContributorRolesSoapInHeaders" part="ESBAccessKey" use="literal" wsdl:required="true" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetCountryAuthority">
+      <soap:operation soapAction="http://services.sapo.pt/Metadata/Cinema/GetCountryAuthority" style="document" />
+      <input>
+        <soap:header message="tns:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header message="tns:GetCountryAuthoritySoapInHeaders" part="ESBAccessKey" use="literal" wsdl:required="true" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetGenres">
+      <soap:operation soapAction="http://services.sapo.pt/Metadata/Cinema/GetGenres" style="document" />
+      <input>
+        <soap:header message="tns:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header message="tns:GetGenresSoapInHeaders" part="ESBAccessKey" use="literal" wsdl:required="true" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetMoviesWithShowTimes">
+      <soap:operation soapAction="http://services.sapo.pt/Metadata/Cinema/GetMoviesWithShowTimes" style="document" />
+      <input>
+        <soap:header message="tns:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header message="tns:GetMoviesWithShowTimesSoapInHeaders" part="ESBAccessKey" use="literal" wsdl:required="true" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetPersons">
+      <soap:operation soapAction="http://services.sapo.pt/Metadata/Cinema/GetPersons" style="document" />
+      <input>
+        <soap:header message="tns:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header message="tns:GetPersonsSoapInHeaders" part="ESBAccessKey" use="literal" wsdl:required="true" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetTheaters">
+      <soap:operation soapAction="http://services.sapo.pt/Metadata/Cinema/GetTheaters" style="document" />
+      <input>
+        <soap:header message="tns:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header message="tns:GetTheatersSoapInHeaders" part="ESBAccessKey" use="literal" wsdl:required="true" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetTheatersWithShowTimes">
+      <soap:operation soapAction="http://services.sapo.pt/Metadata/Cinema/GetTheatersWithShowTimes" style="document" />
+      <input>
+        <soap:header message="tns:ESBCredentialsSoapIn" part="ESBCredentials" use="literal" />
+        <soap:header message="tns:GetTheatersWithShowTimesSoapInHeaders" part="ESBAccessKey" use="literal" wsdl:required="true" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="Cinema">
+    <documentation>Procurar cartaz por filme, cinema, localização e outros filtros. Consultar datas de estreias dos próximos filmes e informação detalhada sobre filmes, cinemas, pessoas e outros dados relacionados.
+
+Acerca dos elementos Filme:
+
+- incluem um elemento Release com os dados relativos ao lançamento num determinado país (por defeito é Portugal, mas pode ser alterado fornecendo um ReleaseCountryId)</documentation>
+    <port name="CinemaSoapSecure" binding="tns:CinemaSoapSecure">
+      <soap:address location="https://services.sapo.pt/Cinema" />
+    </port>
+  </service>
+</definitions>
