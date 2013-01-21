@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Get credencials data to access service. This is sensive data. Not save in public repository
+* Get credentials data for access service. This is sensitive data. Not save in public repository
 */
 $credencials = require('config/credencials.php');
 
