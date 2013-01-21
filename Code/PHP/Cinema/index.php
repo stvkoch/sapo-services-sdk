@@ -13,7 +13,7 @@ $soapHeaders[] = new SoapHeader('http://services.sapo.pt/Metadata/Market', 'ESBA
 /**
 * PHP native SOAP client. http://php.net/manual/en/class.soapclient.php
 */
-$cinemaClient = new SoapClient("wsdl/cinema.sapo.wsdl", array('trace' => true ));
+$cinemaClient = new SoapClient("wsdl/Cinema.wsdl", array('trace' => $credencials['debug'] ));
 
 
 /**
