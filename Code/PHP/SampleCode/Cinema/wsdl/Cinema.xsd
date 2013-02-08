@@ -1,0 +1,381 @@
+<xs:schema elementFormDefault="qualified" targetNamespace="http://services.sapo.pt/Metadata/Cinema" xmlns:tns="http://services.sapo.pt/Metadata/Cinema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://services.sapo.pt/Metadata/GIS" schemaLocation="_Metadata_Schema_GIS.xsd" />
+  <xs:complexType name="ListOfContributorRoles">
+    <xs:sequence>
+      <xs:element name="ContributorRoles" type="tns:ArrayOfContributorRole" />
+      <xs:element name="PaginationDetails" type="tns:PaginationDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfContributorRole">
+    <xs:sequence>
+      <xs:element name="ContributorRole" type="tns:ContributorRole" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContributorRole">
+    <xs:sequence>
+      <xs:element name="Id" type="xs:string" />
+      <xs:element name="Name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaginationDetails">
+    <xs:sequence>
+      <xs:element name="CurrentPage" type="xs:integer" />
+      <xs:element name="RecordsPerPage" type="xs:integer" />
+      <xs:element name="RecordsTotal" type="xs:integer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Authority">
+    <xs:sequence>
+      <xs:element name="Id" type="xs:string" />
+      <xs:element name="Name" type="xs:string" />
+      <xs:element xmlns:gis="http://services.sapo.pt/Metadata/GIS" name="Country" type="gis:Country" minOccurs="0" />
+      <xs:element name="Ratings" type="tns:ArrayOfRating" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfRating">
+    <xs:sequence>
+      <xs:element name="Rating" type="tns:Rating" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Rating">
+    <xs:sequence>
+      <xs:element name="Id" type="xs:string" />
+      <xs:element name="Name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListOfGenres">
+    <xs:sequence>
+      <xs:element name="Genres" type="tns:ArrayOfGenre" />
+      <xs:element name="PaginationDetails" type="tns:PaginationDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfGenre">
+    <xs:sequence>
+      <xs:element name="Genre" type="tns:Genre" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Genre">
+    <xs:sequence>
+      <xs:element name="Id" type="xs:string" />
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Slug" type="xs:string" minOccurs="0" nillable="true" />
+      <xs:element name="WorkCount" type="xs:int" minOccurs="0" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfLocationId">
+    <xs:sequence>
+      <xs:element name="LocationId" type="xs:string" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfProductionCountryId">
+    <xs:sequence>
+      <xs:element name="ProductionCountryId" type="xs:string" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfGenreId">
+    <xs:sequence>
+      <xs:element name="GenreId" type="xs:string" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfRatingId">
+    <xs:sequence>
+      <xs:element name="RatingId" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListOfMovies">
+    <xs:sequence>
+      <xs:element name="Movies" type="tns:ArrayOfMovie" />
+      <xs:element name="PaginationDetails" type="tns:PaginationDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfMovie">
+    <xs:sequence>
+      <xs:element name="Movie" type="tns:Movie" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Movie">
+    <xs:sequence>
+      <xs:element name="Id" type="xs:string" />
+      <xs:element name="Url" type="xs:string" minOccurs="0" nillable="true" />
+      <xs:element name="Title" type="xs:string" minOccurs="0" nillable="true" />
+      <xs:element name="Release" type="tns:Release" minOccurs="0" nillable="true" />
+      <xs:element name="Year" type="xs:int" minOccurs="0" nillable="true" />
+      <xs:element name="ProductionCountries" type="tns:ArrayOfCountry" minOccurs="0" nillable="true" />
+      <xs:element name="Runtime" type="xs:int" minOccurs="0" nillable="true" />
+      <xs:element name="Synopsis" type="xs:string" minOccurs="0" nillable="true" />
+      <xs:element name="Contributors" type="tns:ArrayOfContributor" minOccurs="0" nillable="true" />
+      <xs:element name="Genres" type="tns:ArrayOfGenre" minOccurs="0" nillable="true" />
+      <xs:element name="Media" type="tns:ArrayOfMediaItem" minOccurs="0" nillable="true" />
+      <xs:element name="References" type="tns:References" minOccurs="0" nillable="true" />
+      <xs:element name="TheaterShowTimesList" type="tns:ArrayOfTheaterShowTimes" minOccurs="0" nillable="true" />
+      <xs:element name="CreateDate" type="xs:dateTime" />
+      <xs:element name="UpdateDate" type="xs:dateTime" nillable="true" minOccurs="0" />
+      <xs:element name="Quotes" type="tns:ArrayOfQuote" minOccurs="0" nillable="true" />
+      <xs:element name="Version" type="xs:int" minOccurs="0" nillable="true" />
+      <xs:element name="VersionAbbr" type="xs:string" minOccurs="0" nillable="true" />
+      <xs:element name="Versions" type="tns:ArrayOfVersions" minOccurs="0" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Release">
+    <xs:sequence>
+      <xs:element xmlns:gis="http://services.sapo.pt/Metadata/GIS" name="Country" type="gis:Country" />
+      <xs:element name="Title" type="xs:string" minOccurs="0" />
+      <xs:element name="Distributor" type="xs:string" minOccurs="0" />
+      <xs:element name="ReleaseDate" type="xs:dateTime" minOccurs="0" />
+      <xs:element name="Rating" type="tns:Rating" minOccurs="0" />
+      <xs:element name="Authority" type="tns:Authority" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCountry">
+    <xs:sequence>
+      <xs:element xmlns:gis="http://services.sapo.pt/Metadata/GIS" name="Country" type="gis:Country" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfContributor">
+    <xs:sequence>
+      <xs:element name="Contributor" type="tns:Contributor" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Contributor">
+    <xs:sequence>
+      <xs:element name="Person" type="tns:Person" />
+      <xs:element name="Role" type="tns:ContributorRole" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Person">
+    <xs:sequence>
+      <xs:element name="Id" type="xs:string" />
+      <xs:element name="Url" type="xs:string" minOccurs="0" />
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="BornDate" type="xs:date" minOccurs="0" />
+      <xs:element name="DiedDate" type="xs:date" minOccurs="0" />
+      <xs:element xmlns:gis="http://services.sapo.pt/Metadata/GIS" name="Country" type="gis:Country" minOccurs="0" />
+      <xs:element name="Biography" type="xs:string" minOccurs="0" nillable="true" />
+      <xs:element name="Media" type="tns:ArrayOfMediaItem" minOccurs="0" nillable="true" />
+      <xs:element name="Contributions" type="tns:ArrayOfContribution" minOccurs="0" />
+      <xs:element name="CreateDate" type="xs:dateTime" minOccurs="0" />
+      <xs:element name="UpdateDate" type="xs:dateTime" nillable="true" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfMediaItem">
+    <xs:sequence>
+      <xs:element name="MediaItem" type="tns:MediaItem" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MediaItem">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        RandName é o identificador único de um vídeo na plataforma SAPO Videos.
+        Para mais informação, consultar:
+        http://services.sapo.pt/Metadata/Service/Videos
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Type" type="tns:MediaType" />
+      <xs:element name="Category" type="tns:MediaCategory" />
+      <xs:element name="Name" type="xs:string" minOccurs="0" />
+      <xs:element name="URL" type="xs:string" minOccurs="0" />
+      <xs:element name="RandName" type="xs:string" minOccurs="0" />
+      <xs:element name="Extension" type="xs:string" minOccurs="0" />
+      <xs:element name="Width" type="xs:float" minOccurs="0" />
+      <xs:element name="Height" type="xs:float" minOccurs="0" />
+      <xs:element name="Thumbnails" type="tns:ArrayOfThumbnail" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="MediaType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Image" />
+      <xs:enumeration value="Video" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MediaCategory">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Poster" />
+      <xs:enumeration value="Trailer" />
+      <xs:enumeration value="Image" />
+      <xs:enumeration value="Video" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfThumbnail">
+    <xs:sequence>
+      <xs:element name="Thumbnail" type="tns:Thumbnail" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Thumbnail">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" minOccurs="0" />
+      <xs:element name="URL" type="xs:string" />
+      <xs:element name="Width" type="xs:float" />
+      <xs:element name="Height" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfContribution">
+    <xs:sequence>
+      <xs:element name="Contribution" type="tns:Contribution" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Contribution">
+    <xs:sequence>
+      <xs:element name="Movie" type="tns:Movie" />
+      <xs:element name="Role" type="tns:ContributorRole" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="References">
+    <xs:sequence>
+      <xs:element name="ExternalIds" type="tns:ArrayOfExternalId" minOccurs="0" />
+      <xs:element name="Links" type="tns:ArrayOfLink" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfExternalId">
+    <xs:sequence>
+      <xs:element name="ExternalId" type="tns:ExternalId" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExternalId">
+    <xs:sequence>
+      <xs:element name="Source" type="tns:ExternalIdSource" />
+      <xs:element name="Id" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ExternalIdSource">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Meo" />
+      <xs:enumeration value="Sercultur" />
+      <xs:enumeration value="IMDB" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfLink">
+    <xs:sequence>
+      <xs:element name="Link" type="tns:Link" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Link">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" minOccurs="0" />
+      <xs:element name="URL" type="xs:string" />
+      <xs:element name="Category" type="tns:LinkCategory" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="LinkCategory">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OfficialSite" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfTheaterShowTimes">
+    <xs:sequence>
+      <xs:element name="TheaterShowTimes" type="tns:TheaterShowTimes" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TheaterShowTimes">
+    <xs:sequence>
+      <xs:element name="Theater" type="tns:Theater" />
+      <xs:element name="ShowTimes" type="tns:ArrayOfShowTime" />
+      <xs:element name="TheaterTicketOfficeURL" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Theater">
+    <xs:sequence>
+      <xs:element name="Id" type="xs:string" />
+      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Contact" type="tns:Contact" minOccurs="0" />
+      <xs:element name="TicketOfficeURL" type="xs:string" minOccurs="0" />
+      <xs:element name="Location" type="tns:Location" minOccurs="0" />
+      <xs:element name="Description" type="xs:string" minOccurs="0" />
+      <xs:element name="MovieShowTimesList" type="tns:ArrayOfMovieShowTimes" minOccurs="0" />
+      <xs:element name="CreateDate" type="xs:dateTime" />
+      <xs:element name="UpdateDate" type="xs:dateTime" nillable="true" minOccurs="0" />
+      <xs:element name="MoviesTotal" type="xs:int" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Contact">
+    <xs:sequence>
+      <xs:element name="URL" type="xs:string" minOccurs="0" />
+      <xs:element name="Email" type="xs:string" minOccurs="0" />
+      <xs:element name="Phone" type="xs:string" minOccurs="0" />
+      <xs:element name="CellPhone" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Location">
+    <xs:sequence>
+      <xs:element xmlns:gis="http://services.sapo.pt/Metadata/GIS" name="Country" type="gis:Country" />
+      <xs:element xmlns:gis="http://services.sapo.pt/Metadata/GIS" name="District" type="gis:District" />
+      <xs:element xmlns:gis="http://services.sapo.pt/Metadata/GIS" name="Municipality" type="gis:Municipality" />
+      <xs:element xmlns:gis="http://services.sapo.pt/Metadata/GIS" name="Parish" type="gis:Parish" minOccurs="0" />
+      <xs:element name="Latitude" type="xs:float" minOccurs="0" />
+      <xs:element name="Longitude" type="xs:float" minOccurs="0" />
+      <xs:element name="Distance" type="xs:int" minOccurs="0" />
+      <xs:element name="Address" type="xs:string" minOccurs="0" />
+      <xs:element name="ZipCode" type="xs:string" minOccurs="0" />
+      <xs:element name="ZipCodeSufix" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfMovieShowTimes">
+    <xs:sequence>
+      <xs:element name="MovieShowTimes" type="tns:MovieShowTimes" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MovieShowTimes">
+    <xs:sequence>
+      <xs:element name="Movie" type="tns:Movie" />
+      <xs:element name="ShowTimes" type="tns:ArrayOfShowTime" />
+      <xs:element name="TheaterTicketOfficeURL" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfShowTime">
+    <xs:sequence>
+      <xs:element name="ShowTime" type="tns:ShowTime" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ShowTime">
+    <xs:sequence>
+      <xs:element name="TimeStart" type="xs:dateTime" />
+      <xs:element name="ShowTimeTicketOfficeURL" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfQuote">
+    <xs:sequence>
+      <xs:element name="Quote" type="tns:Quote" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Quote">
+    <xs:sequence>
+      <xs:element name="Title" type="xs:string" />
+      <xs:element name="CharacterName" type="xs:string" />
+      <xs:element name="Movie" type="tns:Movie" minOccurs="0" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfVersions">
+    <xs:sequence>
+      <xs:element name="Version" type="tns:Version" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Version">
+    <xs:sequence>
+      <xs:element name="Id" type="xs:int" />
+      <xs:element name="Abbr" type="xs:string" />
+      <xs:element name="IsMain" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListOfPerson">
+    <xs:sequence>
+      <xs:element name="Persons" type="tns:ArrayOfPerson" />
+      <xs:element name="PaginationDetails" type="tns:PaginationDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPerson">
+    <xs:sequence>
+      <xs:element name="Person" type="tns:Person" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListOfTheaters">
+    <xs:sequence>
+      <xs:element name="Theaters" type="tns:ArrayOfTheater" />
+      <xs:element name="PaginationDetails" type="tns:PaginationDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfTheater">
+    <xs:sequence>
+      <xs:element name="Theater" type="tns:Theater" minOccurs="0" maxOccurs="unbounded" nillable="true" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
