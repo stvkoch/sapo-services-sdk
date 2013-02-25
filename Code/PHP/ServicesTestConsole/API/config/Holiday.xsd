@@ -1,0 +1,31 @@
+<xs:schema elementFormDefault="qualified" targetNamespace="http://services.sapo.pt/Metadata/Holiday" xmlns:tns="http://services.sapo.pt/Metadata/Holiday" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfHoliday">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Holiday" nillable="true" type="tns:Holiday" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Holiday">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" type="tns:HolidayType" />
+      <xs:element minOccurs="0" name="Municipality" nillable="true" type="tns:Municipality" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="HolidayType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="National" />
+      <xs:enumeration value="Municipal" />
+      <xs:enumeration value="Regional" />
+      <xs:enumeration value="Religious" />
+      <xs:enumeration value="Optional" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Municipality">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
