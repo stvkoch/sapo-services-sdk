@@ -4,8 +4,7 @@
  */
 return array( 
 	'ESBAccessKey'=>'DF34E3-1234-43122-1231-123123123',
-	'ESBUsername'=>'sapouserservice@sapo.pt', 
-	'ESBPassword'=>'yourpass',
+	'ESBUsername'=>'xxx@users.sdb.sapo.pt', 
+	'ESBPassword'=>'xxx',
 	'debug'=>true,
 );
-
