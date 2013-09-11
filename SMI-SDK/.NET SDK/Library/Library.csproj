@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{75634FCA-8DB6-47F5-8B36-938FDADCA394}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>pt.sapo</RootNamespace>
+    <AssemblyName>Trace</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BrokerClient">
+      <HintPath>..\..\..\references\BrokerClient\BrokerClient.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\references\BrokerClient\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NAnt.Core">
+      <HintPath>..\..\..\references\nant\NAnt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Thrift">
+      <HintPath>..\..\..\references\BrokerClient\Thrift.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="gis\trace\appender\SMI\SMILoggerAppenderConfigProperties.cs" />
+    <Compile Include="gis\trace\appender\TextWriterAppender.cs" />
+    <Compile Include="gis\trace\asp_net\TraceAspNetHttpModule.cs" />
+    <Compile Include="gis\trace\TraceEnabledTask.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="gis\exception\ConfigurationException.cs" />
+    <Compile Include="gis\exception\EventCallException.cs" />
+    <Compile Include="gis\exception\IntializatonException.cs" />
+    <Compile Include="gis\exception\TraceSDKException.cs" />
+    <Compile Include="gis\trace\appender\Appender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gis\trace\appender\AppenderConfigProperties.cs" />
+    <Compile Include="gis\trace\appender\ConsoleAppender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gis\trace\appender\SMI\BrokerSMILoggerAppender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gis\trace\appender\SMI\BrokerSMILoggerAppenderConfigProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gis\trace\appender\SMI\SDBTraceAppender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gis\trace\appender\SMI\SDBTraceAppenderConfigProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gis\trace\appender\SMI\SMILoggerAppender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="gis\trace\configuration\configuration.cs" />
+    <Compile Include="gis\trace\configuration\TraceConfigurationSectionHandler.cs" />
+    <Compile Include="gis\trace\Entry.cs" />
+    <Compile Include="gis\trace\EntryProperty.cs" />
+    <Compile Include="gis\trace\ExceptionEntry.cs" />
+    <Compile Include="gis\trace\ExceptionEntryProperty.cs" />
+    <Compile Include="gis\trace\GenericEventHandler.cs" />
+    <Compile Include="gis\trace\HTTPMessageEntryProperty.cs" />
+    <Compile Include="gis\trace\HTTPRequestMessageEntryProperty.cs" />
+    <Compile Include="gis\trace\HTTPResponseMessageEntryProperty.cs" />
+    <Compile Include="gis\trace\ITrace.cs" />
+    <Compile Include="gis\trace\LinkedEntry.cs" />
+    <Compile Include="gis\trace\MessageEntry.cs" />
+    <Compile Include="gis\trace\MessageEntryProperty.cs" />
+    <Compile Include="gis\trace\nant\NAntListenerTracer.cs" />
+    <Compile Include="gis\trace\Summary.cs" />
+    <Compile Include="gis\trace\Trace.cs" />
+    <Compile Include="gis\trace\TraceManager.cs" />
+    <Compile Include="gis\trace\wcf\TraceEndpointBehavior.cs" />
+    <Compile Include="gis\trace\wcf\TraceMessageInspector.cs" />
+    <Compile Include="sdb\smi\ManagementReport.cs">
+      <DependentUpon>ManagementReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="sdb\trace\Activity.cs" />
+    <Compile Include="sdb\trace\ActivityListItem.cs" />
+    <Compile Include="sdb\trace\Authentication.cs" />
+    <Compile Include="sdb\trace\BindingType.cs" />
+    <Compile Include="sdb\trace\Client.cs" />
+    <Compile Include="sdb\trace\Entry.cs" />
+    <Compile Include="sdb\trace\Exception.cs" />
+    <Compile Include="sdb\trace\ExtensionMethods.cs" />
+    <Compile Include="sdb\trace\IEntryContainer.cs" />
+    <Compile Include="sdb\trace\Message.cs" />
+    <Compile Include="sdb\trace\NameValueCollection.cs" />
+    <Compile Include="sdb\trace\NameValuePair.cs" />
+    <Compile Include="sdb\trace\Occurrence.cs" />
+    <Compile Include="sdb\trace\OccurrenceSummary.cs" />
+    <Compile Include="sdb\trace\Request.cs" />
+    <Compile Include="sdb\trace\Response.cs" />
+    <Compile Include="sdb\trace\Server.cs" />
+    <Compile Include="sdb\trace\Service.cs" />
+    <Compile Include="sdb\trace\Severity.cs" />
+    <Compile Include="sdb\trace\StrategyOrigin.cs" />
+    <Compile Include="sdb\trace\TraceListItem.cs" />
+    <Compile Include="sdb\trace\TraceOccurrenceDate.cs" />
+    <Compile Include="sdb\trace\TraceOccurrenceSummary.cs" />
+    <Compile Include="sdb\trace\TracingContractConstants.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gis\trace\configuration\configuration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="sdb\smi\ManagementReport.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="sdb\smi\TMForumSDFSMI.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

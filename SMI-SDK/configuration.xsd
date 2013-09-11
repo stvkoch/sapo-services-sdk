@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema 
+	attributeFormDefault="unqualified" 
+	elementFormDefault="qualified" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.sapo.pt/GIS/Trace/configuration"
+	xmlns:cfg="http://www.sapo.pt/GIS/Trace/configuration"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	jaxb:version="2.1">
+	
+	
+  <xs:element name="configuration">
+    <xs:complexType>
+      <xs:sequence>
+		<xs:element name="appenders" type="cfg:appenders"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>  
+   
+  <xs:complexType name="appenders">
+	<xs:sequence>
+		
+	  <xs:element name="appender" maxOccurs="unbounded" minOccurs="0" type="cfg:appender">		
+	  		<xs:annotation>
+			<xs:appinfo>
+				<jaxb:property name="list"/>
+			</xs:appinfo>
+		</xs:annotation>
+		</xs:element>
+	</xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="appender">
+	<xs:sequence>
+		<xs:element name="events" type="cfg:events"/>	
+		<xs:element name="property"  maxOccurs="unbounded" minOccurs="0">
+      <xs:annotation>
+        <xs:appinfo>
+          <jaxb:property name="properties"/>
+        </xs:appinfo>
+      </xs:annotation>
+		  <xs:complexType mixed="true">
+          <xs:attribute name="name"/>          
+      </xs:complexType>
+		</xs:element>
+	</xs:sequence>
+	<xs:attribute type="xs:string" name="type"/>	
+</xs:complexType>
+
+  <xs:complexType name="events">
+	<xs:sequence>
+	  <xs:element name="event" maxOccurs="unbounded" minOccurs="0" type="cfg:event">
+		<xs:annotation>
+			<xs:appinfo>
+				<jaxb:property name="list"/>
+			</xs:appinfo>
+		</xs:annotation>
+		</xs:element>
+	</xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="event">
+	<xs:sequence>
+		<xs:element name="filters" minOccurs="0" type="cfg:filters"/>
+	</xs:sequence>
+	<xs:attribute type="cfg:eventType" name="type"/>
+</xs:complexType>
+
+<xs:complexType name="filters">
+	<xs:sequence>		
+		<xs:element type="cfg:severityType" name="severityFilter" maxOccurs="unbounded" minOccurs="0">
+		<xs:annotation>
+			<xs:appinfo>
+				<jaxb:property name="severityFilters"/>
+			</xs:appinfo>
+		</xs:annotation>
+		</xs:element>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:simpleType name="severityType">
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="ERROR"/>
+		<xs:enumeration value="FATAL"/>
+		<xs:enumeration value="WARN"/>
+		<xs:enumeration value="DEBUG"/>
+		<xs:enumeration value="INFO"/>
+	</xs:restriction>
+</xs:simpleType>
+		
+<xs:simpleType name="eventType">
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="entry"/>
+		<xs:enumeration value="trace"/>		
+	</xs:restriction>
+</xs:simpleType>		
+</xs:schema>

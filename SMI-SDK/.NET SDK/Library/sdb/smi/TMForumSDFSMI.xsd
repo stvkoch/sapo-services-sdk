@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:smi="http://schemas.tmforum.org/2011/08/ses/smi" targetNamespace="http://schemas.tmforum.org/2011/08/ses/smi" elementFormDefault="qualified">
+  <simpleType name="ExecutionState">
+    <restriction base="string">
+      <enumeration value="Activating" />
+      <enumeration value="Active" />
+      <enumeration value="Suspending" />
+      <enumeration value="Suspended" />
+    </restriction>
+  </simpleType>
+  <complexType name="ManagementReport">
+    <sequence>
+      <element name="ID" type="string" minOccurs="1" maxOccurs="1" />
+      <element name="SourceID" type="string" minOccurs="1" maxOccurs="1" />
+      <element name="DateTime" type="dateTime" minOccurs="1" maxOccurs="1" />
+      <element name="State" type="smi:State" minOccurs="1" maxOccurs="1" />
+      <element name="Metrics" type="smi:Metrics" minOccurs="0" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <complexType name="State">
+    <sequence>
+      <element name="Health" type="smi:HealthState" minOccurs="0" maxOccurs="1" />
+      <element name="Execution" type="smi:ExecutionState" minOccurs="0" maxOccurs="1" />
+      <element name="Failures" type="smi:Failures" minOccurs="0" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <simpleType name="HealthState">
+    <restriction base="string">
+      <enumeration value="Unknown" />
+      <enumeration value="Operational" />
+      <enumeration value="OperationalWithFailures" />
+      <enumeration value="Inoperational" />
+    </restriction>
+  </simpleType>
+  <complexType name="Failures">
+    <sequence>
+      <element name="Failure" type="smi:Failure" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="Failure">
+    <sequence>
+      <element name="FailureID" type="string" minOccurs="1" maxOccurs="1" />
+      <element name="SourceID" type="string" minOccurs="1" maxOccurs="1" />
+      <element name="AgentID" type="string" minOccurs="0" maxOccurs="1" />
+      <element name="Details" type="anyType" minOccurs="1" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <complexType name="Metrics">
+    <sequence>
+      <element name="Metric" type="smi:Metric" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="Metric">
+    <sequence>
+      <element name="MetricID" type="string" minOccurs="1" maxOccurs="1" />
+      <element name="SourceID" type="string" minOccurs="1" maxOccurs="1" />
+      <element name="CategoryID" type="string" minOccurs="0" maxOccurs="1" />
+      <element name="Reference" type="string" minOccurs="0" maxOccurs="1" />
+      <element name="DateTime" type="dateTime" minOccurs="1" maxOccurs="1" />
+      <element name="Value" type="string" minOccurs="1" maxOccurs="1" />
+      <element name="Details" type="anyType" minOccurs="0" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <complexType name="ManagementReportFilter">
+    <sequence>
+      <element name="IncludeExecutionState" type="boolean" minOccurs="0" maxOccurs="1" default="true" />
+      <element name="IncludeHealthState" type="boolean" minOccurs="0" maxOccurs="1" default="true" />
+      <element name="IncludeMetrics" type="boolean" minOccurs="0" maxOccurs="1" default="true" />
+      <element name="IncludeFailures" type="boolean" minOccurs="0" maxOccurs="1" default="true" />
+      <element name="MetricFilters" type="smi:MetricFilters" minOccurs="0" maxOccurs="1" />
+      <element name="Pagination" type="smi:Pagination" minOccurs="0" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <complexType name="MetricFilters">
+    <sequence>
+      <element name="MetricFilter" type="smi:MetricFilter" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <complexType name="MetricFilter">
+    <sequence>
+      <element name="MetricID" type="string" minOccurs="0" maxOccurs="1" />
+      <element name="SourceID" type="string" minOccurs="0" maxOccurs="1" />
+      <element name="CategoryID" type="string" minOccurs="0" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <complexType name="Pagination">
+    <sequence>
+      <element name="PageNumber" type="int" minOccurs="1" maxOccurs="1" />
+      <element name="ItemsPerPage" type="int" minOccurs="1" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <complexType name="ServiceConfigurationFilter">
+    <sequence>
+      <element name="XPathFilter" type="smi:XPathFilter" minOccurs="0" maxOccurs="1" />
+    </sequence>
+  </complexType>
+  <complexType name="XPathFilter">
+    <sequence>
+      <element name="Expression" type="string" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <simpleType name="ExecutionStateRequest">
+    <restriction base="string">
+      <enumeration value="Activate" />
+      <enumeration value="Suspend" />
+    </restriction>
+  </simpleType>
+</schema>

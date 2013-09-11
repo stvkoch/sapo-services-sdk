@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns='http://www.sapo.pt/GIS/Trace/configuration'>
+     <appenders>
+        <appender type="pt.sapo.gis.trace.appender.ConsoleAppender">
+            <events>
+                <event type="entry">
+                    <filters>
+                        <severityFilter>ERROR</severityFilter>                        
+                    </filters>
+                </event>               
+            </events>
+        </appender>
+    </appenders>
+</configuration>

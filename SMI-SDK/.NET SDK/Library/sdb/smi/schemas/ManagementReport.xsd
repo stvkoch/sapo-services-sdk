@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:smi="http://schemas.tmforum.org/2011/08/ses/smi" targetNamespace="http://schemas.tmforum.org/2011/08/ses/smi" elementFormDefault="qualified">
+  <include schemaLocation="TMForumSDFSMI.xsd"/>
+  <element name="ManagementReport" type="smi:ManagementReport" />
+</schema>
