@@ -35,7 +35,8 @@ namespace pt.sapo.gis.trace.appender.SMI
 
         private String GetFailureCodeFromEntry(pt.sapo.gis.trace.Entry e)
         {
-            return e.Type.ToString();            
+
+            return (e.Type != null) ? e.Type.ToString() : null;            
         }
 
         public override void OnEntry(trace.Entry e)

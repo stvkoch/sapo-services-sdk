@@ -14,7 +14,7 @@ namespace pt.sapo.sdb.trace
                 new NameValuePair {
                     Name = e.Key,
                     ValuePairs = e.Value is IDictionary<String, Object> ? ToNameValueCollection(e.Value as IDictionary<String, Object>) : null,
-                    ValueString = e.Value.ToString()
+                    ValueString = (e.Value != null)? e.Value.ToString() : ""
                 }))
             {
                 result.Add(nameValuePair);

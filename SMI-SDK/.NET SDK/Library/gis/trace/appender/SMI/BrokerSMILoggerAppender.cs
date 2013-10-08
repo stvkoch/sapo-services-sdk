@@ -27,7 +27,7 @@ namespace pt.sapo.gis.trace.appender.SMI
             }
             catch (Exception ex)
             {
-                throw new IntializatonException("Error initialize sapo broker client", ex);
+                throw new IntializationException("Error initialize sapo broker client", ex);
             }
             this.topic = Properties.Topic;
         }

@@ -33,7 +33,7 @@ namespace pt.sapo.gis.trace
             catch (pt.sapo.gis.exception.ConfigurationException ex)
             {
                 log.Fatal(null, ex);
-                throw new IntializatonException(null, ex);
+                throw new IntializationException(null, ex);
             }
         }
 

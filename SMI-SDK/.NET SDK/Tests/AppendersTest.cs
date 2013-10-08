@@ -53,7 +53,7 @@ namespace Tests
                 Properties = new Dictionary<String, Object> { { "a", 1 }, { "b", new Dictionary<String, object> { { "3", 1 }, { "2", 5 }, { "54", 5 } } } }
             };
             trace.TraceEntry(e);
-            if (ev.WaitOne(TimeSpan.FromSeconds(30)) == false)
+            if (ev.WaitOne(TimeSpan.FromSeconds(10)) == false)
                 Assert.Fail("Broker message doesn't arrive.");
             Assert.IsNotNull(report["SourceID"]);
             var defaultSourceId = TraceManager_Accessor.Appenders.Where(a => a is BrokerSMILoggerAppender).Cast<BrokerSMILoggerAppender>().First().Properties.DefaultSourceId;
@@ -113,19 +113,14 @@ namespace Tests
                 context.Response.Close();
             });
             var traceId = Guid.NewGuid();
-            TraceManager.BeginTrace(traceId, "CONTEXT");
-            TraceManager.Trace.TraceEntry(new pt.sapo.gis.trace.Entry
-            {
-                Severity = severityType.ERROR,
-                Type = "UNKNOWN",
-                Description = "FAILURE1"                
-            });
+            String contextId = Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Format("{{\"LinkedTraceId\":\"{0}\",\"OwnerTraceId\":\"e4b9e2cd-5090-4761-ae97-7a83298897bc\"}}", traceId)));
+            TraceManager.BeginTrace(traceId, contextId);
+            TraceManager.Trace.TraceEntry(new pt.sapo.gis.trace.ExceptionEntry ("FAILURE1", severityType.ERROR, new ApplicationException("Wazaaaaaaa!")));
             TraceManager.EndTrace();
-            if (t.Wait(TimeSpan.FromSeconds(30)) == false)
+            if (t.Wait(TimeSpan.FromSeconds(10)) == false)
                 Assert.Fail("Timedout while wating for SDB trace request.");
             server.Stop();
             Assert.IsNotNull(occurrence);
-            Assert.AreEqual(traceId, occurrence.Id);
             Assert.IsNotNull(occurrence.Entries);
             Assert.AreEqual(1, occurrence.Entries.Count);
             Assert.AreEqual(Severity.Error, occurrence.Entries.First().Severity);
@@ -135,8 +130,8 @@ namespace Tests
         public void RealSDBSMIAppenderTest()
         {
             var id = Guid.NewGuid();
-            String context = Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Format("{{\"LinkedTraceId\":\"{0}\",\"OwnerTraceId\":\"e4b9e2cd-5090-4761-ae97-7a83298897bc\"}}", id)));
-            TraceManager.BeginTrace(id, context);
+            String contextId = Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Format("{{\"LinkedTraceId\":\"{0}\",\"OwnerTraceId\":\"e4b9e2cd-5090-4761-ae97-7a83298897bc\"}}", id)));
+            TraceManager.BeginTrace(id, contextId);
             TraceManager.Trace.TraceEntry(new pt.sapo.gis.trace.Entry
             {   
                 Severity = severityType.ERROR,

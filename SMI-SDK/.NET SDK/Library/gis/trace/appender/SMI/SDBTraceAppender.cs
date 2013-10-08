@@ -3,7 +3,7 @@ namespace pt.sapo.gis.trace.appender.SMI
     using System;
     using System.Linq;
     using System.Net;
-    
+
     using System.Collections.Generic;
     using pt.sapo.sdb.trace;
     using pt.sapo.gis.exception;
@@ -11,6 +11,7 @@ namespace pt.sapo.gis.trace.appender.SMI
     using System.IO;
     using System.Runtime.Serialization.Json;
     using Newtonsoft.Json;
+    using pt.sapo.gis.trace.sdb;
 
     /**
      *@author GIS Team
@@ -26,7 +27,7 @@ namespace pt.sapo.gis.trace.appender.SMI
         /// 
         /// </summary>    
         /// <param name="config"></param>    
-        /// <exception cref="IntializatonException">When failing to initialize.</exception>
+        /// <exception cref="IntializationException">When failing to initialize.</exception>
         public SDBTraceAppender(pt.sapo.gis.trace.configuration.appender config)
             : base(config)
         {
@@ -36,11 +37,28 @@ namespace pt.sapo.gis.trace.appender.SMI
 
         private Occurrence ToSDBTrace(pt.sapo.gis.trace.Trace t)
         {
-            var occurrence = new Occurrence {
+            var occurrence = new Occurrence
+            {
                 //Id = t.Id,
                 Start = t.Start,
-                End = t.End
+                End = t.End,
+                Service = new Service(),
+                Summary = new OccurrenceSummary()
             };
+            if (t.Properties.ContainsKey(SDBTraceProperties.SERVICE_NAME_PROPERTY))
+            {
+                occurrence.Service.Name = (String)t.Properties[SDBTraceProperties.SERVICE_NAME_PROPERTY];
+            }
+            if (t.Properties.ContainsKey(SDBTraceProperties.SERVICE_OPERATION_NAME_PROPERTY))
+            {
+                occurrence.Service.Operation = (String)t.Properties[SDBTraceProperties.SERVICE_OPERATION_NAME_PROPERTY];
+            }
+            if (t.Properties.ContainsKey(SDBTraceProperties.TRACE_RESULT_PROPERTY) && t.Properties.ContainsKey(SDBTraceProperties.TRACE_SUCCESS_PROPERTY))
+            {
+                occurrence.Summary.Success = (bool)t.Properties[SDBTraceProperties.TRACE_SUCCESS_PROPERTY];
+            }
+            // TODO: Change to valid response according to SDB Trace infrastructure
+            occurrence.Summary.Result = occurrence.Summary.Success ? "OK" : "Failed";
 
             if (t.ServerInfo != null)
             {
@@ -54,7 +72,8 @@ namespace pt.sapo.gis.trace.appender.SMI
 
             if (t.ClientInfo != null)
             {
-                occurrence.Client = new Client {
+                occurrence.Client = new Client
+                {
                     Address = t.ClientInfo.ToString()
                 };
             }
@@ -69,7 +88,7 @@ namespace pt.sapo.gis.trace.appender.SMI
             return occurrence;
         }
 
-        private static String[] SPECIAL_PROPERTIES = new String[] { MessageEntry.MESSAGE_PROPERTY_NAME, ExceptionEntry.EXCEPTION_PROPERTY, LinkedEntry.LINKED_TRACE_ID_PROPERTY };
+        private static String[] KNOWNED_PROPERTIES = new String[] { MessageEntry.MESSAGE_PROPERTY_NAME, ExceptionEntry.EXCEPTION_PROPERTY, LinkedEntry.LINKED_TRACE_ID_PROPERTY };
         private Entry ToSDBEntry(pt.sapo.gis.trace.Entry e, IList<Message> messages)
         {
             var entry = new Entry();
@@ -77,20 +96,20 @@ namespace pt.sapo.gis.trace.appender.SMI
             entry.Severity = (Severity)Enum.Parse(typeof(Severity), e.Severity.ToString(), true);
             entry.Offset = e.Offset;
             entry.Duration = e.Duration;
-            entry.Properties = e.Properties.Where(p => SPECIAL_PROPERTIES.Contains(p.Key) == false).ToNameValueCollection();
+            entry.Properties = e.Properties.Where(p => KNOWNED_PROPERTIES.Contains(p.Key) == false).ToNameValueCollection();
 
             if (e.Properties.ContainsKey(MessageEntry.MESSAGE_PROPERTY_NAME))
             {
                 MessageEntryProperty m = (MessageEntryProperty)e.Properties[MessageEntry.MESSAGE_PROPERTY_NAME];
                 Message message = ToSDBMessage(m);
                 messages.Add(message);
-                entry.MessageNumber = messages.IndexOf(message);                
+                entry.MessageNumber = messages.IndexOf(message);
             }
 
             if (e.Properties.ContainsKey(ExceptionEntry.EXCEPTION_PROPERTY))
             {
-                System.Exception ex = (System.Exception)e.Properties[ExceptionEntry.EXCEPTION_PROPERTY];
-                entry.Exception = new sdb.trace.Exception { Type = ex.GetType().FullName, StackTrace = ex.StackTrace };
+                System.Exception ex = ((ExceptionEntry)e).Exception;
+                entry.Exception = new sapo.sdb.trace.Exception { Type = ex.GetType().FullName, StackTrace = ex.StackTrace };
             }
 
             if (e.Properties.ContainsKey(LinkedEntry.LINKED_TRACE_ID_PROPERTY))
@@ -170,25 +189,25 @@ namespace pt.sapo.gis.trace.appender.SMI
                 using (var str = new StreamWriter(request.GetRequestStream()))
                 {
                     new Newtonsoft.Json.JsonSerializer()
-                        .Serialize(str, ToSDBTrace(t));                    
+                        .Serialize(str, ToSDBTrace(t));
                 }
                 try
                 {
                     using (var resposnse = request.GetResponse())
                     {
                         Console.WriteLine(" ============= SDBTraceAppender ==============");
-                        var traceContext = Newtonsoft.Json.Linq.JObject.Load(new JsonTextReader(new StreamReader(new MemoryStream(Convert.FromBase64String(t.ContextId)))));
-                        Console.WriteLine("https://backoffice.services.bk.sapo.pt/Trace/{0}", traceContext["LinkedTraceId"]);
+                        Console.WriteLine("https://backoffice.services.bk.sapo.pt/Trace/{0}",t.Id);
                     }
                 }
                 catch (WebException e)
                 {
                     var response = (HttpWebResponse)e.Response;
-                    using(var reader = new StreamReader(response.GetResponseStream())) {
+                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    {
                         log.ErrorFormat("SDB trace publish fail: [{0}-{1}] {2}", (int)response.StatusCode, response.StatusDescription, reader.ReadToEnd());
                     }
                 }
-            }            
+            }
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Tests
         {
             var errors = (from le in testAppender.GetEvents()
                          where le.Level >= Level.Error
-                         select le.RenderedMessage).ToArray();
+                         select le.ExceptionObject != null ? le.ExceptionObject.Message : le.RenderedMessage).ToArray();
             if(errors.Length > 0)
                 Assert.Fail("Log errors: {{{0}}}", String.Join(", ", errors));
 
