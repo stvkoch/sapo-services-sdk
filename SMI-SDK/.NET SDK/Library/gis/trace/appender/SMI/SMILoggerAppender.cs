@@ -86,10 +86,29 @@ namespace pt.sapo.gis.trace.appender.SMI
                 {
                     FailureID = GetFailureCodeFromEntry(entry),
                     SourceID = entry.Properties.ContainsKey(FAILURE_SOURCE_ID_PROPERTY) ? entry.Properties[FAILURE_SOURCE_ID_PROPERTY] as String : (TraceManager.Trace.Properties.ContainsKey(REPORT_SOURCE_ID_PROPERTY) ? TraceManager.Trace.Properties[REPORT_SOURCE_ID_PROPERTY] as String : Properties.DefaultSourceId),
-                    Details = entry.Properties
+                    //Details = entry.Properties.Where(e => e.Key != FAILURE_SOURCE_ID_PROPERTY).ToDictionary(x => x.Key, x => x.Value) //correction for exceptionEntries
                 };
+                FillFailureDetails(entry.Properties.Where(e => e.Key != FAILURE_SOURCE_ID_PROPERTY).ToDictionary(x => x.Key, x => x.Value), failure);
                 failures.Add(failure);
             }
+        }
+
+        private void FillFailureDetails(Dictionary<string, object> entryProperties, Failure failure)
+        {
+            Dictionary<string,string> details = new Dictionary<string,string>();
+            foreach (KeyValuePair<string, object> pair in entryProperties)
+            {
+                if (pair.Value.GetType().Name == "ExceptionEntryProperty")
+                {
+                    details.Add("exceptionMessage", ((ExceptionEntryProperty)pair.Value)["exceptionMessage"].ToString());
+                    details.Add("exceptionStack", ((ExceptionEntryProperty)pair.Value)["exceptionStack"].ToString());
+                }
+                else
+                {
+                    details.Add(pair.Key, pair.Value.ToString());
+                }
+            }
+            failure.Details = details;
         }
 
         private void FillFailures(trace.Entry entry, List<Failure> failures, EntryFilterHandler filter)

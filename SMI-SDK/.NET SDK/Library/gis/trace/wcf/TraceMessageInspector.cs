@@ -22,6 +22,10 @@ namespace pt.sapo.gis.trace.wcf
 
         private Regex actionRegularExpression = new Regex("^https?://[^/]+/(.+)/([^/]+)$");
 
+        public TraceMessageInspector() {
+            TraceManager.LoadConfig();
+        }
+
         private static String GetClientIP()
         {
             var ip = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
