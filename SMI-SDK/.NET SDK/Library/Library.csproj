@@ -32,14 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BrokerClient">
-      <HintPath>..\..\..\references\BrokerClient\BrokerClient.dll</HintPath>
+      <HintPath>lib\BrokerClient.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\references\BrokerClient\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NAnt.Core">
-      <HintPath>..\..\..\references\nant\NAnt.Core.dll</HintPath>
+      <HintPath>lib\NAnt.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -56,7 +55,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Thrift">
-      <HintPath>..\..\..\references\BrokerClient\Thrift.dll</HintPath>
+      <HintPath>lib\Thrift.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
