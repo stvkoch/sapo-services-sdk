@@ -9,6 +9,7 @@ using log4net;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
+using pt.sapo.gis.trace.appender;
 
 namespace Tests
 {
@@ -52,7 +53,7 @@ namespace Tests
                 var a = new AlternateAppConfig(TestContext.TestName + ".config");
                 TestContext.Properties["ConfigFileSwitcher"] = a;
             }
-            TraceManager_Accessor.LoadConfig();
+            TraceManager.LoadConfig(-1);
         }
 
         [TestCleanup()]
@@ -69,7 +70,7 @@ namespace Tests
             {
                 ((AlternateAppConfig)TestContext.Properties["ConfigFileSwitcher"]).Dispose();
                 TestContext.Properties.Remove("ConfigFileSwitcher");
-            }
+            }            
         }
     }
 }

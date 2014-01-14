@@ -23,7 +23,7 @@ namespace pt.sapo.gis.trace.wcf
         private Regex actionRegularExpression = new Regex("^https?://[^/]+/(.+)/([^/]+)$");
 
         public TraceMessageInspector() {
-            TraceManager.LoadConfig();
+            TraceManager.LoadConfig(1000);
         }
 
         private static String GetClientIP()
@@ -81,7 +81,9 @@ namespace pt.sapo.gis.trace.wcf
                     var match = actionRegularExpression.Match(action);
                     if (match.Success)
                     {
-                        trace.Properties[SDBTraceProperties.SERVICE_NAME_PROPERTY] = match.Groups[1].Value;
+                        //TO SDB trace it cannot have METADATA/GIS as service name but only GIS
+                        string[] splitServiceName = match.Groups[1].Value.Split('/');
+                        trace.Properties[SDBTraceProperties.SERVICE_NAME_PROPERTY] = splitServiceName[splitServiceName.Length-1];
                         trace.Properties[SDBTraceProperties.SERVICE_OPERATION_NAME_PROPERTY] = match.Groups[2].Value;
                     }
                 }

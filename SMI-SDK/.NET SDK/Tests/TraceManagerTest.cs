@@ -26,7 +26,7 @@ namespace Tests
         [TestMethod()]
         public void TraceConfigurationTest()
         {
-            Assert.IsNotNull(TraceManager_Accessor.Appenders);
+            Assert.IsNotNull(TraceManager_Accessor.appenders);
         }
 
         /// <summary>
@@ -101,8 +101,7 @@ namespace Tests
             mainEvent.WaitOne();
 
             task.Wait();
-            TraceManager.EndTrace();
-            
+            TraceManager.EndTrace();            
         }
     }
 }

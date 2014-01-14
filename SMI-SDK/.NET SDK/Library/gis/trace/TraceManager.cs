@@ -24,67 +24,62 @@ namespace pt.sapo.gis.trace
         public static event GenericEventHandler<Trace> OnTrace;
 
         private static readonly ThreadLocal<Trace> localTrace = new ThreadLocal<Trace>();
-        private static ICollection<Appender> Appenders { get; set; }
-        private static bool ConfigurationLoaded = false;
+        private static ICollection<Appender> appenders;        
 
         static TraceManager()
         {
-            Appenders = new List<Appender>();
-            LoadConfig();
+            appenders = new List<Appender>();            
         }
 
-        public static void LoadConfig()
+        public static void LoadConfig(int appendersLoadTimeout)
         {
-            lock (Appenders)
+            lock (log)
             {
-                if (ConfigurationLoaded == false)
+                try
                 {
-                    ConfigurationLoaded = true;
-
-                    try
+                    lock (appenders)
                     {
-                        // For tests purposes
-                        OnEntry = null;
-                        OnTrace = null;
-
-                        var envConfigFile = Environment.GetEnvironmentVariable("TRACE_CONFIG_FILE", EnvironmentVariableTarget.Process);
-
-                        var configuration = envConfigFile != null ?
-                            (configuration.configuration)new XmlSerializer(typeof(trace.configuration.configuration)).Deserialize(new FileStream(envConfigFile, FileMode.Open)) :
-                            (configuration.configuration)ConfigurationManager.GetSection("trace");
-
-                        var waitedForAll = Task.WaitAll(
-                            (from appenderConfig in configuration.appenders
-                             select Task.Factory.StartNew(() =>
-                             {
-                                 try
-                                 {
-                                     Appender appender = (Appender)Type.GetType(appenderConfig.type)
-                                         .GetConstructor(new Type[] { typeof(pt.sapo.gis.trace.configuration.appender) })
-                                         .Invoke(new Object[] { appenderConfig });
-                                     lock (Appenders)
-                                     {
-                                         Appenders.Add(appender);
-                                     }
-                                 }
-                                 catch (Exception ex)
-                                 {
-                                     System.Diagnostics.Trace.TraceError(String.Format("An error occurred on loading trace configuration.{0}{1}{0}{2}", Environment.NewLine, ex.Message, ex.StackTrace));
-                                 }
-                             })
-                             ).ToArray(),
-                            TimeSpan.FromSeconds(1));
-                        if (waitedForAll == false)
-                        {
-                            System.Diagnostics.Trace.TraceWarning("Service start without all Trace appenders initialized.");
-                        }
+                        foreach (var a in appenders)
+                            a.Dispose();
                     }
-                    catch (Exception ex)
+                    appenders = new List<Appender>();
+
+                    var envConfigFile = Environment.GetEnvironmentVariable("TRACE_CONFIG_FILE", EnvironmentVariableTarget.Process);
+
+                    var configuration = envConfigFile != null ?
+                        (configuration.configuration)new XmlSerializer(typeof(trace.configuration.configuration)).Deserialize(new FileStream(envConfigFile, FileMode.Open)) :
+                        (configuration.configuration)ConfigurationManager.GetSection("trace");
+
+                    var waitedForAll = Task.WaitAll(
+                        (from appenderConfig in configuration.appenders
+                         select Task.Factory.StartNew(() =>
+                         {
+                             try
+                             {
+                                 Appender appender = (Appender)Type.GetType(appenderConfig.type)
+                                     .GetConstructor(new Type[] { typeof(pt.sapo.gis.trace.configuration.appender) })
+                                     .Invoke(new Object[] { appenderConfig });
+                                 lock (appenders)
+                                 {
+                                     appenders.Add(appender);
+                                 }
+                             }
+                             catch (Exception ex)
+                             {
+                                 System.Diagnostics.Trace.TraceError(String.Format("An error occurred on loading trace configuration.{0}{1}{0}{2}", Environment.NewLine, ex.Message, ex.StackTrace));
+                             }
+                         })
+                         ).ToArray(),
+                        appendersLoadTimeout);
+                    if (waitedForAll == false)
                     {
-                        throw new pt.sapo.gis.exception.ConfigurationException("An error occurred on loading trace configuration.", ex);
+                        System.Diagnostics.Trace.TraceWarning("Service start without all Trace appenders initialized.");
                     }
                 }
-                
+                catch (Exception ex)
+                {
+                    throw new pt.sapo.gis.exception.ConfigurationException("An error occurred on loading trace configuration.", ex);
+                }
             }
         }
 

@@ -30,9 +30,8 @@ namespace Tests
         public void BrokerSMIAppenderTest()
         {
             var trace = TraceManager.BeginTrace();
-            var brokerAppender = TraceManager_Accessor.Appenders.Where(a => a is pt.sapo.gis.trace.appender.SMI.BrokerSMILoggerAppender).FirstOrDefault() as pt.sapo.gis.trace.appender.SMI.BrokerSMILoggerAppender;
-            if (brokerAppender == null)
-                Assert.Fail("Missing BrokerSMIAppender.");
+            var brokerAppender = TraceManager_Accessor.appenders.Where(a => a is pt.sapo.gis.trace.appender.SMI.BrokerSMILoggerAppender).FirstOrDefault() as pt.sapo.gis.trace.appender.SMI.BrokerSMILoggerAppender;
+
             var broker = new SapoBrokerClient.BrokerClient(new SapoBrokerClient.HostInfo(brokerAppender.Properties.Host, brokerAppender.Properties.Port));
             var subscription = new SapoBrokerClient.Subscription(brokerAppender.Properties.Topic, SapoBrokerClient.NetAction.DestinationType.TOPIC);
             JObject report = null;
@@ -50,13 +49,13 @@ namespace Tests
                 Type = "UNKNOWN",
                 Description = "Who knowns...",
                 Severity = pt.sapo.gis.trace.configuration.severityType.FATAL,
-                Properties = new Dictionary<String, Object> { { "a", 1 }, { "b", new Dictionary<String, object> { { "3", 1 }, { "2", 5 }, { "54", 5 } } } }
+                Properties = new Dictionary<String, Object> { { "a", "1" }, { "b", "foo" } }
             };
             trace.TraceEntry(e);
             if (ev.WaitOne(TimeSpan.FromSeconds(10)) == false)
                 Assert.Fail("Broker message doesn't arrive.");
             Assert.IsNotNull(report["SourceID"]);
-            var defaultSourceId = TraceManager_Accessor.Appenders.Where(a => a is BrokerSMILoggerAppender).Cast<BrokerSMILoggerAppender>().First().Properties.DefaultSourceId;
+            var defaultSourceId = TraceManager_Accessor.appenders.Where(a => a is BrokerSMILoggerAppender).Cast<BrokerSMILoggerAppender>().First().Properties.DefaultSourceId;
             Assert.AreEqual(defaultSourceId, report["SourceID"]);
             Assert.IsNotNull(report["DateTime"]);
             var state = report["State"];
@@ -74,19 +73,11 @@ namespace Tests
             var details = failure["Details"];
             Assert.IsNotNull(details);
             Assert.IsNotNull(details["a"]);
-            Assert.AreEqual(JTokenType.Integer, details["a"].Type);
-            Assert.AreEqual(1, details["a"]);
+            Assert.AreEqual(JTokenType.String, details["a"].Type);
+            Assert.AreEqual("1", details["a"]);
             Assert.IsNotNull(details["b"]);
-            Assert.AreEqual(3, details["b"].Count());
-            Assert.IsNotNull(details["b"]["3"]);
-            Assert.AreEqual(JTokenType.Integer, details["b"]["3"].Type);
-            Assert.AreEqual(1, details["b"]["3"]);
-            Assert.IsNotNull(details["b"]["2"]);
-            Assert.AreEqual(JTokenType.Integer, details["b"]["2"].Type);
-            Assert.AreEqual(5, details["b"]["2"]);
-            Assert.IsNotNull(details["b"]["54"]);
-            Assert.AreEqual(JTokenType.Integer, details["b"]["54"].Type);
-            Assert.AreEqual(5, details["b"]["54"]);
+            Assert.AreEqual(JTokenType.String, details["b"].Type);
+            Assert.AreEqual("foo", details["b"]);
             Assert.IsNotNull(report["Metrics"]);
             Assert.IsNotNull(report["ActivityID"]);
             Assert.IsNotNull(report["AgentID"]);
@@ -95,7 +86,9 @@ namespace Tests
         [TestMethod]
         public void SDBSMIAppenderTest()
         {
-            var sdbAppender = TraceManager_Accessor.Appenders.Where(a => a is SDBTraceAppender).Cast<SDBTraceAppender>().First();
+            SDBTraceAppender sdbAppender = null;
+            sdbAppender = TraceManager_Accessor.appenders.Where(a => a is SDBTraceAppender).FirstOrDefault() as SDBTraceAppender;
+            Assert.IsNotNull(sdbAppender);
             Occurrence occurrence = null;
             var server = new HttpListener();
             server.Prefixes.Add(String.Format("{0}://{1}{2}/{3}/", sdbAppender.Properties.Protocol, sdbAppender.Properties.Host, sdbAppender.Properties.Port.HasValue ? ":" + sdbAppender.Properties.Port.Value : String.Empty, sdbAppender.Properties.Path));
@@ -126,7 +119,8 @@ namespace Tests
             Assert.AreEqual(Severity.Error, occurrence.Entries.First().Severity);
         }
 
-        [TestMethod]
+        // TODO: Setup valid credentials
+        //[TestMethod]
         public void RealSDBSMIAppenderTest()
         {
             var id = Guid.NewGuid();
@@ -139,6 +133,39 @@ namespace Tests
                 Description = "FAILURE1"
             });            
             TraceManager.EndTrace();
+        }
+
+        [TestMethod]
+        public void FileAppenderTest() {            
+            string filename = string.Format("Test_{0}.log", DateTime.Now.ToString("yyyyMMdd"));
+            
+            TraceManager.BeginTrace();
+            TraceManager.Trace.TraceEntry(new pt.sapo.gis.trace.Entry("Teste 1", severityType.INFO));
+            TraceManager.Trace.BeginEntry(new pt.sapo.gis.trace.Entry("Teste 2", severityType.WARN));
+            TraceManager.Trace.BeginEntry(new pt.sapo.gis.trace.Entry("Teste 2.1", severityType.WARN));
+            TraceManager.Trace.TraceEntry(new pt.sapo.gis.trace.Entry("Teste 2.1.1", severityType.INFO));
+            TraceManager.Trace.EndEntry();
+            TraceManager.Trace.EndEntry();
+            TraceManager.EndTrace();
+
+            Assert.IsTrue(File.Exists(filename));
+        }
+
+        [TestMethod]
+        public void TimeoutFileLogAppenderTest() {            
+            var date = DateTime.Now.ToString("yyyyMMdd");
+            string filenameST = string.Format("ShortTimeout_{0}.log", date);
+            string filenameLT = string.Format("LongTimeout_{0}.log", date);
+            string filenameNT = string.Format("NoTimeout_{0}.log", date);
+
+            TraceManager.BeginTrace();
+            TraceManager.Trace.TraceEntry(new pt.sapo.gis.trace.Entry("Timeout", severityType.INFO));
+            Thread.Sleep(5);
+            TraceManager.EndTrace();
+
+            Assert.IsTrue(File.Exists(filenameST));
+            Assert.IsFalse(File.Exists(filenameLT));
+            Assert.IsTrue(File.Exists(filenameNT));
         }
     }
 }

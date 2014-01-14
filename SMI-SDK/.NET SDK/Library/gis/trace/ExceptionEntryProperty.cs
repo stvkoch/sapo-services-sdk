@@ -14,8 +14,8 @@ namespace pt.sapo.gis.trace
         public ExceptionEntryProperty(Exception e)
         {
             Exception = e;
-            this["exceptionMessage"] = e.Message;
-            this["exceptionStack"] = e.StackTrace;
+            this["message"] = e.Message;
+            this["stack"] = e.StackTrace;
         }
     }
 }

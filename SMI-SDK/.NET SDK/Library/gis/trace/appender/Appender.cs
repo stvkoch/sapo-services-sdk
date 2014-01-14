@@ -3,14 +3,16 @@ namespace pt.sapo.gis.trace.appender
     using System.Linq;
     using System.Collections.Generic;
     using pt.sapo.gis.trace.configuration;
+    using System;
 
     /**
      * @author GIS Team
      * Base class to appenders
      */
-    public abstract class Appender
+    public abstract class Appender : IDisposable
     {
-
+        private GenericEventHandler<Entry> onEntry = null;
+        private GenericEventHandler<Trace> onTrace = null;
         protected Dictionary<eventType, severityType[]> severities;
 
         public AppenderConfigProperties Properties { get; protected set; }
@@ -24,20 +26,22 @@ namespace pt.sapo.gis.trace.appender
         {
             Properties = new AppenderConfigProperties(config.property);
             severities = config.events.Where(e => e.filters != null).ToDictionary(e => e.type, e => e.filters);
-            foreach(@event evt in config.events){
-                
-                if(evt.type == eventType.entry){
-                    if (evt.filters == null || evt.filters.Length == 0)
-                        TraceManager.OnEntry += e => OnEntry(e);
-                    else 
-                        TraceManager.OnEntry += e => { if(evt.filters.Contains(e.Severity)) OnEntry(e); };
-                }
-
-                if(evt.type == eventType.trace){
-                    if (evt.filters == null || evt.filters.Length == 0)
-                        TraceManager.OnTrace += t => OnTrace(t);
-                    else 
-                        TraceManager.OnTrace += t => { if(t.GetSeverityTypes().Any(s => evt.filters.Contains(s))) OnTrace(t); };
+            foreach(@event evt in config.events){                
+                switch(evt.type) {
+                    case eventType.entry:
+                        if (evt.filters == null || evt.filters.Length == 0)
+                            onEntry = e => OnEntry(e);                            
+                        else 
+                            onEntry = e => { if(evt.filters.Contains(e.Severity)) OnEntry(e); };
+                        TraceManager.OnEntry += onEntry;
+                        break;
+                    case eventType.trace:
+                        if (evt.filters == null || evt.filters.Length == 0)
+                            onTrace = t => OnTrace(t);
+                        else 
+                            onTrace = t => { if(t.GetSeverityTypes().Any(s => evt.filters.Contains(s))) OnTrace(t); };
+                        TraceManager.OnTrace += onTrace;
+                        break;
                 }
             }
             
@@ -45,5 +49,18 @@ namespace pt.sapo.gis.trace.appender
 
         public abstract void OnEntry(Entry e);
         public abstract void OnTrace(Trace t);
+
+        public void Dispose()
+        {
+            if (onEntry != null)
+                TraceManager.OnEntry -= onEntry;
+            if (onTrace != null)
+                TraceManager.OnTrace -= onTrace;
+        }
+
+        ~Appender()
+        {
+            Dispose();
+        }
     }
 }

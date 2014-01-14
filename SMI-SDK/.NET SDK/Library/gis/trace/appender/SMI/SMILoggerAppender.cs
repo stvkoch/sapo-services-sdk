@@ -95,18 +95,12 @@ namespace pt.sapo.gis.trace.appender.SMI
 
         private void FillFailureDetails(Dictionary<string, object> entryProperties, Failure failure)
         {
-            Dictionary<string,string> details = new Dictionary<string,string>();
-            foreach (KeyValuePair<string, object> pair in entryProperties)
+            var details = entryProperties.Where(e => e.Key != ExceptionEntry.EXCEPTION_PROPERTY).ToDictionary(e => e.Key, e => e.Value.ToString());
+            if (entryProperties.ContainsKey(ExceptionEntry.EXCEPTION_PROPERTY))
             {
-                if (pair.Value.GetType().Name == "ExceptionEntryProperty")
-                {
-                    details.Add("exceptionMessage", ((ExceptionEntryProperty)pair.Value)["exceptionMessage"].ToString());
-                    details.Add("exceptionStack", ((ExceptionEntryProperty)pair.Value)["exceptionStack"].ToString());
-                }
-                else
-                {
-                    details.Add(pair.Key, pair.Value.ToString());
-                }
+                var exception = entryProperties[ExceptionEntry.EXCEPTION_PROPERTY] as ExceptionEntryProperty;
+                details.Add("exceptionMessage", exception.Exception.Message);
+                details.Add("exceptionStack", exception.Exception.StackTrace);
             }
             failure.Details = details;
         }
