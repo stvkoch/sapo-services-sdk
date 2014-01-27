@@ -26,15 +26,21 @@ namespace OpenIdConnect.Client.Common
         public string Scope { get; set; }
 
         /// <summary>
-        /// The base URI to SDB Connect Identity Gateway (IdG)
-        /// Example: https://id.services.telecom.pt
+        /// The base URI to Authorization Endpoint
+        /// Example: https://id.services.telecom.pt/oic/
         /// </summary>
-        public Uri SdbIdentityGatewayBaseUri { get; set; }
+        public Uri AuthorizationEndpoint { get; set; }
 
         /// <summary>
-        /// The base URI to SDB Runtime.
-        /// Example: https://services.telecom.pt
+        /// The base URI to the token endpoint.
+        /// Example: https://services.telecom.pt/connect/token_endpoint/access_token
         /// </summary>
-        public Uri SdbRuntimeBaseUri { get; set; }
+        public Uri TokenEndpoint { get; set; }
+        
+        /// <summary>
+        /// The base URI to the UserInfo endpoint.
+        /// Example: https://services.telecom.pt/connect/oic/userinfo/
+        /// </summary>
+        public Uri UserInfoEndpoint { get; set; }
     }
 }

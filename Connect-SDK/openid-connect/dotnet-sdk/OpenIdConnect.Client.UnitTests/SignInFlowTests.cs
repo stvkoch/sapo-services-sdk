@@ -19,8 +19,9 @@ namespace OpenIdConnect.Client.UnitTests
                 ClientSecret = "some-client-secret",
                 Scope = "openid some-scope",
 
-                SdbIdentityGatewayBaseUri = new Uri("https://id.services.telecom.pt"),
-                SdbRuntimeBaseUri = new Uri("https://services.telecom.pt")
+                AuthorizationEndpoint = new Uri("https://id.services.telecom.pt/oic/"),
+                TokenEndpoint = new Uri("https://services.telecom.pt/connect/token_endpoint/access_token"),
+                UserInfoEndpoint = new Uri("https://services.telecom.pt/connect/oic/userinfo/")
             };
 
             const string signInRedirectUri = "https://dummy.signin.callback.uri";
@@ -68,8 +69,9 @@ namespace OpenIdConnect.Client.UnitTests
                 ClientSecret = "some-client-secret",
                 Scope = "openid some-scope",
 
-                SdbIdentityGatewayBaseUri = new Uri("https://id.services.telecom.pt"),
-                SdbRuntimeBaseUri = new Uri("https://services.telecom.pt")
+                AuthorizationEndpoint = new Uri("https://id.services.telecom.pt/oic/"),
+                TokenEndpoint = new Uri("https://services.telecom.pt/connect/token_endpoint/access_token"),
+                UserInfoEndpoint = new Uri("https://services.telecom.pt/connect/oic/userinfo/")
             };
 
             const string signInRedirectUri = "https://dummy.signin.callback.uri";

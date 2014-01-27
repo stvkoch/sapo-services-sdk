@@ -152,7 +152,7 @@ namespace OpenIdConnect.Client.Common
                 throw new InvalidStateException();
             }
 
-            var accessTokenResponse = await _codeForAccessTokenExchanger.Exchange(_openIdSettings.SdbRuntimeBaseUri,
+            var accessTokenResponse = await _codeForAccessTokenExchanger.Exchange(_openIdSettings.TokenEndpoint,
                 new AccessTokenRequest
                 {
                     GrantType = "authorization_code",
@@ -188,7 +188,7 @@ namespace OpenIdConnect.Client.Common
         {
             using (var client = new HttpClient())
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, new Uri(_openIdSettings.SdbRuntimeBaseUri, "connect/oic/userinfo"));
+                var request = new HttpRequestMessage(HttpMethod.Get, _openIdSettings.UserInfoEndpoint);
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessTokenResponse.AccessToken);
 
                 // TODO process errors according to the OpenIdConnect standard
@@ -223,13 +223,13 @@ namespace OpenIdConnect.Client.Common
             _sessionSessionStateStore[UserLoginStateKey] = state;
 
             var relativeUrl = string.Format(
-                "oic?state={0}&client_id={1}&response_type=code&scope={2}&redirect_uri={3}",
+                "?state={0}&client_id={1}&response_type=code&scope={2}&redirect_uri={3}",
                 state,
                 _openIdSettings.ClientId,
                 _openIdSettings.Scope,
                 redirectUri);
 
-            return new Uri(_openIdSettings.SdbIdentityGatewayBaseUri, relativeUrl);
+            return new Uri(_openIdSettings.AuthorizationEndpoint, relativeUrl);
         }
 
         /// <summary>
@@ -248,11 +248,11 @@ namespace OpenIdConnect.Client.Common
         private Uri GetIdentityGatewayOicSignOutEndpoint(AccessTokenResponse accessTokenResponse, string redirectUri)
         {
             var relativeUrl = string.Format(
-                "oic?id_token_hint={0}&post_logout_redirect_uri={1}",
+                "?id_token_hint={0}&post_logout_redirect_uri={1}",
                 accessTokenResponse.IdToken,
                 redirectUri);
 
-            return new Uri(_openIdSettings.SdbIdentityGatewayBaseUri, relativeUrl);
+            return new Uri(_openIdSettings.AuthorizationEndpoint, relativeUrl);
         }
     }
 }
