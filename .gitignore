@@ -1,3 +1,6 @@
+#user content
+*/credencials.php
+
 # Ignore pfx
 *.pfx
 
@@ -154,5 +157,3 @@ packages/
 *.vrb
 *.xdy
 
-#user content
-credencials.php
