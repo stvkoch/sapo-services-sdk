@@ -155,4 +155,4 @@ packages/
 *.xdy
 
 #user content
-Client-SDK/Code/PHP/SampleCode/Cinema/config/credencials.php
+credencials.php
